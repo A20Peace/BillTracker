@@ -1,0 +1,97 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import {
+  Home,
+  LayoutDashboard,
+  BarChart3,
+  Users,
+  UserCog,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const NAV = [
+  { href: "/home", label: "Home", icon: Home },
+  { href: "/dashboard", label: "Scadenze", icon: LayoutDashboard },
+  { href: "/analytics", label: "Analytics", icon: BarChart3 },
+  { href: "/settings/family", label: "Famiglia", icon: Users },
+  { href: "/settings/profile", label: "Profilo", icon: UserCog },
+];
+
+export function Sidebar() {
+  const pathname = usePathname();
+
+  return (
+    <>
+      {/* Desktop sidebar */}
+      <aside className="hidden w-60 shrink-0 border-r border-slate-200 bg-white lg:flex lg:flex-col">
+        <div className="flex h-16 items-center gap-2 border-b border-slate-200 px-6">
+          <span className="text-2xl">🧾</span>
+          <span className="text-lg font-bold tracking-tight">
+            Bill<span className="text-brand-600">Tracker</span>
+          </span>
+        </div>
+        <nav className="flex-1 space-y-1 p-3">
+          {NAV.map((item) => (
+            <NavLink key={item.href} {...item} active={isActive(pathname, item.href)} />
+          ))}
+        </nav>
+      </aside>
+
+      {/* Mobile bottom tab bar */}
+      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-slate-200 bg-white lg:hidden">
+        {NAV.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(pathname, item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={cn(
+                "tap-target flex flex-1 flex-col items-center justify-center gap-0.5 py-2 text-xs",
+                active ? "text-brand-600" : "text-slate-500",
+              )}
+            >
+              <Icon size={20} aria-hidden />
+              {item.label}
+            </Link>
+          );
+        })}
+      </nav>
+    </>
+  );
+}
+
+function NavLink({
+  href,
+  label,
+  icon: Icon,
+  active,
+}: {
+  href: string;
+  label: string;
+  icon: typeof LayoutDashboard;
+  active: boolean;
+}) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "tap-target flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition",
+        active
+          ? "bg-brand-50 text-brand-700"
+          : "text-slate-600 hover:bg-slate-100",
+      )}
+    >
+      <Icon size={18} aria-hidden />
+      {label}
+    </Link>
+  );
+}
+
+function isActive(pathname: string, href: string): boolean {
+  if (href === "/home") return pathname === "/home";
+  if (href === "/dashboard") return pathname === "/dashboard";
+  return pathname.startsWith(href);
+}

@@ -1,0 +1,107 @@
+"use server";
+
+import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
+import { headers } from "next/headers";
+import { z } from "zod";
+import { createClient } from "@/lib/supabase/server";
+
+const credentialsSchema = z.object({
+  email: z.string().email("Inserisci un'email valida"),
+  password: z.string().min(8, "La password deve avere almeno 8 caratteri"),
+});
+
+const registerSchema = credentialsSchema.extend({
+  displayName: z.string().trim().min(1, "Inserisci un nome").max(80),
+});
+
+export type AuthState = { error: string } | null;
+
+function appUrl(): string {
+  // Prefer the configured public URL; fall back to the request origin.
+  const fromEnv = process.env.NEXT_PUBLIC_APP_URL;
+  if (fromEnv) return fromEnv.replace(/\/$/, "");
+  const h = headers();
+  const proto = h.get("x-forwarded-proto") ?? "http";
+  const host = h.get("host") ?? "localhost:3000";
+  return `${proto}://${host}`;
+}
+
+export async function login(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  const parsed = credentialsSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Dati non validi" };
+  }
+
+  const supabase = createClient();
+  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  if (error) {
+    return { error: "Email o password non corretti" };
+  }
+
+  revalidatePath("/", "layout");
+  redirect("/home");
+}
+
+export async function register(
+  _prev: AuthState,
+  formData: FormData,
+): Promise<AuthState> {
+  const parsed = registerSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+    displayName: formData.get("displayName"),
+  });
+  if (!parsed.success) {
+    return { error: parsed.error.issues[0]?.message ?? "Dati non validi" };
+  }
+
+  const supabase = createClient();
+  const { error } = await supabase.auth.signUp({
+    email: parsed.data.email,
+    password: parsed.data.password,
+    options: {
+      data: { display_name: parsed.data.displayName },
+      emailRedirectTo: `${appUrl()}/auth/callback`,
+    },
+  });
+  if (error) {
+    return { error: error.message };
+  }
+
+  // If email confirmation is disabled the user is already signed in.
+  revalidatePath("/", "layout");
+  redirect("/home");
+}
+
+export async function signInWithGoogle(): Promise<void> {
+  const supabase = createClient();
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: `${appUrl()}/auth/callback?next=/home`,
+      // Request the Calendar scope at login so the same consent also enables
+      // event creation; `offline`/`consent` make Google return a refresh token.
+      scopes:
+        "email profile https://www.googleapis.com/auth/calendar.events",
+      queryParams: { access_type: "offline", prompt: "consent" },
+    },
+  });
+  if (error || !data.url) {
+    redirect(`/login?error=${encodeURIComponent("Login Google non riuscito")}`);
+  }
+  redirect(data.url);
+}
+
+export async function signOut(): Promise<void> {
+  const supabase = createClient();
+  await supabase.auth.signOut();
+  revalidatePath("/", "layout");
+  redirect("/login");
+}
