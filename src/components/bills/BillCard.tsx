@@ -11,15 +11,15 @@ import {
   formatDate,
   compareToBenchmark,
   recurrenceLabel,
+  billCategoryLabel,
   CATEGORY_EMOJI,
-  CATEGORY_LABEL,
   type BenchmarkLevel,
 } from "@/lib/utils";
 import type { Bill } from "@/types";
 
 const BADGE_STYLES: Record<BenchmarkLevel, string> = {
   over: "bg-red-50 text-red-700 ring-red-200",
-  inline: "bg-slate-100 text-slate-600 ring-slate-200",
+  inline: "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 ring-slate-200 dark:ring-slate-800",
   under: "bg-emerald-50 text-emerald-700 ring-emerald-200",
 };
 
@@ -51,12 +51,12 @@ export function BillCard({
   return (
     <div
       className={cn(
-        "flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition sm:p-4",
+        "flex items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-3 shadow-sm transition sm:p-4",
         isPaid && "opacity-70",
       )}
     >
       <div
-        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-xl"
+        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-xl"
         aria-hidden
       >
         {bill.category ? CATEGORY_EMOJI[bill.category] : "📌"}
@@ -64,13 +64,14 @@ export function BillCard({
 
       <Link href={`/bills/${bill.id}`} className="min-w-0 flex-1">
         <div className="flex items-center gap-2">
-          <p className="truncate font-semibold text-slate-900">{bill.title}</p>
+          <p className="truncate font-semibold text-slate-900 dark:text-slate-100">{bill.title}</p>
           {bill.group_id && (
-            <Users size={14} className="shrink-0 text-slate-400" aria-label="Condivisa" />
+            <Users size={14} className="shrink-0 text-slate-400 dark:text-slate-500" aria-label="Condivisa" />
           )}
         </div>
-        <p className="mt-0.5 text-sm text-slate-500">
-          {CATEGORY_LABEL(bill.category)} · scade il {formatDate(bill.due_date)}
+        <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+          {billCategoryLabel(bill.category, bill.custom_category)} · scade il{" "}
+          {formatDate(bill.due_date)}
         </p>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <StatusBadge status={bill.status} dueDate={bill.due_date} />
@@ -92,7 +93,7 @@ export function BillCard({
             </span>
           )}
           {bill.calendar_event_id && (
-            <span className="inline-flex items-center gap-1 text-xs text-slate-400">
+            <span className="inline-flex items-center gap-1 text-xs text-slate-400 dark:text-slate-500">
               <CalendarCheck size={13} /> Calendar
             </span>
           )}
@@ -100,7 +101,7 @@ export function BillCard({
       </Link>
 
       <div className="flex flex-col items-end gap-2">
-        <span className="whitespace-nowrap text-base font-bold text-slate-900 sm:text-lg">
+        <span className="whitespace-nowrap text-base font-bold text-slate-900 dark:text-slate-100 sm:text-lg">
           {formatCurrency(bill.amount)}
         </span>
         <button
@@ -110,7 +111,7 @@ export function BillCard({
           className={cn(
             "tap-target inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm font-medium transition disabled:opacity-60",
             isPaid
-              ? "bg-slate-100 text-slate-600 hover:bg-slate-200"
+              ? "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
               : "bg-emerald-600 text-white hover:bg-emerald-700",
           )}
         >

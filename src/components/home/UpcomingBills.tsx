@@ -31,7 +31,7 @@ export function UpcomingBills({
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold text-slate-800">Prossime scadenze</h2>
+        <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">Prossime scadenze</h2>
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 hover:underline"
@@ -41,9 +41,9 @@ export function UpcomingBills({
       </div>
 
       {visible.length === 0 ? (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white py-12 text-center">
+        <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 py-12 text-center">
           <Inbox className="text-slate-300" size={40} />
-          <p className="mt-3 text-sm text-slate-500">
+          <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
             Nessuna scadenza in arrivo. Sei in pari! 🎉
           </p>
         </div>
@@ -71,7 +71,7 @@ function Band({
   if (items.length === 0) return null;
   return (
     <div className="space-y-2">
-      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+      <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400 dark:text-slate-500">
         {title}
       </h3>
       <ul className="space-y-2.5">

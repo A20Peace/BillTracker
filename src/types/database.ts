@@ -24,6 +24,8 @@ export interface Database {
           display_name: string | null;
           email: string | null;
           email_reminders: boolean;
+          reminder_email: string | null;
+          auto_calendar: boolean;
           created_at: string;
         };
         Insert: {
@@ -31,6 +33,8 @@ export interface Database {
           display_name?: string | null;
           email?: string | null;
           email_reminders?: boolean;
+          reminder_email?: string | null;
+          auto_calendar?: boolean;
           created_at?: string;
         };
         Update: {
@@ -38,7 +42,30 @@ export interface Database {
           display_name?: string | null;
           email?: string | null;
           email_reminders?: boolean;
+          reminder_email?: string | null;
+          auto_calendar?: boolean;
           created_at?: string;
+        };
+        Relationships: [];
+      };
+      sent_reminders: {
+        Row: {
+          id: string;
+          bill_id: string | null;
+          kind: string;
+          sent_at: string;
+        };
+        Insert: {
+          id?: string;
+          bill_id?: string | null;
+          kind: string;
+          sent_at?: string;
+        };
+        Update: {
+          id?: string;
+          bill_id?: string | null;
+          kind?: string;
+          sent_at?: string;
         };
         Relationships: [];
       };
@@ -90,6 +117,7 @@ export interface Database {
           amount: number | null;
           due_date: string;
           category: BillCategory | null;
+          custom_category: string | null;
           status: BillStatus;
           paid_at: string | null;
           document_url: string | null;
@@ -112,6 +140,7 @@ export interface Database {
           amount?: number | null;
           due_date: string;
           category?: BillCategory | null;
+          custom_category?: string | null;
           status?: BillStatus;
           paid_at?: string | null;
           document_url?: string | null;
@@ -134,6 +163,7 @@ export interface Database {
           amount?: number | null;
           due_date?: string;
           category?: BillCategory | null;
+          custom_category?: string | null;
           status?: BillStatus;
           paid_at?: string | null;
           document_url?: string | null;

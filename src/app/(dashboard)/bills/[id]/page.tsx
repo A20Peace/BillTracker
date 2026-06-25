@@ -31,7 +31,7 @@ export default async function BillPage({ params }: { params: { id: string } }) {
     <div className="mx-auto max-w-xl">
       <Link
         href="/dashboard"
-        className="mb-4 inline-flex items-center gap-1 text-sm font-medium text-slate-500 hover:text-slate-700"
+        className="mb-4 inline-flex items-center gap-1 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700"
       >
         <ArrowLeft size={16} /> Torna alle scadenze
       </Link>

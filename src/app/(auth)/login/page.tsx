@@ -3,8 +3,14 @@
 import { useFormState, useFormStatus } from "react-dom";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
-import { login, signInWithGoogle, type AuthState } from "../actions";
+import { Suspense, useEffect, useState, useTransition } from "react";
+import { MailCheck, Loader2 } from "lucide-react";
+import {
+  login,
+  resendConfirmation,
+  signInWithGoogle,
+  type AuthState,
+} from "../actions";
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -26,23 +32,27 @@ function LoginForm() {
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-slate-900">Bentornato</h1>
-      <p className="mt-1 text-sm text-slate-500">
+      <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">Bentornato</h1>
+      <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
         Accedi per gestire le tue scadenze.
       </p>
 
-      {(state?.error || urlError) && (
-        <p
-          role="alert"
-          className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700"
-        >
-          {state?.error ?? urlError}
-        </p>
+      {state?.unverified ? (
+        <UnverifiedNotice email={state.email ?? ""} />
+      ) : (
+        (state?.error || urlError) && (
+          <p
+            role="alert"
+            className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700"
+          >
+            {state?.error ?? urlError}
+          </p>
+        )
       )}
 
       <form action={formAction} className="mt-6 space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
             Email
           </label>
           <input
@@ -51,11 +61,11 @@ function LoginForm() {
             type="email"
             autoComplete="email"
             required
-            className="tap-target mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+            className="tap-target mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
           />
         </div>
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
             Password
           </label>
           <input
@@ -64,13 +74,13 @@ function LoginForm() {
             type="password"
             autoComplete="current-password"
             required
-            className="tap-target mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+            className="tap-target mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
           />
         </div>
         <SubmitButton />
       </form>
 
-      <div className="my-5 flex items-center gap-3 text-xs text-slate-400">
+      <div className="my-5 flex items-center gap-3 text-xs text-slate-400 dark:text-slate-500">
         <span className="h-px flex-1 bg-slate-200" />
         oppure
         <span className="h-px flex-1 bg-slate-200" />
@@ -79,19 +89,74 @@ function LoginForm() {
       <form action={signInWithGoogle}>
         <button
           type="submit"
-          className="tap-target flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-700 transition hover:bg-slate-50"
+          className="tap-target flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50"
         >
           <GoogleIcon />
           Continua con Google
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-slate-500">
+      <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
         Non hai un account?{" "}
         <Link href="/register" className="font-semibold text-brand-600 hover:underline">
           Registrati
         </Link>
       </p>
+    </div>
+  );
+}
+
+function UnverifiedNotice({ email }: { email: string }) {
+  const [cooldown, setCooldown] = useState(0);
+  const [pending, startTransition] = useTransition();
+  const [sent, setSent] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [cooldown]);
+
+  function resend() {
+    if (cooldown > 0 || pending || !email) return;
+    setError(null);
+    setSent(false);
+    startTransition(async () => {
+      const res = await resendConfirmation(email);
+      if (res.ok) {
+        setSent(true);
+        setCooldown(60);
+      } else {
+        setError(res.error ?? "Invio non riuscito");
+      }
+    });
+  }
+
+  return (
+    <div className="mt-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800 ring-1 ring-inset ring-amber-200">
+      <p className="flex items-center gap-2 font-semibold">
+        <MailCheck size={16} /> Email in corso di verifica
+      </p>
+      <p className="mt-1 text-amber-800/90">
+        Controlla la tua casella di posta e clicca sul link che ti abbiamo inviato.
+        Controlla anche la cartella spam.
+      </p>
+
+      {sent && (
+        <p className="mt-2 text-emerald-700">Email di conferma reinviata ✓</p>
+      )}
+      {error && <p className="mt-2 text-red-700">{error}</p>}
+
+      <button
+        type="button"
+        onClick={resend}
+        disabled={pending || cooldown > 0}
+        className="tap-target mt-2 inline-flex items-center gap-1.5 rounded-lg border border-amber-300 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm font-medium text-amber-800 transition hover:bg-amber-50 disabled:opacity-60"
+      >
+        {pending && <Loader2 size={14} className="animate-spin" />}
+        {cooldown > 0 ? `Reinvia tra ${cooldown}s` : "Reinvia email di conferma"}
+      </button>
     </div>
   );
 }

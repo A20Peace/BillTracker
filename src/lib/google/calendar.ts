@@ -204,6 +204,14 @@ export async function autoSyncBillToCalendar(
 ): Promise<void> {
   if (!bill.user_id || bill.calendar_event_id) return;
   try {
+    // Respect the user's "auto-create events" preference.
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("auto_calendar")
+      .eq("id", bill.user_id)
+      .maybeSingle();
+    if (profile && profile.auto_calendar === false) return;
+
     const eventId = await createBillEvent(supabase, bill.user_id, bill);
     await supabase
       .from("bills")

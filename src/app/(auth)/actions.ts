@@ -15,7 +15,9 @@ const registerSchema = credentialsSchema.extend({
   displayName: z.string().trim().min(1, "Inserisci un nome").max(80),
 });
 
-export type AuthState = { error: string } | null;
+export type AuthState =
+  | { error: string; unverified?: boolean; email?: string }
+  | null;
 
 function appUrl(): string {
   // Prefer the configured public URL; fall back to the request origin.
@@ -42,11 +44,39 @@ export async function login(
   const supabase = createClient();
   const { error } = await supabase.auth.signInWithPassword(parsed.data);
   if (error) {
+    // Distinguish "email not yet verified" from genuinely wrong credentials.
+    if (
+      error.code === "email_not_confirmed" ||
+      /email not confirmed|not confirmed/i.test(error.message)
+    ) {
+      return {
+        error: "Email in corso di verifica",
+        unverified: true,
+        email: parsed.data.email,
+      };
+    }
     return { error: "Email o password non corretti" };
   }
 
   revalidatePath("/", "layout");
   redirect("/home");
+}
+
+/** Resends the sign-up confirmation email. Rate-limited client-side (60s). */
+export async function resendConfirmation(
+  email: string,
+): Promise<{ ok: boolean; error?: string }> {
+  const parsed = z.string().email().safeParse(email);
+  if (!parsed.success) return { ok: false, error: "Email non valida" };
+
+  const supabase = createClient();
+  const { error } = await supabase.auth.resend({
+    type: "signup",
+    email: parsed.data,
+    options: { emailRedirectTo: `${appUrl()}/auth/callback` },
+  });
+  if (error) return { ok: false, error: error.message };
+  return { ok: true };
 }
 
 export async function register(

@@ -1,5 +1,6 @@
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Header } from "@/components/layout/Header";
+import { InstallPrompt } from "@/components/pwa/InstallPrompt";
 import { requireUser } from "@/lib/auth";
 
 export default async function DashboardLayout({
@@ -10,7 +11,7 @@ export default async function DashboardLayout({
   const { user, profile } = await requireUser();
 
   return (
-    <div className="flex min-h-screen bg-slate-50">
+    <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <Header
@@ -22,6 +23,7 @@ export default async function DashboardLayout({
           {children}
         </main>
       </div>
+      <InstallPrompt />
     </div>
   );
 }

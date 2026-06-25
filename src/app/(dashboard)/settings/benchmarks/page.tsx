@@ -33,8 +33,8 @@ export default async function BenchmarksPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-5">
-        <h1 className="text-lg font-bold text-slate-900">Benchmark di mercato</h1>
-        <p className="text-sm text-slate-500">
+        <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">Benchmark di mercato</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Prezzi medi di riferimento (ARERA per luce/gas, AGCOM per
           telefono/internet). Aggiorna i valori ogni trimestre dalle fonti
           ufficiali — niente migrazioni SQL.

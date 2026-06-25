@@ -19,7 +19,7 @@ const STYLES: Record<DisplayStatus, { dot: string; chip: string; label: (d: numb
   },
   upcoming: {
     dot: "bg-slate-400",
-    chip: "bg-slate-100 text-slate-600 ring-slate-200",
+    chip: "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 ring-slate-200 dark:ring-slate-800",
     label: (d) => `Tra ${d}g`,
   },
 };

@@ -32,3 +32,6 @@ yarn-error.log*
 
 # local editor/agent config (machine-specific paths, local settings)
 .claude/
+
+# generated env list for Vercel import (contains secrets — never commit)
+vercel-import.env

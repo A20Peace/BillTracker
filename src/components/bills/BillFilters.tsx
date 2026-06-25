@@ -3,60 +3,84 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
 import { BILL_CATEGORIES } from "@/types";
-import { CATEGORY_LABELS } from "@/lib/utils";
+import { CATEGORY_LABELS, cn } from "@/lib/utils";
+import type { BillCounts } from "@/lib/bills/queries";
 
-const STATUS_OPTIONS = [
-  { value: "all", label: "Tutte" },
-  { value: "unpaid", label: "Da pagare" },
-  { value: "overdue", label: "Scadute" },
-  { value: "paid", label: "Pagate" },
+// Tab order requested: Da pagare → Tutte → Pagate → Scadute.
+const TABS = [
+  { value: "unpaid", label: "Da pagare", key: "unpaid" },
+  { value: "all", label: "Tutte le fatture", key: "all" },
+  { value: "paid", label: "Pagate", key: "paid" },
+  { value: "overdue", label: "Scadute", key: "overdue" },
 ] as const;
 
-export function BillFilters() {
+export function BillFilters({ counts }: { counts: BillCounts }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
 
-  const update = useCallback(
-    (key: string, value: string) => {
+  // Selects (category/month) replace history; tabs push it (so Back works).
+  const setParam = useCallback(
+    (key: string, value: string, push = false) => {
       const next = new URLSearchParams(params.toString());
       if (value) next.set(key, value);
       else next.delete(key);
-      router.replace(`${pathname}?${next.toString()}`, { scroll: false });
+      const url = `${pathname}?${next.toString()}`;
+      if (push) router.push(url, { scroll: false });
+      else router.replace(url, { scroll: false });
     },
     [params, pathname, router],
   );
 
-  const status = params.get("status") ?? "all";
+  const status = params.get("status") ?? "unpaid";
   const category = params.get("category") ?? "";
   const month = params.get("month") ?? "";
 
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex flex-wrap gap-1.5">
-        {STATUS_OPTIONS.map((opt) => (
-          <button
-            key={opt.value}
-            type="button"
-            onClick={() => update("status", opt.value === "all" ? "" : opt.value)}
-            className={
-              "rounded-full px-3 py-1.5 text-sm font-medium transition " +
-              (status === opt.value
-                ? "bg-brand-600 text-white"
-                : "bg-white text-slate-600 ring-1 ring-inset ring-slate-200 hover:bg-slate-50")
-            }
-          >
-            {opt.label}
-          </button>
-        ))}
+      <div className="flex flex-wrap gap-1.5" role="tablist">
+        {TABS.map((tab) => {
+          const active = status === tab.value;
+          const count = counts[tab.key];
+          const isOverdueRed = tab.key === "overdue" && count > 0;
+          return (
+            <button
+              key={tab.value}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => setParam("status", tab.value, true)}
+              className={cn(
+                "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-sm font-medium transition",
+                active
+                  ? "bg-brand-600 text-white"
+                  : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 ring-1 ring-inset ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-700 dark:hover:bg-slate-800",
+              )}
+            >
+              {tab.label}
+              <span
+                className={cn(
+                  "min-w-5 rounded-full px-1.5 py-0.5 text-center text-xs font-semibold tabular-nums",
+                  isOverdueRed
+                    ? "bg-red-100 text-red-700"
+                    : active
+                      ? "bg-white/25 text-white"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 dark:bg-slate-800 dark:text-slate-400",
+                )}
+              >
+                {count}
+              </span>
+            </button>
+          );
+        })}
       </div>
 
       <div className="flex gap-2">
         <select
           aria-label="Filtra per categoria"
           value={category}
-          onChange={(e) => update("category", e.target.value)}
-          className="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm outline-none focus:border-brand-500"
+          onChange={(e) => setParam("category", e.target.value)}
+          className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-sm outline-none focus:border-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
         >
           <option value="">Tutte le categorie</option>
           {BILL_CATEGORIES.map((c) => (
@@ -70,8 +94,8 @@ export function BillFilters() {
           type="month"
           aria-label="Filtra per mese"
           value={month}
-          onChange={(e) => update("month", e.target.value)}
-          className="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm outline-none focus:border-brand-500"
+          onChange={(e) => setParam("month", e.target.value)}
+          className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-sm outline-none focus:border-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
         />
       </div>
     </div>

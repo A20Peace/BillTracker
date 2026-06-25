@@ -52,6 +52,10 @@ export interface Profile {
   display_name: string | null;
   email: string | null;
   email_reminders: boolean;
+  /** Optional address for reminders (falls back to `email`). */
+  reminder_email: string | null;
+  /** When false, calendar events are NOT auto-created on bill save. */
+  auto_calendar: boolean;
   created_at: string;
 }
 
@@ -76,6 +80,8 @@ export interface Bill {
   amount: number | null;
   due_date: string; // ISO date (YYYY-MM-DD)
   category: BillCategory | null;
+  /** Free text shown instead of "Altro" when category === "altro". */
+  custom_category: string | null;
   status: BillStatus;
   paid_at: string | null;
   document_url: string | null;

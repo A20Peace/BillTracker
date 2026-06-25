@@ -31,31 +31,31 @@ export default async function AnalyticsPage() {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-3">
-        <div className="rounded-xl bg-white p-4 ring-1 ring-inset ring-slate-200">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+        <div className="rounded-xl bg-white dark:bg-slate-900 p-4 ring-1 ring-inset ring-slate-200 dark:ring-slate-800">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
             Spesa ultimi 12 mesi
           </p>
-          <p className="mt-1 text-2xl font-bold text-slate-900">
+          <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">
             {formatCurrency(total12)}
           </p>
         </div>
-        <div className="rounded-xl bg-white p-4 ring-1 ring-inset ring-slate-200">
-          <p className="text-xs font-medium uppercase tracking-wide text-slate-400">
+        <div className="rounded-xl bg-white dark:bg-slate-900 p-4 ring-1 ring-inset ring-slate-200 dark:ring-slate-800">
+          <p className="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">
             Media mensile
           </p>
-          <p className="mt-1 text-2xl font-bold text-slate-900">{formatCurrency(avg)}</p>
-          <p className="mt-0.5 text-xs text-slate-500">
+          <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">{formatCurrency(avg)}</p>
+          <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">
             su {monthsWithData} {monthsWithData === 1 ? "mese registrato" : "mesi registrati"}
           </p>
         </div>
       </div>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
-        <h2 className="mb-4 text-base font-semibold text-slate-800">
+      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm sm:p-5">
+        <h2 className="mb-4 text-base font-semibold text-slate-800 dark:text-slate-200">
           Spesa mensile per categoria
         </h2>
         <SpendingChart buckets={buckets} categories={categories} average={avg} />
-        <p className="mt-3 text-xs text-slate-500">
+        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
           {monthsWithData > 0
             ? `Media calcolata su ${monthsWithData} ${
                 monthsWithData === 1 ? "mese" : "mesi"
@@ -64,7 +64,7 @@ export default async function AnalyticsPage() {
         </p>
       </section>
 
-      <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+      <section className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm sm:p-5">
         <CategoryBreakdown buckets={buckets} categories={categories} />
       </section>
     </div>

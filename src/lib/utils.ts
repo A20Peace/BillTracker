@@ -73,6 +73,20 @@ export const CATEGORY_LABEL = (c: BillCategory | null): string =>
   c ? CATEGORY_LABELS[c] : "Senza categoria";
 
 /**
+ * Category label for a specific bill: shows the user's custom text instead of
+ * "Altro" when category === "altro" and a custom value is set.
+ */
+export function billCategoryLabel(
+  category: BillCategory | null,
+  customCategory?: string | null,
+): string {
+  if (category === "altro" && customCategory && customCategory.trim()) {
+    return customCategory.trim();
+  }
+  return CATEGORY_LABEL(category);
+}
+
+/**
  * Visual status of a bill given its DB status and due date.
  *  - paid    → already paid
  *  - overdue → not paid and due date in the past

@@ -102,6 +102,7 @@ const createSchema = z.object({
     }),
   due_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Data non valida"),
   category: z.enum(BILL_CATEGORIES).nullable(),
+  custom_category: z.string().trim().max(60).nullable().optional(),
   notes: z.string().max(2000).nullable().optional(),
   group_id: z.string().uuid().nullable().optional(),
   document_url: z.string().nullable().optional(),
@@ -141,6 +142,10 @@ export async function createBill(
   } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "Sessione non valida" };
 
+  if (parsed.data.category === "altro" && !parsed.data.custom_category?.trim()) {
+    return { ok: false, error: "Specifica la categoria personalizzata" };
+  }
+
   const { data, error } = await supabase
     .from("bills")
     .insert({
@@ -149,6 +154,10 @@ export async function createBill(
       amount: parsed.data.amount,
       due_date: parsed.data.due_date,
       category: parsed.data.category,
+      custom_category:
+        parsed.data.category === "altro"
+          ? (parsed.data.custom_category?.trim() ?? null)
+          : null,
       notes: parsed.data.notes ?? null,
       group_id: parsed.data.group_id ?? null,
       document_url: parsed.data.document_url ?? null,
@@ -227,10 +236,28 @@ export async function updateBill(
           ),
         };
 
+  // Normalize custom_category against the category (only when category is edited).
+  const categoryEdited = parsed.data.category !== undefined;
+  if (
+    categoryEdited &&
+    parsed.data.category === "altro" &&
+    !parsed.data.custom_category?.trim()
+  ) {
+    return { ok: false, error: "Specifica la categoria personalizzata" };
+  }
+  const customCategory = categoryEdited
+    ? {
+        custom_category:
+          parsed.data.category === "altro"
+            ? (parsed.data.custom_category?.trim() ?? null)
+            : null,
+      }
+    : {};
+
   const supabase = createClient();
   const { error } = await supabase
     .from("bills")
-    .update({ ...fields, extracted_raw, ...recurrence })
+    .update({ ...fields, extracted_raw, ...recurrence, ...customCategory })
     .eq("id", id);
 
   if (error) return { ok: false, error: error.message };

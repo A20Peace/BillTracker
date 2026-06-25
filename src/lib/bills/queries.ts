@@ -48,6 +48,43 @@ export async function listBills(filters: BillFilters = {}): Promise<Bill[]> {
   return (data ?? []) as Bill[];
 }
 
+export interface BillCounts {
+  all: number;
+  unpaid: number;
+  paid: number;
+  overdue: number;
+}
+
+/** Per-tab counters for the dashboard, respecting the active category/month filter. */
+export async function getBillCounts(
+  filters: { category?: BillCategory | null; month?: string | null } = {},
+): Promise<BillCounts> {
+  const supabase = createClient();
+  let query = supabase.from("bills").select("status, due_date");
+
+  if (filters.category) query = query.eq("category", filters.category);
+  if (filters.month && /^\d{4}-\d{2}$/.test(filters.month)) {
+    const base = new Date(`${filters.month}-01T00:00:00`);
+    query = query
+      .gte("due_date", format(startOfMonth(base), "yyyy-MM-dd"))
+      .lte("due_date", format(endOfMonth(base), "yyyy-MM-dd"));
+  }
+
+  const { data } = await query;
+  const rows = data ?? [];
+  const today = todayISO();
+  const counts: BillCounts = { all: rows.length, unpaid: 0, paid: 0, overdue: 0 };
+  for (const r of rows) {
+    if (r.status === "paid") {
+      counts.paid += 1;
+    } else {
+      counts.unpaid += 1;
+      if ((r.due_date as string) < today) counts.overdue += 1;
+    }
+  }
+  return counts;
+}
+
 export interface DashboardStats {
   dueNext30Total: number;
   dueNext30Count: number;

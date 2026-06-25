@@ -9,8 +9,8 @@ export default async function FamilyPage() {
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-5">
-        <h1 className="text-lg font-bold text-slate-900">Gruppo familiare</h1>
-        <p className="text-sm text-slate-500">
+        <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">Gruppo familiare</h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
           Condividi le scadenze con la tua famiglia. I membri vedono le scadenze
           condivise e ricevono i promemoria.
         </p>

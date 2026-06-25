@@ -34,6 +34,7 @@ export function ParseConfirmModal({
       amount: values.amount,
       due_date: values.due_date,
       category: values.category || null,
+      custom_category: values.custom_category || null,
       notes: values.notes || null,
       group_id: values.group_id || null,
       is_recurring: values.is_recurring,
@@ -68,13 +69,13 @@ export function ParseConfirmModal({
       </div>
 
       {documentUrl && (
-        <div className="overflow-hidden rounded-lg border border-slate-200">
+        <div className="overflow-hidden rounded-lg border border-slate-200 dark:border-slate-800">
           {isPdf ? (
             <a
               href={documentUrl}
               target="_blank"
               rel="noreferrer"
-              className="flex items-center gap-2 bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 hover:bg-slate-100"
+              className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/50 px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100"
             >
               <FileText size={18} /> Apri documento PDF
             </a>
@@ -83,7 +84,7 @@ export function ParseConfirmModal({
             <img
               src={documentUrl}
               alt="Anteprima documento"
-              className="max-h-48 w-full object-contain bg-slate-50"
+              className="max-h-48 w-full object-contain bg-slate-50 dark:bg-slate-800/50"
             />
           )}
         </div>

@@ -2,7 +2,12 @@ import Link from "next/link";
 import { Plus, Inbox } from "lucide-react";
 import { BillCard } from "@/components/bills/BillCard";
 import { BillFilters } from "@/components/bills/BillFilters";
-import { listBills, getDashboardStats, type StatusFilter } from "@/lib/bills/queries";
+import {
+  listBills,
+  getDashboardStats,
+  getBillCounts,
+  type StatusFilter,
+} from "@/lib/bills/queries";
 import { getBenchmarkAverages } from "@/lib/market/queries";
 import { formatCurrency } from "@/lib/utils";
 import { BILL_CATEGORIES, isBenchmarkCategory, type BillCategory } from "@/types";
@@ -14,8 +19,9 @@ function asCategory(v?: string): BillCategory | null {
     ? (v as BillCategory)
     : null;
 }
+// Default tab is "Da pagare" (unpaid) when no status param is present.
 function asStatus(v?: string): StatusFilter {
-  return v === "unpaid" || v === "paid" || v === "overdue" ? v : "all";
+  return v === "all" || v === "paid" || v === "overdue" ? v : "unpaid";
 }
 
 export default async function DashboardPage({
@@ -23,14 +29,13 @@ export default async function DashboardPage({
 }: {
   searchParams: { category?: string; status?: string; month?: string };
 }) {
-  const [bills, stats, benchmarkAverages] = await Promise.all([
-    listBills({
-      category: asCategory(searchParams.category),
-      status: asStatus(searchParams.status),
-      month: searchParams.month ?? null,
-    }),
+  const category = asCategory(searchParams.category);
+  const month = searchParams.month ?? null;
+  const [bills, stats, benchmarkAverages, counts] = await Promise.all([
+    listBills({ category, status: asStatus(searchParams.status), month }),
     getDashboardStats(),
     getBenchmarkAverages(),
+    getBillCounts({ category, month }),
   ]);
 
   return (
@@ -57,7 +62,7 @@ export default async function DashboardPage({
         />
       </div>
 
-      <BillFilters />
+      <BillFilters counts={counts} />
 
       {/* Bill list */}
       {bills.length === 0 ? (
@@ -103,29 +108,31 @@ function StatCard({
   tone: "amber" | "red" | "emerald";
 }) {
   const tones = {
-    amber: "from-amber-50 text-amber-700 ring-amber-100",
-    red: "from-red-50 text-red-700 ring-red-100",
-    emerald: "from-emerald-50 text-emerald-700 ring-emerald-100",
+    amber:
+      "from-amber-50 text-amber-700 ring-amber-100 dark:from-amber-950/40 dark:text-amber-300 dark:ring-amber-900/40",
+    red: "from-red-50 text-red-700 ring-red-100 dark:from-red-950/40 dark:text-red-300 dark:ring-red-900/40",
+    emerald:
+      "from-emerald-50 text-emerald-700 ring-emerald-100 dark:from-emerald-950/40 dark:text-emerald-300 dark:ring-emerald-900/40",
   } as const;
   return (
     <div
-      className={`rounded-xl bg-gradient-to-br to-white p-4 ring-1 ring-inset ${tones[tone]}`}
+      className={`rounded-xl bg-gradient-to-br to-white p-4 ring-1 ring-inset dark:to-slate-900 ${tones[tone]}`}
     >
       <p className="text-xs font-medium uppercase tracking-wide opacity-80">{label}</p>
-      <p className="mt-1 text-2xl font-bold text-slate-900">{value}</p>
-      <p className="mt-0.5 text-xs text-slate-500">{hint}</p>
+      <p className="mt-1 text-2xl font-bold text-slate-900 dark:text-slate-100">{value}</p>
+      <p className="mt-0.5 text-xs text-slate-500 dark:text-slate-400">{hint}</p>
     </div>
   );
 }
 
 function EmptyState() {
   return (
-    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 bg-white py-16 text-center">
+    <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 py-16 text-center">
       <Inbox className="text-slate-300" size={48} />
-      <h2 className="mt-4 text-lg font-semibold text-slate-800">
+      <h2 className="mt-4 text-lg font-semibold text-slate-800 dark:text-slate-200">
         Nessuna scadenza
       </h2>
-      <p className="mt-1 max-w-xs text-sm text-slate-500">
+      <p className="mt-1 max-w-xs text-sm text-slate-500 dark:text-slate-400">
         Carica una bolletta e BillTracker estrarrà importo, scadenza e categoria
         per te.
       </p>

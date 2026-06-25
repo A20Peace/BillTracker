@@ -41,10 +41,10 @@ function ChartTooltip({
   const total = payload.reduce((s, p) => s + (p.value ?? 0), 0);
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-[13px] shadow-sm">
-      <p className="mb-1 font-semibold text-slate-800">{label}</p>
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-[13px] shadow-sm">
+      <p className="mb-1 font-semibold text-slate-800 dark:text-slate-200">{label}</p>
       {entries.length === 0 ? (
-        <p className="text-slate-400">Nessuna spesa registrata in questo mese</p>
+        <p className="text-slate-400 dark:text-slate-500">Nessuna spesa registrata in questo mese</p>
       ) : (
         <>
           {entries.map((e) => (
@@ -55,7 +55,7 @@ function ChartTooltip({
               <span className="font-semibold">{formatCurrency(e.value ?? 0)}</span>
             </div>
           ))}
-          <div className="mt-1 flex justify-between gap-6 border-t border-slate-200 pt-1">
+          <div className="mt-1 flex justify-between gap-6 border-t border-slate-200 dark:border-slate-800 pt-1">
             <span>Totale</span>
             <span className="font-bold">{formatCurrency(total)}</span>
           </div>

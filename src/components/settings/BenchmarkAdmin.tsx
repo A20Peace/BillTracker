@@ -54,18 +54,18 @@ function CategoryForm({
   }
 
   const field =
-    "tap-target mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200";
+    "tap-target mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200";
 
   return (
     <form
       action={action}
-      className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5"
+      className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm sm:p-5"
     >
       <input type="hidden" name="category" value={category} />
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-slate-800">{CATEGORY_LABELS[category]}</h3>
+        <h3 className="font-semibold text-slate-800 dark:text-slate-200">{CATEGORY_LABELS[category]}</h3>
         {current && (
-          <span className="text-xs text-slate-400">
+          <span className="text-xs text-slate-400 dark:text-slate-500">
             Attuale: {formatCurrency(current.avg_monthly_eur)}/mese ·{" "}
             {formatBenchmarkPeriod(current.period)}
           </span>
@@ -80,7 +80,7 @@ function CategoryForm({
 
       <div className="mt-3 grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-slate-600">Periodo</label>
+          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Periodo</label>
           <input
             name="period"
             required
@@ -91,7 +91,7 @@ function CategoryForm({
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-600">Media €/mese</label>
+          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Media €/mese</label>
           <input
             name="avg_monthly_eur"
             required
@@ -104,7 +104,7 @@ function CategoryForm({
       </div>
 
       <div className="mt-3">
-        <label className="block text-xs font-medium text-slate-600">URL fonte</label>
+        <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">URL fonte</label>
         <input
           name="source_url"
           type="url"
@@ -115,7 +115,7 @@ function CategoryForm({
       </div>
 
       <div className="mt-3">
-        <label className="block text-xs font-medium text-slate-600">Note</label>
+        <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Note</label>
         <input
           name="notes"
           defaultValue={current?.notes ?? ""}

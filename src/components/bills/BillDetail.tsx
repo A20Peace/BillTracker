@@ -21,8 +21,8 @@ import {
   formatCurrency,
   formatDate,
   recurrenceLabel,
+  billCategoryLabel,
   CATEGORY_EMOJI,
-  CATEGORY_LABEL,
 } from "@/lib/utils";
 import type { Bill } from "@/types";
 
@@ -95,6 +95,7 @@ export function BillDetail({
       amount: values.amount,
       due_date: values.due_date,
       category: values.category || null,
+      custom_category: values.custom_category || null,
       notes: values.notes || null,
       group_id: values.group_id || null,
       is_recurring: values.is_recurring,
@@ -110,8 +111,8 @@ export function BillDetail({
 
   if (editing) {
     return (
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 className="mb-4 text-base font-semibold text-slate-800">Modifica scadenza</h2>
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
+        <h2 className="mb-4 text-base font-semibold text-slate-800 dark:text-slate-200">Modifica scadenza</h2>
         <BillForm
           submitLabel="Salva"
           groups={groups}
@@ -122,6 +123,7 @@ export function BillDetail({
             amount: bill.amount !== null ? String(bill.amount) : "",
             due_date: bill.due_date,
             category: bill.category ?? "",
+            custom_category: bill.custom_category ?? "",
             notes: bill.notes ?? "",
             group_id: bill.group_id ?? "",
             is_recurring: bill.is_recurring,
@@ -142,14 +144,16 @@ export function BillDetail({
         </p>
       )}
 
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+      <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
         <div className="flex items-start gap-3">
-          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 text-2xl">
+          <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-slate-100 dark:bg-slate-800 text-2xl">
             {bill.category ? CATEGORY_EMOJI[bill.category] : "📌"}
           </span>
           <div className="min-w-0 flex-1">
-            <h1 className="text-xl font-bold text-slate-900">{bill.title}</h1>
-            <p className="text-sm text-slate-500">{CATEGORY_LABEL(bill.category)}</p>
+            <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{bill.title}</h1>
+            <p className="text-sm text-slate-500 dark:text-slate-400">
+              {billCategoryLabel(bill.category, bill.custom_category)}
+            </p>
             {bill.is_recurring && (
               <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
                 <Repeat size={12} /> Ricorrente ·{" "}
@@ -157,26 +161,26 @@ export function BillDetail({
               </span>
             )}
           </div>
-          <span className="text-2xl font-bold text-slate-900">
+          <span className="text-2xl font-bold text-slate-900 dark:text-slate-100">
             {formatCurrency(bill.amount)}
           </span>
         </div>
 
         <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
           <div>
-            <dt className="text-slate-400">Scadenza</dt>
-            <dd className="mt-0.5 font-medium text-slate-800">{formatDate(bill.due_date)}</dd>
+            <dt className="text-slate-400 dark:text-slate-500">Scadenza</dt>
+            <dd className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{formatDate(bill.due_date)}</dd>
           </div>
           <div>
-            <dt className="text-slate-400">Stato</dt>
+            <dt className="text-slate-400 dark:text-slate-500">Stato</dt>
             <dd className="mt-1">
               <StatusBadge status={bill.status} dueDate={bill.due_date} />
             </dd>
           </div>
           {bill.paid_at && (
             <div>
-              <dt className="text-slate-400">Pagata il</dt>
-              <dd className="mt-0.5 font-medium text-slate-800">{formatDate(bill.paid_at)}</dd>
+              <dt className="text-slate-400 dark:text-slate-500">Pagata il</dt>
+              <dd className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{formatDate(bill.paid_at)}</dd>
             </div>
           )}
         </dl>
@@ -186,7 +190,7 @@ export function BillDetail({
         </div>
 
         {bill.notes && (
-          <div className="mt-4 rounded-lg bg-slate-50 p-3 text-sm text-slate-600">
+          <div className="mt-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 p-3 text-sm text-slate-600 dark:text-slate-300">
             {bill.notes}
           </div>
         )}
@@ -213,7 +217,7 @@ export function BillDetail({
           className={
             "tap-target inline-flex items-center justify-center gap-1.5 rounded-lg px-3 py-2.5 text-sm font-medium transition disabled:opacity-60 " +
             (isPaid
-              ? "bg-slate-100 text-slate-700 hover:bg-slate-200"
+              ? "bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
               : "bg-emerald-600 text-white hover:bg-emerald-700")
           }
         >
@@ -225,7 +229,7 @@ export function BillDetail({
           type="button"
           onClick={toggleCalendar}
           disabled={calBusy}
-          className="tap-target inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:opacity-60"
+          className="tap-target inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 disabled:opacity-60"
         >
           {calBusy ? (
             <Loader2 size={16} className="animate-spin" />
@@ -240,7 +244,7 @@ export function BillDetail({
         <button
           type="button"
           onClick={() => setEditing(true)}
-          className="tap-target inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 px-3 py-2.5 text-sm font-medium text-slate-700 transition hover:bg-slate-50"
+          className="tap-target inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50"
         >
           <Pencil size={16} /> Modifica
         </button>

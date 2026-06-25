@@ -14,7 +14,7 @@ import { isBenchmarkCategory, type MarketBenchmark as Benchmark } from "@/types"
 
 const LEVEL_STYLES: Record<BenchmarkLevel, string> = {
   over: "bg-red-50 text-red-700 ring-red-200",
-  inline: "bg-slate-100 text-slate-600 ring-slate-200",
+  inline: "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 ring-slate-200 dark:ring-slate-800",
   under: "bg-emerald-50 text-emerald-700 ring-emerald-200",
 };
 
@@ -65,24 +65,24 @@ export function MarketBenchmark({
     cmp?.level === "over" ? TrendingUp : cmp?.level === "under" ? TrendingDown : Minus;
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
-      <h3 className="text-sm font-semibold text-slate-700">Confronto con il mercato</h3>
+    <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/50 p-4">
+      <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Confronto con il mercato</h3>
 
       <dl className="mt-3 space-y-1.5 text-sm">
         <div className="flex items-center justify-between">
-          <dt className="text-slate-500">
+          <dt className="text-slate-500 dark:text-slate-400">
             Media mercato ({benchmarkSourceName(benchmark.source_url)}{" "}
             {formatBenchmarkPeriod(benchmark.period)})
           </dt>
-          <dd className="font-medium text-slate-800">
+          <dd className="font-medium text-slate-800 dark:text-slate-200">
             {formatCurrency(benchmark.avg_monthly_eur)}/mese
           </dd>
         </div>
 
         {cmp && (
           <div className="flex items-center justify-between">
-            <dt className="text-slate-500">La tua spesa</dt>
-            <dd className="flex items-center gap-2 font-medium text-slate-800">
+            <dt className="text-slate-500 dark:text-slate-400">La tua spesa</dt>
+            <dd className="flex items-center gap-2 font-medium text-slate-800 dark:text-slate-200">
               {formatCurrency(amount)}/mese
               <span
                 className={cn(
@@ -116,7 +116,7 @@ export function MarketBenchmark({
           href={benchmark.source_url}
           target="_blank"
           rel="noreferrer"
-          className="mt-3 block text-xs text-slate-400 hover:text-slate-600 hover:underline"
+          className="mt-3 block text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 hover:underline"
         >
           Fonte: {benchmarkSourceName(benchmark.source_url)} — aggiornato{" "}
           {formatBenchmarkPeriod(benchmark.period)}

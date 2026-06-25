@@ -64,12 +64,12 @@ export function CategoryBreakdown({
     <div className="space-y-6">
       <div>
         <div className="mb-3 flex items-center justify-between gap-3">
-          <h3 className="text-sm font-semibold text-slate-700">Trend mensile</h3>
+          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Trend mensile</h3>
           <select
             value={sel}
             onChange={(e) => setSel(e.target.value as Selection)}
             aria-label="Seleziona categoria"
-            className="rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm outline-none focus:border-brand-500"
+            className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-sm outline-none focus:border-brand-500"
           >
             <option value="__total__">Tutte le categorie</option>
             {categories.map((c) => (
@@ -104,12 +104,12 @@ export function CategoryBreakdown({
       </div>
 
       <div>
-        <h3 className="mb-3 text-sm font-semibold text-slate-700">
+        <h3 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">
           Confronto anno su anno
         </h3>
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
           <table className="w-full text-sm">
-            <thead className="bg-slate-50 text-left text-xs uppercase tracking-wide text-slate-500">
+            <thead className="bg-slate-50 dark:bg-slate-800/50 text-left text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
               <tr>
                 <th className="px-3 py-2 font-medium">Mese</th>
                 <th className="px-3 py-2 text-right font-medium">Quest&apos;anno</th>
@@ -120,18 +120,18 @@ export function CategoryBreakdown({
             <tbody className="divide-y divide-slate-100">
               {yoy.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-3 py-6 text-center text-slate-400">
+                  <td colSpan={4} className="px-3 py-6 text-center text-slate-400 dark:text-slate-500">
                     Dati insufficienti per il confronto annuale.
                   </td>
                 </tr>
               ) : (
                 yoy.map((r) => (
                   <tr key={r.month}>
-                    <td className="px-3 py-2 font-medium text-slate-700">
+                    <td className="px-3 py-2 font-medium text-slate-700 dark:text-slate-300">
                       {monthLabel(r.month)}
                     </td>
                     <td className="px-3 py-2 text-right">{formatCurrency(r.cur)}</td>
-                    <td className="px-3 py-2 text-right text-slate-500">
+                    <td className="px-3 py-2 text-right text-slate-500 dark:text-slate-400">
                       {formatCurrency(r.prev)}
                     </td>
                     <td className="px-3 py-2 text-right">
@@ -150,12 +150,12 @@ export function CategoryBreakdown({
 
 function DeltaBadge({ delta }: { delta: number | null }) {
   if (delta === null) {
-    return <span className="text-slate-400">—</span>;
+    return <span className="text-slate-400 dark:text-slate-500">—</span>;
   }
   const pct = Math.round(delta * 100);
   if (pct === 0) {
     return (
-      <span className="inline-flex items-center gap-1 text-slate-500">
+      <span className="inline-flex items-center gap-1 text-slate-500 dark:text-slate-400">
         <Minus size={14} /> 0%
       </span>
     );

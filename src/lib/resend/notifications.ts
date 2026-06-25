@@ -1,10 +1,11 @@
 import { Resend } from "resend";
-import { addDays, format } from "date-fns";
+import { differenceInCalendarDays, format, parseISO } from "date-fns";
 import { createAdminClient } from "@/lib/supabase/server";
-import { formatCurrency, formatDate, CATEGORY_LABEL } from "@/lib/utils";
+import { formatCurrency, formatDate, billCategoryLabel } from "@/lib/utils";
 import type { Bill } from "@/types";
 
-export type ReminderKind = "7days" | "tomorrow" | "overdue";
+/** Days BEFORE the due date on which a (once-only) reminder is sent. */
+const PRE_DUE_DAYS = [14, 7, 3, 2, 1, 0] as const;
 
 interface Recipient {
   email: string;
@@ -52,7 +53,7 @@ function billDetailsHtml(bill: Bill): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:8px 0 16px">
     ${row("Importo", formatCurrency(bill.amount))}
     ${row("Scadenza", formatDate(bill.due_date))}
-    ${row("Categoria", CATEGORY_LABEL(bill.category))}
+    ${row("Categoria", billCategoryLabel(bill.category, bill.custom_category))}
   </table>`;
 }
 
@@ -60,33 +61,44 @@ function ctaButton(billId: string): string {
   return `<a href="${appUrl()}/bills/${billId}" style="display:inline-block;background:#10b981;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:600;font-size:15px">Segna come pagata</a>`;
 }
 
-function buildReminderEmail(
-  kind: ReminderKind,
+/**
+ * Builds the reminder email for a bill given how many days remain until the due
+ * date (negative = already overdue by that many days).
+ */
+function reminderContent(
   bill: Bill,
+  daysUntil: number,
 ): { subject: string; html: string } {
   const amount = formatCurrency(bill.amount);
-  const map: Record<ReminderKind, { subject: string; heading: string; intro: string }> = {
-    "7days": {
-      subject: `⏰ Scadenza tra 7 giorni: ${bill.title} — ${amount}`,
-      heading: "Scadenza tra 7 giorni",
-      intro: `Mancano 7 giorni alla scadenza di <strong>${bill.title}</strong>.`,
-    },
-    tomorrow: {
-      subject: `⏰ Scadenza domani: ${bill.title} — ${amount}`,
-      heading: "Scadenza domani",
-      intro: `Domani scade <strong>${bill.title}</strong>. Non dimenticare di pagarla.`,
-    },
-    overdue: {
-      subject: `⚠️ Scadenza superata: ${bill.title} — ${amount}`,
-      heading: "Scadenza superata",
-      intro: `La scadenza di <strong>${bill.title}</strong> è passata. Provvedi al pagamento.`,
-    },
-  };
-  const t = map[kind];
-  const body = `<p style="margin:0 0 8px;font-size:15px;line-height:1.6">${t.intro}</p>
+  let heading: string;
+  let subject: string;
+  let intro: string;
+
+  if (daysUntil > 1) {
+    heading = `Scadenza tra ${daysUntil} giorni`;
+    subject = `⏰ Scadenza tra ${daysUntil} giorni: ${bill.title} — ${amount}`;
+    intro = `Mancano ${daysUntil} giorni alla scadenza di <strong>${bill.title}</strong>.`;
+  } else if (daysUntil === 1) {
+    heading = "Scadenza domani";
+    subject = `⏰ Scadenza domani: ${bill.title} — ${amount}`;
+    intro = `Domani scade <strong>${bill.title}</strong>. Non dimenticare di pagarla.`;
+  } else if (daysUntil === 0) {
+    heading = "Scade oggi";
+    subject = `⏰ Scade oggi: ${bill.title} — ${amount}`;
+    intro = `Oggi è l'ultimo giorno per pagare <strong>${bill.title}</strong>.`;
+  } else {
+    const late = -daysUntil;
+    heading = `Scaduta da ${late} ${late === 1 ? "giorno" : "giorni"}`;
+    subject = `⚠️ Scaduta da ${late} ${late === 1 ? "giorno" : "giorni"}: ${bill.title} — ${amount}`;
+    intro = `<strong>${bill.title}</strong> è scaduta da ${late} ${
+      late === 1 ? "giorno" : "giorni"
+    }. Provvedi al pagamento o segnala come pagata.`;
+  }
+
+  const body = `<p style="margin:0 0 8px;font-size:15px;line-height:1.6">${intro}</p>
     ${billDetailsHtml(bill)}
     <div style="margin-top:8px">${ctaButton(bill.id)}</div>`;
-  return { subject: t.subject, html: emailShell(t.heading, body) };
+  return { subject, html: emailShell(heading, body) };
 }
 
 // ─── Sending ─────────────────────────────────────────────────────────────────
@@ -128,15 +140,17 @@ async function recipientsForBill(
 
   const { data: profiles } = await admin
     .from("profiles")
-    .select("email, display_name, email_reminders")
+    .select("email, reminder_email, display_name, email_reminders")
     .in("id", userIds)
     .eq("email_reminders", true);
 
+  // Prefer the dedicated reminder address; fall back to the login email.
   return (profiles ?? [])
-    .filter((p): p is { email: string; display_name: string | null; email_reminders: boolean } =>
-      Boolean(p.email),
-    )
-    .map((p) => ({ email: p.email, name: p.display_name }));
+    .map((p) => ({
+      email: (p.reminder_email?.trim() || p.email) ?? null,
+      name: p.display_name,
+    }))
+    .filter((r): r is Recipient => Boolean(r.email));
 }
 
 /**
@@ -163,70 +177,80 @@ export async function notifyGroupOfNewBill(billId: string): Promise<void> {
 }
 
 export interface ReminderRunResult {
-  sevenDays: number;
-  tomorrow: number;
-  overdue: number;
+  candidates: number; // pending/overdue bills examined
   emailsSent: number;
+  overdueMarked: number; // bills flipped to "overdue" status
+}
+
+type Admin = ReturnType<typeof createAdminClient>;
+
+/**
+ * Atomically claims a reminder slot to prevent duplicate sends. Inserts a row
+ * into sent_reminders (unique on bill_id + kind); returns true only if this run
+ * created it (i.e. it hasn't been sent before).
+ */
+async function claimReminder(admin: Admin, billId: string, kind: string): Promise<boolean> {
+  const { error } = await admin.from("sent_reminders").insert({ bill_id: billId, kind });
+  return !error; // unique-violation (already sent) → false
 }
 
 /**
- * Daily job: send 7-day and 1-day reminders, mark past-due bills as overdue
- * and notify. Returns counts for observability. Idempotent enough to run once
- * per day (it targets exact due dates).
+ * Daily job (runs ~10:00 IT). Sends scalar reminders:
+ *  - once at 14, 7, 3, 2, 1 and 0 days before the due date;
+ *  - then every day after the due date until the bill is marked paid.
+ * Deduplicated via the sent_reminders table (pre-due once; post-due once/day).
+ * Recipients respect each profile's email_reminders flag and reminder_email.
  */
 export async function processDailyReminders(): Promise<ReminderRunResult> {
   const admin = createAdminClient();
   const today = new Date();
   const todayStr = format(today, "yyyy-MM-dd");
-  const in7 = format(addDays(today, 7), "yyyy-MM-dd");
-  const tomorrow = format(addDays(today, 1), "yyyy-MM-dd");
 
-  const result: ReminderRunResult = { sevenDays: 0, tomorrow: 0, overdue: 0, emailsSent: 0 };
+  const result: ReminderRunResult = { candidates: 0, emailsSent: 0, overdueMarked: 0 };
 
-  const dispatch = async (bills: Bill[], kind: ReminderKind) => {
-    for (const bill of bills) {
-      const recipients = await recipientsForBill(admin, bill);
-      const { subject, html } = buildReminderEmail(kind, bill);
-      for (const r of recipients) {
-        if (await send(r.email, subject, html)) result.emailsSent += 1;
-      }
+  // All still-unpaid bills (pending or already overdue).
+  const { data: bills } = await admin
+    .from("bills")
+    .select("*")
+    .in("status", ["pending", "overdue"]);
+
+  const overdueIds: string[] = [];
+
+  for (const row of (bills ?? []) as Bill[]) {
+    result.candidates += 1;
+    const daysUntil = differenceInCalendarDays(parseISO(row.due_date), today);
+
+    // Decide whether a reminder is due and its dedup key.
+    let kind: string | null = null;
+    if (daysUntil >= 0 && (PRE_DUE_DAYS as readonly number[]).includes(daysUntil)) {
+      kind = `d${daysUntil}`; // pre-due, once only
+    } else if (daysUntil < 0) {
+      kind = `overdue:${todayStr}`; // post-due, once per day
+      overdueIds.push(row.id);
     }
-  };
+    if (!kind) continue;
 
-  // 7 days out
-  const { data: sevenDayBills } = await admin
-    .from("bills")
-    .select("*")
-    .eq("status", "pending")
-    .eq("due_date", in7);
-  result.sevenDays = sevenDayBills?.length ?? 0;
-  await dispatch((sevenDayBills ?? []) as Bill[], "7days");
+    // Dedup: skip if this reminder was already sent.
+    const claimed = await claimReminder(admin, row.id, kind);
+    if (!claimed) continue;
 
-  // Tomorrow
-  const { data: tomorrowBills } = await admin
-    .from("bills")
-    .select("*")
-    .eq("status", "pending")
-    .eq("due_date", tomorrow);
-  result.tomorrow = tomorrowBills?.length ?? 0;
-  await dispatch((tomorrowBills ?? []) as Bill[], "tomorrow");
+    const recipients = await recipientsForBill(admin, row);
+    if (recipients.length === 0) continue;
 
-  // Past due → flip to overdue and notify
-  const { data: overdueBills } = await admin
-    .from("bills")
-    .select("*")
-    .eq("status", "pending")
-    .lt("due_date", todayStr);
-  result.overdue = overdueBills?.length ?? 0;
-  if (overdueBills?.length) {
-    await admin
-      .from("bills")
-      .update({ status: "overdue" })
-      .in(
-        "id",
-        overdueBills.map((b) => b.id),
-      );
-    await dispatch(overdueBills as Bill[], "overdue");
+    const { subject, html } = reminderContent(row, daysUntil);
+    for (const r of recipients) {
+      if (await send(r.email, subject, html)) result.emailsSent += 1;
+    }
+  }
+
+  // Keep the status column in sync so the dashboard "Scadute" view is accurate.
+  const toMark = overdueIds.filter((id) => {
+    const b = (bills ?? []).find((x) => x.id === id);
+    return b?.status === "pending";
+  });
+  if (toMark.length > 0) {
+    await admin.from("bills").update({ status: "overdue" }).in("id", toMark);
+    result.overdueMarked = toMark.length;
   }
 
   return result;

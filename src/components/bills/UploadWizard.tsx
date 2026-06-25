@@ -78,6 +78,7 @@ export function UploadWizard({
       amount: values.amount,
       due_date: values.due_date,
       category: values.category || null,
+      custom_category: values.custom_category || null,
       notes: values.notes || null,
       group_id: values.group_id || null,
       is_recurring: values.is_recurring,
@@ -114,7 +115,7 @@ export function UploadWizard({
     return (
       <div>
         {parsingEnabled && (
-          <h2 className="mb-4 text-base font-semibold text-slate-800">
+          <h2 className="mb-4 text-base font-semibold text-slate-800 dark:text-slate-200">
             Inserisci manualmente
           </h2>
         )}
@@ -140,19 +141,19 @@ export function UploadWizard({
       <button
         type="button"
         onClick={() => inputRef.current?.click()}
-        className="flex w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-slate-300 bg-white px-6 py-10 text-center transition hover:border-brand-400 hover:bg-brand-50/40"
+        className="flex w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-6 py-10 text-center transition hover:border-brand-400 hover:bg-brand-50/40"
       >
         <UploadCloud className="text-brand-500" size={40} />
         <div>
-          <p className="font-semibold text-slate-800">Carica una bolletta</p>
-          <p className="text-sm text-slate-500">PDF o immagine, fino a 10MB</p>
+          <p className="font-semibold text-slate-800 dark:text-slate-200">Carica una bolletta</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">PDF o immagine, fino a 10MB</p>
         </div>
       </button>
 
       <button
         type="button"
         onClick={() => cameraRef.current?.click()}
-        className="tap-target flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-4 py-2.5 font-medium text-slate-700 transition hover:bg-slate-50 sm:hidden"
+        className="tap-target flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 sm:hidden"
       >
         <Camera size={18} /> Scatta una foto
       </button>
@@ -160,7 +161,7 @@ export function UploadWizard({
       <button
         type="button"
         onClick={() => setPhase({ kind: "manual" })}
-        className="tap-target flex w-full items-center justify-center gap-2 text-sm font-medium text-slate-500 hover:text-slate-700"
+        className="tap-target flex w-full items-center justify-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700"
       >
         <PencilLine size={16} /> Inserisci manualmente
       </button>

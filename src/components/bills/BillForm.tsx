@@ -21,6 +21,7 @@ export interface BillFormValues {
   amount: string; // kept as string in the input, coerced on submit
   due_date: string; // YYYY-MM-DD
   category: BillCategory | "";
+  custom_category: string;
   notes: string;
   group_id: string; // "" = personal
   is_recurring: boolean;
@@ -52,6 +53,7 @@ export function BillForm({
     amount: defaultValues?.amount ?? "",
     due_date: defaultValues?.due_date ?? "",
     category: defaultValues?.category ?? "",
+    custom_category: defaultValues?.custom_category ?? "",
     notes: defaultValues?.notes ?? "",
     group_id: defaultValues?.group_id ?? "",
     is_recurring: defaultValues?.is_recurring ?? false,
@@ -71,6 +73,9 @@ export function BillForm({
     setError(null);
     if (!values.title.trim()) return setError("Inserisci un titolo");
     if (!values.due_date) return setError("Inserisci una data di scadenza");
+    if (values.category === "altro" && !values.custom_category.trim()) {
+      return setError("Specifica la categoria personalizzata");
+    }
     setPending(true);
     const res = await onSubmit(values);
     setPending(false);
@@ -78,7 +83,7 @@ export function BillForm({
   }
 
   const field =
-    "tap-target mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200";
+    "tap-target mt-1 w-full rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -89,7 +94,7 @@ export function BillForm({
       )}
 
       <div>
-        <label htmlFor="title" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="title" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           Titolo
         </label>
         <input
@@ -104,7 +109,7 @@ export function BillForm({
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label htmlFor="amount" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="amount" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
             Importo (€)
           </label>
           <input
@@ -117,7 +122,7 @@ export function BillForm({
           />
         </div>
         <div>
-          <label htmlFor="due_date" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="due_date" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
             Scadenza
           </label>
           <input
@@ -132,14 +137,22 @@ export function BillForm({
       </div>
 
       <div>
-        <label htmlFor="category" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="category" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           Categoria
         </label>
         <select
           id="category"
           className={field}
           value={values.category}
-          onChange={(e) => set("category", e.target.value as BillCategory | "")}
+          onChange={(e) => {
+            const next = e.target.value as BillCategory | "";
+            // Clear the custom field whenever we move away from "Altro".
+            setValues((v) => ({
+              ...v,
+              category: next,
+              custom_category: next === "altro" ? v.custom_category : "",
+            }));
+          }}
         >
           <option value="">Seleziona…</option>
           {BILL_CATEGORIES.map((c) => (
@@ -148,11 +161,24 @@ export function BillForm({
             </option>
           ))}
         </select>
+
+        {values.category === "altro" && (
+          <input
+            id="custom_category"
+            className={field}
+            value={values.custom_category}
+            onChange={(e) => set("custom_category", e.target.value)}
+            placeholder="Categoria personalizzata (es. Abbonamento palestra)"
+            required
+            maxLength={60}
+            aria-label="Categoria personalizzata"
+          />
+        )}
       </div>
 
       {groups && groups.length > 0 && (
         <div>
-          <label htmlFor="group_id" className="block text-sm font-medium text-slate-700">
+          <label htmlFor="group_id" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
             Condividi con
           </label>
           <select
@@ -172,7 +198,7 @@ export function BillForm({
       )}
 
       <div>
-        <label htmlFor="notes" className="block text-sm font-medium text-slate-700">
+        <label htmlFor="notes" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
           Note
         </label>
         <textarea
@@ -184,17 +210,17 @@ export function BillForm({
         />
       </div>
 
-      <div className="rounded-lg border border-slate-200 p-3">
+      <div className="rounded-lg border border-slate-200 dark:border-slate-800 p-3">
         <label className="flex items-start gap-3">
           <input
             type="checkbox"
             checked={values.is_recurring}
             onChange={(e) => set("is_recurring", e.target.checked)}
-            className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+            className="mt-0.5 h-4 w-4 rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500"
           />
           <span className="text-sm">
-            <span className="font-medium text-slate-800">Spesa ricorrente</span>
-            <span className="block text-slate-500">
+            <span className="font-medium text-slate-800 dark:text-slate-200">Spesa ricorrente</span>
+            <span className="block text-slate-500 dark:text-slate-400">
               Crea automaticamente la scadenza successiva con la frequenza scelta.
             </span>
           </span>
@@ -218,7 +244,7 @@ export function BillForm({
           <button
             type="button"
             onClick={onCancel}
-            className="tap-target flex-1 rounded-lg border border-slate-300 px-4 py-2.5 font-medium text-slate-700 transition hover:bg-slate-50"
+            className="tap-target flex-1 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-2.5 font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50"
           >
             Annulla
           </button>
@@ -255,11 +281,11 @@ function RecurrencePanel({
   const freq = recurrenceLabel(values.recurrence_unit, intervalNum);
 
   return (
-    <div className="mt-3 space-y-3 border-t border-slate-200 pt-3">
+    <div className="mt-3 space-y-3 border-t border-slate-200 dark:border-slate-800 pt-3">
       <div>
-        <p className="mb-1 text-xs font-medium text-slate-600">Frequenza</p>
+        <p className="mb-1 text-xs font-medium text-slate-600 dark:text-slate-300">Frequenza</p>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-slate-500">ogni</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400">ogni</span>
           <input
             type="number"
             min={1}
@@ -267,13 +293,13 @@ function RecurrencePanel({
             value={values.recurrence_interval}
             onChange={(e) => set("recurrence_interval", e.target.value)}
             aria-label="Intervallo"
-            className="w-16 rounded-lg border border-slate-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
+            className="w-16 rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
           />
           <select
             value={values.recurrence_unit}
             onChange={(e) => set("recurrence_unit", e.target.value as RecurrenceUnit)}
             aria-label="Unità"
-            className="flex-1 rounded-lg border border-slate-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500"
+            className="flex-1 rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1.5 text-sm outline-none focus:border-brand-500"
           >
             {RECURRENCE_UNITS.map((u) => (
               <option key={u} value={u}>
@@ -285,30 +311,30 @@ function RecurrencePanel({
       </div>
 
       <div>
-        <p className="mb-1 text-xs font-medium text-slate-600">
+        <p className="mb-1 text-xs font-medium text-slate-600 dark:text-slate-300">
           Importo nelle prossime scadenze
         </p>
         <div className="space-y-1.5">
-          <label className="flex items-start gap-2 text-sm text-slate-700">
+          <label className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
             <input
               type="radio"
               name="recurrence_amount_mode"
               checked={values.recurrence_amount_mode === "same"}
               onChange={() => set("recurrence_amount_mode", "same")}
-              className="mt-0.5 h-4 w-4 border-slate-300 text-brand-600 focus:ring-brand-500"
+              className="mt-0.5 h-4 w-4 border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500"
             />
             <span>
               Stesso importo{amountDisplay ? ` (${amountDisplay})` : ""} — modificabile
               all&apos;occorrenza
             </span>
           </label>
-          <label className="flex items-start gap-2 text-sm text-slate-700">
+          <label className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
             <input
               type="radio"
               name="recurrence_amount_mode"
               checked={values.recurrence_amount_mode === "empty"}
               onChange={() => set("recurrence_amount_mode", "empty")}
-              className="mt-0.5 h-4 w-4 border-slate-300 text-brand-600 focus:ring-brand-500"
+              className="mt-0.5 h-4 w-4 border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500"
             />
             <span>Lascia importo vuoto — lo inserirò quando arriva la bolletta</span>
           </label>

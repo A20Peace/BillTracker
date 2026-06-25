@@ -3,7 +3,7 @@
 import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { CalendarCheck, Loader2, Link2Off } from "lucide-react";
-import { disconnectGoogleAccount } from "@/app/_actions/profile";
+import { disconnectGoogleAccount, setAutoCalendar } from "@/app/_actions/profile";
 
 const FEEDBACK: Record<string, { tone: "ok" | "err"; text: string }> = {
   connected: { tone: "ok", text: "Google Calendar collegato con successo." },
@@ -11,10 +11,25 @@ const FEEDBACK: Record<string, { tone: "ok" | "err"; text: string }> = {
   error: { tone: "err", text: "Collegamento a Google non riuscito. Riprova." },
 };
 
-export function GoogleConnect({ connected }: { connected: boolean }) {
+export function GoogleConnect({
+  connected,
+  autoCalendar,
+}: {
+  connected: boolean;
+  autoCalendar: boolean;
+}) {
   const params = useSearchParams();
   const feedback = FEEDBACK[params.get("google") ?? ""];
   const [pending, startTransition] = useTransition();
+  const [auto, setAuto] = useState(autoCalendar);
+
+  function toggleAuto(next: boolean) {
+    setAuto(next);
+    startTransition(async () => {
+      const res = await setAutoCalendar(next);
+      if (!res.ok) setAuto(!next); // revert on failure
+    });
+  }
 
   return (
     <div className="space-y-3">
@@ -33,12 +48,12 @@ export function GoogleConnect({ connected }: { connected: boolean }) {
 
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 text-slate-600">
+          <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300">
             <CalendarCheck size={20} />
           </span>
           <div className="text-sm">
-            <p className="font-medium text-slate-800">Google Calendar</p>
-            <p className={connected ? "text-emerald-600" : "text-slate-500"}>
+            <p className="font-medium text-slate-800 dark:text-slate-200">Google Calendar</p>
+            <p className={connected ? "text-emerald-600" : "text-slate-500 dark:text-slate-400"}>
               {connected ? "Collegato" : "Non collegato"}
             </p>
           </div>
@@ -49,7 +64,7 @@ export function GoogleConnect({ connected }: { connected: boolean }) {
             type="button"
             disabled={pending}
             onClick={() => startTransition(async () => void (await disconnectGoogleAccount()))}
-            className="tap-target inline-flex items-center gap-1.5 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-50 disabled:opacity-60"
+            className="tap-target inline-flex items-center gap-1.5 rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 disabled:opacity-60"
           >
             {pending ? <Loader2 size={15} className="animate-spin" /> : <Link2Off size={15} />}
             Scollega
@@ -64,8 +79,32 @@ export function GoogleConnect({ connected }: { connected: boolean }) {
         )}
       </div>
 
+      {connected && (
+        <label className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 p-3 dark:border-slate-800">
+          <span className="text-sm">
+            <span className="font-medium text-slate-800 dark:text-slate-200">
+              Crea eventi automaticamente
+            </span>
+            <span className="block text-slate-500 dark:text-slate-400">
+              Aggiunge un promemoria al calendario per ogni nuova scadenza.
+            </span>
+          </span>
+          <span className="relative inline-flex cursor-pointer items-center">
+            <input
+              type="checkbox"
+              checked={auto}
+              disabled={pending}
+              onChange={(e) => toggleAuto(e.target.checked)}
+              className="peer sr-only"
+            />
+            <span className="h-6 w-11 rounded-full bg-slate-300 transition peer-checked:bg-brand-600 dark:bg-slate-700" />
+            <span className="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white transition peer-checked:translate-x-5" />
+          </span>
+        </label>
+      )}
+
       {!connected && (
-        <p className="text-xs text-slate-400">
+        <p className="text-xs text-slate-400 dark:text-slate-500">
           Collegando Google Calendar potrai aggiungere automaticamente un
           promemoria per ogni scadenza. Le scadenze si salvano comunque anche
           senza collegamento. Se hai effettuato l&apos;accesso con Google prima
