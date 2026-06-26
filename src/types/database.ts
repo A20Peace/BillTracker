@@ -26,6 +26,7 @@ export interface Database {
           email_reminders: boolean;
           reminder_email: string | null;
           auto_calendar: boolean;
+          is_admin: boolean;
           created_at: string;
         };
         Insert: {
@@ -35,6 +36,7 @@ export interface Database {
           email_reminders?: boolean;
           reminder_email?: string | null;
           auto_calendar?: boolean;
+          is_admin?: boolean;
           created_at?: string;
         };
         Update: {
@@ -44,6 +46,7 @@ export interface Database {
           email_reminders?: boolean;
           reminder_email?: string | null;
           auto_calendar?: boolean;
+          is_admin?: boolean;
           created_at?: string;
         };
         Relationships: [];

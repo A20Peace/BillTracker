@@ -25,12 +25,25 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Non autorizzato" }, { status: 401 });
   }
 
+  const startedAt = Date.now();
+  console.log("[cron/reminders] avvio", new Date().toISOString());
+  if (!process.env.RESEND_API_KEY) {
+    console.warn(
+      "[cron/reminders] RESEND_API_KEY mancante in questo ambiente: nessuna email verrà inviata",
+    );
+  }
+
   try {
     // Momento B: ensure next month's records exist for recurring bills due
     // today — BEFORE sending notifications, so the fresh record is included.
     const recurringCreated = await processRecurringBills();
     const result = await processDailyReminders();
-    return NextResponse.json({ ok: true, recurringCreated, ...result });
+    const payload = { ok: true, recurringCreated, ...result };
+    console.log(
+      `[cron/reminders] completato in ${Date.now() - startedAt}ms:`,
+      JSON.stringify(payload),
+    );
+    return NextResponse.json(payload);
   } catch (err) {
     console.error("[cron/reminders] esecuzione non riuscita:", err);
     return NextResponse.json({ error: "Esecuzione cron non riuscita" }, { status: 500 });

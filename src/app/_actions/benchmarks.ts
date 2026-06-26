@@ -1,9 +1,9 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { createClient, createAdminClient } from "@/lib/supabase/server";
-import { isBenchmarkAdmin } from "@/lib/market/admin";
+import { isCurrentUserAdmin } from "@/lib/auth";
 import { BENCHMARK_CATEGORIES } from "@/types";
 
 export type BenchmarkResult = { ok: true } | { ok: false; error: string };
@@ -38,7 +38,7 @@ export async function upsertBenchmark(
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "Sessione non valida" };
-  if (!isBenchmarkAdmin(user.email)) {
+  if (!(await isCurrentUserAdmin(supabase))) {
     return { ok: false, error: "Non autorizzato a modificare i benchmark" };
   }
 
@@ -67,7 +67,10 @@ export async function upsertBenchmark(
   );
   if (error) return { ok: false, error: error.message };
 
+  // Invalida la cache condivisa dei benchmark (vedi lib/market/queries.ts).
+  revalidateTag("benchmarks");
   revalidatePath("/settings/benchmarks");
   revalidatePath("/dashboard");
+  revalidatePath("/home");
   return { ok: true };
 }

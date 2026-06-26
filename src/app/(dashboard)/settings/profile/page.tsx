@@ -7,7 +7,6 @@ import { EmailReminders } from "@/components/settings/EmailReminders";
 import { DangerZone } from "@/components/settings/DangerZone";
 import { requireUser } from "@/lib/auth";
 import { hasGoogleConnected } from "@/lib/google/calendar";
-import { isBenchmarkAdmin } from "@/lib/market/admin";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +19,7 @@ export default async function ProfilePage() {
   const emailReminders = profile?.email_reminders ?? true;
   const reminderEmail = profile?.reminder_email ?? "";
   const autoCalendar = profile?.auto_calendar ?? true;
-  const canEditBenchmarks = isBenchmarkAdmin(user.email);
+  const canEditBenchmarks = profile?.is_admin === true;
 
   return (
     <div className="mx-auto max-w-xl space-y-6">

@@ -34,3 +34,24 @@ export async function getApiUser() {
   } = await supabase.auth.getUser();
   return { supabase, user };
 }
+
+/**
+ * True when the current session belongs to a site administrator (profiles.is_admin).
+ * Server-only; reads the caller's own profile through their RLS client.
+ * Used to gate the market-benchmark editing (server actions / route handlers).
+ */
+export async function isCurrentUserAdmin(
+  supabase: ReturnType<typeof createClient>,
+): Promise<boolean> {
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return false;
+
+  const { data } = await supabase
+    .from("profiles")
+    .select("is_admin")
+    .eq("id", user.id)
+    .single();
+  return data?.is_admin === true;
+}

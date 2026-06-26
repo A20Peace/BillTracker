@@ -56,6 +56,8 @@ export interface Profile {
   reminder_email: string | null;
   /** When false, calendar events are NOT auto-created on bill save. */
   auto_calendar: boolean;
+  /** Site administrator: may edit market benchmarks. Set manually in Supabase. */
+  is_admin: boolean;
   created_at: string;
 }
 

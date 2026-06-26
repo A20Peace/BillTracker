@@ -1,5 +1,5 @@
 import { Resend } from "resend";
-import { differenceInCalendarDays, format, parseISO } from "date-fns";
+import { differenceInCalendarDays, parseISO } from "date-fns";
 import { createAdminClient } from "@/lib/supabase/server";
 import { formatCurrency, formatDate, billCategoryLabel } from "@/lib/utils";
 import type { Bill } from "@/types";
@@ -178,20 +178,45 @@ export async function notifyGroupOfNewBill(billId: string): Promise<void> {
 
 export interface ReminderRunResult {
   candidates: number; // pending/overdue bills examined
+  due: number; // bills that hit a reminder threshold today (pre/post-due)
+  alreadySent: number; // skipped because already notified
   emailsSent: number;
+  emailsFailed: number;
   overdueMarked: number; // bills flipped to "overdue" status
 }
 
 type Admin = ReturnType<typeof createAdminClient>;
 
+/** True if a reminder of this kind was already sent for this bill. */
+async function alreadySent(admin: Admin, billId: string, kind: string): Promise<boolean> {
+  const { data } = await admin
+    .from("sent_reminders")
+    .select("id")
+    .eq("bill_id", billId)
+    .eq("kind", kind)
+    .maybeSingle();
+  return Boolean(data);
+}
+
 /**
- * Atomically claims a reminder slot to prevent duplicate sends. Inserts a row
- * into sent_reminders (unique on bill_id + kind); returns true only if this run
- * created it (i.e. it hasn't been sent before).
+ * Records that a reminder was sent, AFTER a successful delivery. Recording only
+ * on success means a failed send (e.g. missing RESEND_API_KEY) does NOT consume
+ * the dedup slot, so the next run retries instead of silently skipping forever.
+ * The unique index (bill_id, kind) is the backstop against double sends.
  */
-async function claimReminder(admin: Admin, billId: string, kind: string): Promise<boolean> {
-  const { error } = await admin.from("sent_reminders").insert({ bill_id: billId, kind });
-  return !error; // unique-violation (already sent) → false
+async function recordSent(admin: Admin, billId: string, kind: string): Promise<void> {
+  await admin.from("sent_reminders").insert({ bill_id: billId, kind });
+}
+
+/**
+ * "Today" as a calendar date in Europe/Rome, regardless of the server timezone
+ * (Vercel runs in UTC). Without this, the "morning in Italy" window and the
+ * days-until-due math drift by 1–2 hours around midnight.
+ */
+function romeToday(): { date: Date; iso: string } {
+  // en-CA formats as YYYY-MM-DD.
+  const iso = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/Rome" }).format(new Date());
+  return { date: parseISO(iso), iso };
 }
 
 /**
@@ -203,10 +228,16 @@ async function claimReminder(admin: Admin, billId: string, kind: string): Promis
  */
 export async function processDailyReminders(): Promise<ReminderRunResult> {
   const admin = createAdminClient();
-  const today = new Date();
-  const todayStr = format(today, "yyyy-MM-dd");
+  const { date: today, iso: todayStr } = romeToday();
 
-  const result: ReminderRunResult = { candidates: 0, emailsSent: 0, overdueMarked: 0 };
+  const result: ReminderRunResult = {
+    candidates: 0,
+    due: 0,
+    alreadySent: 0,
+    emailsSent: 0,
+    emailsFailed: 0,
+    overdueMarked: 0,
+  };
 
   // All still-unpaid bills (pending or already overdue).
   const { data: bills } = await admin
@@ -229,18 +260,36 @@ export async function processDailyReminders(): Promise<ReminderRunResult> {
       overdueIds.push(row.id);
     }
     if (!kind) continue;
+    result.due += 1;
 
-    // Dedup: skip if this reminder was already sent.
-    const claimed = await claimReminder(admin, row.id, kind);
-    if (!claimed) continue;
+    // Dedup: skip if this exact reminder was already delivered.
+    if (await alreadySent(admin, row.id, kind)) {
+      result.alreadySent += 1;
+      continue;
+    }
 
     const recipients = await recipientsForBill(admin, row);
-    if (recipients.length === 0) continue;
+    if (recipients.length === 0) {
+      console.warn(
+        `[cron] nessun destinatario per "${row.title}" (${row.id}) — promemoria email disattivati o email mancante`,
+      );
+      continue;
+    }
 
     const { subject, html } = reminderContent(row, daysUntil);
+    let delivered = false;
     for (const r of recipients) {
-      if (await send(r.email, subject, html)) result.emailsSent += 1;
+      if (await send(r.email, subject, html)) {
+        result.emailsSent += 1;
+        delivered = true;
+      } else {
+        result.emailsFailed += 1;
+      }
     }
+
+    // Record the dedup slot ONLY after a successful delivery, so a failed run
+    // (e.g. missing API key) retries next time instead of skipping forever.
+    if (delivered) await recordSent(admin, row.id, kind);
   }
 
   // Keep the status column in sync so the dashboard "Scadute" view is accurate.
@@ -253,5 +302,8 @@ export async function processDailyReminders(): Promise<ReminderRunResult> {
     result.overdueMarked = toMark.length;
   }
 
+  console.log(
+    `[cron] reminders ${todayStr} (Europe/Rome): ${JSON.stringify(result)}`,
+  );
   return result;
 }

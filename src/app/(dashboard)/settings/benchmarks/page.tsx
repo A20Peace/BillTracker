@@ -1,29 +1,16 @@
-import { ShieldAlert } from "lucide-react";
+import { redirect } from "next/navigation";
 import { BenchmarkAdmin } from "@/components/settings/BenchmarkAdmin";
 import { requireUser } from "@/lib/auth";
-import { isBenchmarkAdmin } from "@/lib/market/admin";
 import type { MarketBenchmark } from "@/types";
 
 export const dynamic = "force-dynamic";
 
 export default async function BenchmarksPage() {
-  const { supabase, user } = await requireUser();
+  const { supabase, profile } = await requireUser();
 
-  if (!isBenchmarkAdmin(user.email)) {
-    return (
-      <div className="mx-auto max-w-2xl">
-        <div className="flex items-start gap-3 rounded-2xl border border-amber-200 bg-amber-50 p-5">
-          <ShieldAlert className="mt-0.5 shrink-0 text-amber-500" size={20} />
-          <div>
-            <h1 className="font-semibold text-amber-900">Accesso riservato</h1>
-            <p className="mt-1 text-sm text-amber-700/80">
-              Solo l&apos;amministratore può aggiornare i prezzi medi di mercato.
-            </p>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  // Sezione admin: chi non è amministratore viene rimandato in dashboard,
+  // senza alcun indizio che questa pagina esista.
+  if (!profile?.is_admin) redirect("/dashboard");
 
   const { data } = await supabase
     .from("market_benchmarks")
