@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { Mail, Phone, User } from "lucide-react";
 import { getContactInfo } from "@/lib/app-settings/queries";
+import { createClient } from "@/lib/supabase/server";
 
 export const dynamic = "force-dynamic";
 
@@ -11,7 +12,12 @@ export const metadata: Metadata = {
 };
 
 export default async function ContattaciPage() {
-  const contact = await getContactInfo();
+  const supabase = createClient();
+  const [contact, { data: auth }] = await Promise.all([
+    getContactInfo(),
+    supabase.auth.getUser(),
+  ]);
+  const loggedIn = auth.user !== null;
   const fullName = [contact.firstName, contact.lastName]
     .filter(Boolean)
     .join(" ");
@@ -92,9 +98,15 @@ export default async function ContattaciPage() {
       </div>
 
       <p className="mt-6 max-w-md text-center text-xs text-slate-400 dark:text-slate-500">
-        <Link href="/login" className="font-medium text-brand-600 hover:underline">
-          Torna all&apos;accesso
-        </Link>
+        {loggedIn ? (
+          <Link href="/home" className="font-medium text-brand-600 hover:underline">
+            Torna all&apos;app
+          </Link>
+        ) : (
+          <Link href="/login" className="font-medium text-brand-600 hover:underline">
+            Torna all&apos;accesso
+          </Link>
+        )}
       </p>
     </div>
   );

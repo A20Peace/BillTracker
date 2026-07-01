@@ -46,3 +46,45 @@ body {
 .tap-target {
   @apply min-h-touch min-w-touch;
 }
+
+/* ─── Landing page ambient motion ────────────────────────────────────────────
+   Slow, decorative loops for the public landing: floating cards/emoji and
+   drifting gradient blobs. Timing is randomized per element via inline
+   animation-delay / animation-duration. */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes blob-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(36px, -44px) scale(1.08);
+  }
+  66% {
+    transform: translate(-28px, 24px) scale(0.94);
+  }
+}
+
+.animate-float {
+  animation: float-y 6s ease-in-out infinite;
+}
+
+.animate-blob {
+  animation: blob-drift 20s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-blob {
+    animation: none;
+  }
+}

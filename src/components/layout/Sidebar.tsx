@@ -8,6 +8,7 @@ import {
   BarChart3,
   Users,
   UserCog,
+  LifeBuoy,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -37,6 +38,14 @@ export function Sidebar() {
             <NavLink key={item.href} {...item} active={isActive(pathname, item.href)} />
           ))}
         </nav>
+        <div className="border-t border-slate-200 p-3 dark:border-slate-800">
+          <NavLink
+            href="/contatti"
+            label="Contattaci"
+            icon={LifeBuoy}
+            active={false}
+          />
+        </div>
       </aside>
 
       {/* Mobile bottom tab bar */}

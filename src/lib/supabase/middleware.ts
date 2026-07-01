@@ -6,6 +6,8 @@ import type { Database } from "@/types/database";
 const PUBLIC_PREFIXES = ["/login", "/register", "/auth", "/contatti"];
 
 function isPublic(pathname: string): boolean {
+  // Root is the public landing page (it redirects logged-in users to /home).
+  if (pathname === "/") return true;
   return PUBLIC_PREFIXES.some(
     (p) => pathname === p || pathname.startsWith(`${p}/`),
   );
