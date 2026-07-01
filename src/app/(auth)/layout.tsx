@@ -6,7 +6,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-brand-50 to-slate-50 px-4 py-10">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-brand-50 to-slate-50 dark:from-slate-950 dark:to-slate-900 px-4 py-10">
       <Link href="/" className="mb-8 flex items-center gap-2">
         <span className="text-3xl">🧾</span>
         <span className="text-2xl font-bold tracking-tight text-slate-900 dark:text-slate-100">
@@ -19,6 +19,11 @@ export default function AuthLayout({
       <p className="mt-6 max-w-md text-center text-xs text-slate-400 dark:text-slate-500">
         Non perdere mai più una scadenza. Carica una bolletta e lascia che
         BillTracker estragga importo e data per te.
+      </p>
+      <p className="mt-2 text-center text-xs">
+        <Link href="/contatti" className="font-medium text-brand-600 hover:underline">
+          Contattaci
+        </Link>
       </p>
     </div>
   );

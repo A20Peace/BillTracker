@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { BarChart3, ChevronRight } from "lucide-react";
+import { BarChart3, ChevronRight, Contact } from "lucide-react";
 import { ProfileForm } from "@/components/settings/ProfileForm";
 import { GoogleConnect } from "@/components/settings/GoogleConnect";
 import { EmailReminders } from "@/components/settings/EmailReminders";
@@ -53,23 +53,43 @@ export default async function ProfilePage() {
       </section>
 
       {canEditBenchmarks && (
-        <Link
-          href="/settings/benchmarks"
-          className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm transition hover:bg-slate-50 sm:p-5"
-        >
-          <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
-              <BarChart3 size={20} />
-            </span>
-            <div>
-              <p className="font-semibold text-slate-800 dark:text-slate-200">Benchmark di mercato</p>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
-                Aggiorna i prezzi medi ARERA / AGCOM
-              </p>
+        <>
+          <Link
+            href="/settings/benchmarks"
+            className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm transition hover:bg-slate-50 sm:p-5"
+          >
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+                <BarChart3 size={20} />
+              </span>
+              <div>
+                <p className="font-semibold text-slate-800 dark:text-slate-200">Benchmark di mercato</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Aggiorna i prezzi medi ARERA / AGCOM
+                </p>
+              </div>
             </div>
-          </div>
-          <ChevronRight size={18} className="text-slate-400 dark:text-slate-500" />
-        </Link>
+            <ChevronRight size={18} className="text-slate-400 dark:text-slate-500" />
+          </Link>
+
+          <Link
+            href="/settings/contact"
+            className="flex items-center justify-between rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm transition hover:bg-slate-50 sm:p-5"
+          >
+            <div className="flex items-center gap-3">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+                <Contact size={20} />
+              </span>
+              <div>
+                <p className="font-semibold text-slate-800 dark:text-slate-200">Pagina Contattaci</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Modifica i dati di contatto pubblici
+                </p>
+              </div>
+            </div>
+            <ChevronRight size={18} className="text-slate-400 dark:text-slate-500" />
+          </Link>
+        </>
       )}
 
       <DangerZone />
