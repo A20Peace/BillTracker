@@ -75,3 +75,105 @@ export async function upsertBenchmark(
   revalidatePath("/home");
   return { ok: true };
 }
+
+// ─── Revisione delle proposte automatiche ────────────────────────────────────
+
+/** Ensures the caller is a signed-in administrator. */
+async function requireAdmin(): Promise<string | null> {
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return await translateActionError("errInvalidSession");
+  if (!(await isCurrentUserAdmin(supabase))) {
+    return await translateActionError("errNotAuthorized");
+  }
+  return null;
+}
+
+const approveSchema = z.object({
+  id: z.string().uuid(),
+  avg_monthly_eur: z
+    .union([z.string(), z.number()])
+    .transform((v) => (typeof v === "string" ? Number(v.replace(",", ".")) : v))
+    .refine((n) => Number.isFinite(n) && n > 0, "errInvalidAmount"),
+});
+
+/**
+ * Publishes a pending proposal into market_benchmarks (the admin can adjust
+ * the amount before approving) and marks it as approved.
+ */
+export async function approveBenchmarkProposal(
+  formData: FormData,
+): Promise<BenchmarkResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, error: denied };
+
+  const parsed = approveSchema.safeParse({
+    id: formData.get("id"),
+    avg_monthly_eur: formData.get("avg_monthly_eur"),
+  });
+  if (!parsed.success) {
+    return { ok: false, error: await translateActionError(parsed.error.issues[0]?.message) };
+  }
+
+  const admin = createAdminClient();
+  const { data: proposal } = await admin
+    .from("benchmark_proposals")
+    .select("*")
+    .eq("id", parsed.data.id)
+    .eq("status", "pending")
+    .maybeSingle();
+  if (!proposal) {
+    return { ok: false, error: await translateActionError("errProposalNotFound") };
+  }
+
+  const { error: upsertError } = await admin.from("market_benchmarks").upsert(
+    {
+      category: proposal.category,
+      period: proposal.period,
+      avg_monthly_eur: parsed.data.avg_monthly_eur,
+      source_url: proposal.source_url,
+      notes: proposal.notes,
+      updated_at: new Date().toISOString(),
+    },
+    { onConflict: "category,period" },
+  );
+  if (upsertError) return { ok: false, error: upsertError.message };
+
+  const { error: updateError } = await admin
+    .from("benchmark_proposals")
+    .update({ status: "approved", reviewed_at: new Date().toISOString() })
+    .eq("id", proposal.id);
+  if (updateError) return { ok: false, error: updateError.message };
+
+  revalidateTag("benchmarks");
+  revalidatePath("/settings/benchmarks");
+  revalidatePath("/dashboard");
+  revalidatePath("/home");
+  return { ok: true };
+}
+
+/** Discards a pending proposal without touching the published benchmarks. */
+export async function rejectBenchmarkProposal(
+  proposalId: string,
+): Promise<BenchmarkResult> {
+  const denied = await requireAdmin();
+  if (denied) return { ok: false, error: denied };
+
+  const id = z.string().uuid().safeParse(proposalId);
+  if (!id.success) {
+    return { ok: false, error: await translateActionError("errInvalidId") };
+  }
+
+  const admin = createAdminClient();
+  const { error } = await admin
+    .from("benchmark_proposals")
+    .update({ status: "rejected", reviewed_at: new Date().toISOString() })
+    .eq("id", id.data)
+    .eq("status", "pending");
+  if (error) return { ok: false, error: error.message };
+
+  revalidatePath("/settings/benchmarks");
+  return { ok: true };
+}

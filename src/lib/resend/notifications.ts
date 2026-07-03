@@ -176,6 +176,58 @@ export async function notifyGroupOfNewBill(billId: string): Promise<void> {
   await Promise.all(recipients.map((r) => send(r.email, subject, html)));
 }
 
+/**
+ * Notifies the site administrators that new benchmark proposals are waiting
+ * for review on /settings/benchmarks. Called by the benchmark-proposals cron;
+ * failures are non-fatal (the proposals stay visible in the admin UI anyway).
+ */
+export async function notifyAdminsOfBenchmarkProposals(
+  proposals: Array<{
+    category: string;
+    period: string;
+    avg_monthly_eur: number;
+    auto_extracted: boolean;
+  }>,
+): Promise<{ emailsSent: number; emailsFailed: number }> {
+  if (proposals.length === 0) return { emailsSent: 0, emailsFailed: 0 };
+
+  const admin = createAdminClient();
+  const { data: admins } = await admin
+    .from("profiles")
+    .select("email, reminder_email")
+    .eq("is_admin", true);
+
+  const recipients = (admins ?? [])
+    .map((p) => (p.reminder_email?.trim() || p.email) ?? null)
+    .filter((e): e is string => Boolean(e));
+  if (recipients.length === 0) return { emailsSent: 0, emailsFailed: 0 };
+
+  const row = (label: string, value: string) =>
+    `<tr><td style="padding:4px 0;color:#64748b;font-size:14px">${label}</td><td style="padding:4px 0;text-align:right;font-weight:600;font-size:14px">${value}</td></tr>`;
+  const rows = proposals
+    .map((p) =>
+      row(
+        `${CATEGORY_LABELS[p.category as keyof typeof CATEGORY_LABELS] ?? p.category} · ${p.period}${p.auto_extracted ? "" : " (da verificare)"}`,
+        `${formatCurrency(p.avg_monthly_eur)}/mese`,
+      ),
+    )
+    .join("");
+
+  const subject = `📊 ${proposals.length === 1 ? "Nuova proposta" : `${proposals.length} nuove proposte`} di aggiornamento benchmark`;
+  const body = `<p style="margin:0 0 8px;font-size:15px;line-height:1.6">
+      Sono pronti nuovi valori per i prezzi medi di mercato. Nessun prezzo è
+      stato pubblicato: rivedi e approva le proposte quando vuoi.</p>
+    <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:8px 0 16px">${rows}</table>
+    <div style="margin-top:8px">
+      <a href="${appUrl()}/settings/benchmarks" style="display:inline-block;background:#1b5df5;color:#fff;text-decoration:none;padding:12px 20px;border-radius:10px;font-weight:600;font-size:15px">Rivedi le proposte</a>
+    </div>`;
+  const html = emailShell("Benchmark da approvare", body);
+
+  const results = await Promise.all(recipients.map((r) => send(r, subject, html)));
+  const emailsSent = results.filter(Boolean).length;
+  return { emailsSent, emailsFailed: results.length - emailsSent };
+}
+
 export interface ReminderRunResult {
   candidates: number; // pending/overdue bills examined
   due: number; // bills that hit a reminder threshold today (pre/post-due)

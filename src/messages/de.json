@@ -396,6 +396,16 @@
       "lastName": "Nachname",
       "contactEmail": "Kontakt-E-Mail",
       "phoneNumber": "Telefonnummer"
+    },
+    "proposals": {
+      "title": "Aktualisierungsvorschläge",
+      "subtitle": "Automatisch gesammelte Werte, die auf deine Bestätigung warten. Kein Preis wird ohne deine Freigabe veröffentlicht.",
+      "autoExtracted": "Aus der Quelle extrahiert",
+      "carryForward": "Zu überprüfen",
+      "amount": "Vorgeschlagene €/Monat",
+      "approve": "Freigeben",
+      "reject": "Ablehnen",
+      "openSource": "Quelle öffnen"
     }
   },
   "categories": {
@@ -453,6 +463,7 @@
     "errNotAuthorized": "Nicht berechtigt",
     "errInvalidPeriod": "Ungültiger Zeitraum (z. B. 2025-Q1)",
     "errInvalidAmount": "Ungültiger Betrag",
-    "errInvalidUrl": "Ungültige URL"
+    "errInvalidUrl": "Ungültige URL",
+    "errProposalNotFound": "Vorschlag nicht gefunden oder bereits bearbeitet"
   }
 }

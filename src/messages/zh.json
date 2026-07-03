@@ -396,6 +396,16 @@
       "lastName": "姓",
       "contactEmail": "联系邮箱",
       "phoneNumber": "电话号码"
+    },
+    "proposals": {
+      "title": "更新提案",
+      "subtitle": "自动收集的数值，等待你的确认。未经你的批准，任何价格都不会发布。",
+      "autoExtracted": "从来源提取",
+      "carryForward": "待核实",
+      "amount": "建议 €/月",
+      "approve": "批准",
+      "reject": "拒绝",
+      "openSource": "打开来源"
     }
   },
   "categories": {
@@ -453,6 +463,7 @@
     "errNotAuthorized": "无权限",
     "errInvalidPeriod": "时期无效（例如 2025-Q1）",
     "errInvalidAmount": "金额无效",
-    "errInvalidUrl": "网址无效"
+    "errInvalidUrl": "网址无效",
+    "errProposalNotFound": "提案不存在或已处理"
   }
 }

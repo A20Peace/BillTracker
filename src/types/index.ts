@@ -140,6 +140,24 @@ export interface MarketBenchmark {
   updated_at: string;
 }
 
+/**
+ * Proposed benchmark update awaiting admin review (see the
+ * benchmark-proposals cron). Approving publishes it into market_benchmarks.
+ */
+export interface BenchmarkProposal {
+  id: string;
+  category: BenchmarkCategory;
+  period: string;
+  avg_monthly_eur: number;
+  source_url: string | null;
+  notes: string | null;
+  /** true = extracted from the source; false = previous value carried forward. */
+  auto_extracted: boolean;
+  status: "pending" | "approved" | "rejected";
+  created_at: string;
+  reviewed_at: string | null;
+}
+
 // ─── Analytics ───────────────────────────────────────────────────────────────
 
 /** One month bucket with a total per category, used by the analytics charts. */

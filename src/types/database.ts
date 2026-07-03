@@ -231,6 +231,45 @@ export interface Database {
         };
         Relationships: [];
       };
+      benchmark_proposals: {
+        Row: {
+          id: string;
+          category: BenchmarkCategory;
+          period: string;
+          avg_monthly_eur: number;
+          source_url: string | null;
+          notes: string | null;
+          auto_extracted: boolean;
+          status: "pending" | "approved" | "rejected";
+          created_at: string;
+          reviewed_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          category: BenchmarkCategory;
+          period: string;
+          avg_monthly_eur: number;
+          source_url?: string | null;
+          notes?: string | null;
+          auto_extracted?: boolean;
+          status?: "pending" | "approved" | "rejected";
+          created_at?: string;
+          reviewed_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          category?: BenchmarkCategory;
+          period?: string;
+          avg_monthly_eur?: number;
+          source_url?: string | null;
+          notes?: string | null;
+          auto_extracted?: boolean;
+          status?: "pending" | "approved" | "rejected";
+          created_at?: string;
+          reviewed_at?: string | null;
+        };
+        Relationships: [];
+      };
       market_benchmarks: {
         Row: {
           id: string;

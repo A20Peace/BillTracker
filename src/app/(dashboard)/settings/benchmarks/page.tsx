@@ -1,8 +1,9 @@
 import { redirect } from "next/navigation";
 import { getTranslations } from "next-intl/server";
 import { BenchmarkAdmin } from "@/components/settings/BenchmarkAdmin";
+import { ProposalReview } from "@/components/settings/ProposalReview";
 import { requireUser } from "@/lib/auth";
-import type { MarketBenchmark } from "@/types";
+import type { BenchmarkProposal, MarketBenchmark } from "@/types";
 
 export const dynamic = "force-dynamic";
 
@@ -13,13 +14,22 @@ export default async function BenchmarksPage() {
   // senza alcun indizio che questa pagina esista.
   if (!profile?.is_admin) redirect("/dashboard");
 
-  const [{ data }, t] = await Promise.all([
+  // Le proposte si leggono col client RLS dell'utente: la policy della
+  // migration 0010 le espone solo agli admin. Finché la migration non è
+  // applicata la query fallisce e la sezione resta semplicemente vuota.
+  const [{ data }, proposalsRes, t] = await Promise.all([
     supabase
       .from("market_benchmarks")
       .select("*")
       .order("period", { ascending: false }),
+    supabase
+      .from("benchmark_proposals")
+      .select("*")
+      .eq("status", "pending")
+      .order("created_at", { ascending: true }),
     getTranslations("admin.benchmarks"),
   ]);
+  const proposals = (proposalsRes.data ?? []) as BenchmarkProposal[];
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -29,6 +39,7 @@ export default async function BenchmarksPage() {
           {t("subtitle")}
         </p>
       </div>
+      <ProposalReview proposals={proposals} />
       <BenchmarkAdmin benchmarks={(data ?? []) as MarketBenchmark[]} />
     </div>
   );

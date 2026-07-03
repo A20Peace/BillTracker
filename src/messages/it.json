@@ -396,6 +396,16 @@
       "lastName": "Cognome",
       "contactEmail": "Email di contatto",
       "phoneNumber": "Numero di telefono"
+    },
+    "proposals": {
+      "title": "Proposte di aggiornamento",
+      "subtitle": "Valori raccolti automaticamente, in attesa della tua conferma. Nessun prezzo viene pubblicato senza la tua approvazione.",
+      "autoExtracted": "Estratto dalla fonte",
+      "carryForward": "Da verificare",
+      "amount": "€/mese proposti",
+      "approve": "Approva",
+      "reject": "Rifiuta",
+      "openSource": "Apri la fonte"
     }
   },
   "categories": {
@@ -453,6 +463,7 @@
     "errNotAuthorized": "Non autorizzato",
     "errInvalidPeriod": "Periodo non valido (es. 2025-Q1)",
     "errInvalidAmount": "Importo non valido",
-    "errInvalidUrl": "URL non valido"
+    "errInvalidUrl": "URL non valido",
+    "errProposalNotFound": "Proposta non trovata o già gestita"
   }
 }
