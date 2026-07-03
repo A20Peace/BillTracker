@@ -1,7 +1,7 @@
 import { Resend } from "resend";
 import { differenceInCalendarDays, parseISO } from "date-fns";
 import { createAdminClient } from "@/lib/supabase/server";
-import { formatCurrency, formatDate, billCategoryLabel } from "@/lib/utils";
+import { formatCurrency, formatDate, billCategoryLabel, CATEGORY_LABELS } from "@/lib/utils";
 import type { Bill } from "@/types";
 
 /** Days BEFORE the due date on which a (once-only) reminder is sent. */
@@ -53,7 +53,7 @@ function billDetailsHtml(bill: Bill): string {
   return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:8px 0 16px">
     ${row("Importo", formatCurrency(bill.amount))}
     ${row("Scadenza", formatDate(bill.due_date))}
-    ${row("Categoria", billCategoryLabel(bill.category, bill.custom_category))}
+    ${row("Categoria", billCategoryLabel(bill.category, bill.custom_category, bill.category ? CATEGORY_LABELS[bill.category] : "Senza categoria"))}
   </table>`;
 }
 

@@ -1,0 +1,458 @@
+{
+  "common": {
+    "language": "语言",
+    "email": "邮箱",
+    "password": "密码",
+    "save": "保存",
+    "saved": "已保存",
+    "updated": "已更新",
+    "logout": "退出登录",
+    "user": "用户",
+    "themeLight": "切换到浅色主题",
+    "themeDark": "切换到深色主题",
+    "themeToggle": "切换主题"
+  },
+  "nav": {
+    "home": "首页",
+    "features": "功能",
+    "howItWorks": "使用方法",
+    "contact": "联系我们",
+    "login": "登录",
+    "startFree": "免费开始",
+    "backToApp": "返回应用",
+    "register": "注册",
+    "deadlines": "账单",
+    "analytics": "分析",
+    "family": "家庭",
+    "profile": "个人资料"
+  },
+  "titles": {
+    "home": "首页",
+    "dashboard": "你的账单",
+    "analytics": "分析",
+    "family": "家庭组",
+    "profile": "个人资料",
+    "billDetail": "账单详情"
+  },
+  "landing": {
+    "metaTitle": "BillTracker — 再也不会错过缴费日期",
+    "metaDescription": "上传账单：BillTracker 自动读取金额和到期日，通过邮件提醒你并添加到日历。免费。",
+    "badge": "支持账单自动识别",
+    "heroTitle": "你的账单，<highlight>尽在掌控</highlight>。",
+    "heroText": "上传一张账单，BillTracker 会自动读取金额和到期日，在到期前通过邮件提醒你，并添加到日历。没有滞纳金，没有意外。",
+    "ctaStart": "免费开始",
+    "ctaLogin": "登录",
+    "ctaNote": "完全免费,无需信用卡。",
+    "footerTagline": "BillTracker — 账单到期管理",
+    "mock": {
+      "title": "即将到期",
+      "month": "七月",
+      "due1": "7月15日到期",
+      "due2": "7月22日到期",
+      "due3": "7月3日到期",
+      "chipDueSoon": "即将到期",
+      "chipScheduled": "已排期",
+      "chipPaid": "已支付 ✓",
+      "badgeReminder": "提醒已发送",
+      "badgeCalendar": "已添加到日历",
+      "badgeParsed": "识别金额：€68.40"
+    },
+    "features": {
+      "heading": "所需的一切，尽在一处",
+      "sub": "从账单照片到提醒：BillTracker 处理繁琐的步骤，你只需按时付款。",
+      "scan": {
+        "title": "自动识别",
+        "text": "上传 PDF 或照片：人工智能在几秒内提取金额、到期日和类别。"
+      },
+      "reminders": {
+        "title": "邮件提醒",
+        "text": "每个到期日前都会收到邮件提醒。告别滞纳金、催款和断供。"
+      },
+      "calendar": {
+        "title": "Google 日历",
+        "text": "每个到期日自动同步到你的日历，手机上还会收到通知。"
+      },
+      "family": {
+        "title": "家庭账户",
+        "text": "与家庭组共享账单：每个人都能看到要付什么、由谁负责。"
+      },
+      "analytics": {
+        "title": "支出分析",
+        "text": "清晰的图表帮你了解钱花在哪里，按月份和类别一目了然。"
+      },
+      "market": {
+        "title": "市场对比",
+        "text": "了解你的支出是否高于全国平均水平（ARERA 和 AGCOM 数据），以及何时值得更换供应商。"
+      }
+    },
+    "how": {
+      "heading": "使用方法",
+      "sub": "三个步骤，不到一分钟。",
+      "step1": {
+        "title": "上传或拍照",
+        "text": "纸质账单或邮件收到的 PDF：只需两下点击即可上传。"
+      },
+      "step2": {
+        "title": "AI 为你读取",
+        "text": "金额、到期日和类别自动填写。你只需检查并确认。"
+      },
+      "step3": {
+        "title": "按时付款",
+        "text": "邮件和日历双重提醒。付款后标记为已支付，继续下一张。"
+      }
+    },
+    "cta": {
+      "title": "准备好不再忘记任何缴费日期了吗？",
+      "text": "创建免费账户并上传第一张账单：BillTracker 会替你记住。",
+      "button": "免费开始"
+    }
+  },
+  "auth": {
+    "tagline": "再也不会错过缴费日期。上传账单，让 BillTracker 为你提取金额和日期。",
+    "login": {
+      "title": "欢迎回来",
+      "subtitle": "登录以管理你的账单。",
+      "submit": "登录",
+      "submitting": "登录中…",
+      "or": "或者",
+      "google": "使用 Google 继续",
+      "noAccount": "还没有账户？",
+      "registerLink": "注册"
+    },
+    "register": {
+      "title": "创建你的账户",
+      "subtitle": "只需一个邮箱和一个密码。",
+      "name": "姓名",
+      "passwordHint": "至少 8 个字符。",
+      "submit": "创建账户",
+      "submitting": "正在创建账户…",
+      "haveAccount": "已有账户？",
+      "loginLink": "登录"
+    },
+    "unverified": {
+      "title": "邮箱待验证",
+      "text": "请查看你的收件箱并点击我们发送的链接。也请检查垃圾邮件文件夹。",
+      "resent": "确认邮件已重新发送 ✓",
+      "resend": "重新发送确认邮件",
+      "resendIn": "{seconds}秒后可重新发送",
+      "sendFailed": "发送失败"
+    },
+    "errors": {
+      "invalidEmail": "请输入有效的邮箱",
+      "passwordMin": "密码至少需要 8 个字符",
+      "nameRequired": "请输入姓名",
+      "invalidData": "数据无效",
+      "unverified": "邮箱待验证",
+      "wrongCredentials": "邮箱或密码错误",
+      "googleFailed": "Google 登录失败"
+    }
+  },
+  "contact": {
+    "metaTitle": "联系我们 — BillTracker",
+    "metaDescription": "联系 BillTracker 管理者的方式。",
+    "title": "联系我们",
+    "description": "如对 BillTracker 有疑问、反馈或建议，请通过以下方式联系应用管理者。",
+    "referent": "联系人",
+    "email": "邮箱",
+    "phone": "电话"
+  },
+  "home": {
+    "newBill": "新建账单",
+    "upcoming": {
+      "title": "即将到期",
+      "seeAll": "查看全部",
+      "empty": "没有即将到期的账单。全部搞定！🎉",
+      "payNow": "立即支付",
+      "within7": "7 天内",
+      "within30": "30 天内",
+      "later": "更晚"
+    },
+    "month": {
+      "title": "{month}",
+      "toPay": "本月待付",
+      "alreadyPaid": "已支付",
+      "overdueUnpaid": "逾期未付",
+      "total": "本月合计",
+      "paid": "已付"
+    },
+    "market": {
+      "title": "市场平均价格",
+      "marketAvg": "市场平均：",
+      "yourAvg": "你的平均：",
+      "noSpending": "暂无支出记录",
+      "source": "来源：",
+      "noBenchmark": "暂无参考数据。",
+      "updateBenchmarks": "更新参考价格"
+    }
+  },
+  "dashboard": {
+    "dueNext30": "即将到期（30 天）",
+    "dueNext30Hint": "{count, plural, other {# 笔账单}}",
+    "unpaid": "待付账单",
+    "unpaidHint": "未付总数",
+    "paidThisMonth": "本月已付",
+    "paidThisMonthHint": "已结清的付款",
+    "newBill": "新建账单",
+    "emptyTitle": "暂无账单",
+    "emptyText": "上传账单，BillTracker 会为你提取金额、到期日和类别。",
+    "uploadCta": "上传账单"
+  },
+  "bills": {
+    "shared": "已共享",
+    "categoryDue": "{category} · {date}到期",
+    "benchmarkHint": "与市场平均对比 — 打开详情",
+    "undoPaid": "撤销",
+    "markPaid": "标记已付",
+    "recurrence": {
+      "week": "{count, plural, other {每 # 周}}",
+      "month": "{count, plural, other {每 # 个月}}",
+      "year": "{count, plural, other {每 # 年}}"
+    },
+    "statusBadge": {
+      "paid": "已支付",
+      "overdueDays": "已逾期 {days} 天",
+      "dueToday": "今天到期",
+      "inDays": "{days} 天后"
+    },
+    "detail": {
+      "confirmDelete": "删除这笔账单？",
+      "calendarNotConnected": "请在个人资料中连接 Google 日历以同步。",
+      "calendarExpired": "Google 授权已过期：请在个人资料中重新连接账户。",
+      "calendarFailed": "日历操作失败。",
+      "networkError": "网络错误。",
+      "editTitle": "编辑账单",
+      "save": "保存",
+      "recurring": "周期性",
+      "dueDate": "到期日",
+      "status": "状态",
+      "paidOn": "支付日期",
+      "openPdf": "打开 PDF 文档",
+      "openDocument": "打开文档",
+      "reopen": "重新打开",
+      "paid": "已支付",
+      "removeCalendar": "移除",
+      "edit": "编辑",
+      "delete": "删除"
+    },
+    "form": {
+      "errorTitle": "请输入标题",
+      "errorDueDate": "请输入到期日",
+      "errorCustomCategory": "请填写自定义类别",
+      "errorSave": "保存失败",
+      "title": "标题",
+      "titlePlaceholder": "例如：2025年5月电费账单",
+      "amount": "金额（€）",
+      "dueDate": "到期日",
+      "category": "类别",
+      "selectPlaceholder": "请选择…",
+      "customCategory": "自定义类别",
+      "customCategoryPlaceholder": "自定义类别（例如：健身房会费）",
+      "shareWith": "共享给",
+      "personalOnly": "仅自己（个人）",
+      "notes": "备注",
+      "recurring": "周期性支出",
+      "recurringHint": "按所选频率自动创建下一笔账单。",
+      "cancel": "取消",
+      "frequency": "频率",
+      "every": "每",
+      "interval": "间隔",
+      "unit": "单位",
+      "unit_week": "周",
+      "unit_month": "月",
+      "unit_year": "年",
+      "nextAmounts": "后续账单的金额",
+      "sameAmount": "相同金额{amount} — 需要时可修改",
+      "emptyAmount": "金额留空 — 收到账单时再填写",
+      "recurrenceSummary": "将创建新账单，{freq}。",
+      "recurrenceSummaryFrom": "将创建新账单，{freq}，从{date}开始。"
+    },
+    "filters": {
+      "tab_unpaid": "待付",
+      "tab_all": "全部账单",
+      "tab_paid": "已付",
+      "tab_overdue": "已逾期",
+      "byCategory": "按类别筛选",
+      "byMonth": "按月份筛选",
+      "allCategories": "全部类别"
+    }
+  },
+  "upload": {
+    "backToBills": "返回账单列表",
+    "title": "新建账单",
+    "subtitleParsing": "上传文档：我们为你提取金额、日期和类别。",
+    "subtitleManual": "填写账单信息。",
+    "fileTooLarge": "文件超过 10MB。",
+    "parseFailed": "分析失败。",
+    "parseNetworkError": "分析过程中出现网络错误。",
+    "manualEntry": "手动输入",
+    "saveBill": "保存账单",
+    "uploadTitle": "上传账单",
+    "uploadHint": "PDF 或图片，最大 10MB",
+    "takePhoto": "拍照",
+    "parsing": "正在分析文档…",
+    "parsedTitle": "自动提取的数据",
+    "parsedHint": "保存前请检查并更正。",
+    "confidence": "可信度 {pct}%。",
+    "openPdf": "打开 PDF 文档",
+    "previewAlt": "文档预览"
+  },
+  "analytics": {
+    "last12": "近 12 个月支出",
+    "monthlyAvg": "月平均",
+    "monthsRecorded": "{count, plural, other {基于 # 个有记录的月份}}",
+    "monthlyByCategory": "按类别的月度支出",
+    "avgNote": "{count, plural, other {平均值基于 # 个有数据的月份计算{range}。}}",
+    "noData": "近 12 个月没有记录。",
+    "noSpendingMonth": "本月没有支出记录",
+    "total": "合计",
+    "avgLine": "平均 {amount}",
+    "trend": "月度趋势",
+    "selectCategory": "选择类别",
+    "allCategories": "全部类别",
+    "spend": "支出",
+    "yoyTitle": "同比对比",
+    "month": "月份",
+    "thisYear": "今年",
+    "prevYear": "去年",
+    "change": "变化",
+    "yoyInsufficient": "数据不足，无法进行年度对比。"
+  },
+  "family": {
+    "title": "家庭组",
+    "subtitle": "与家人共享账单。成员可以看到共享的账单并收到提醒。",
+    "empty": "你还没有加入任何组。创建一个来共享账单吧。",
+    "createTitle": "创建组",
+    "namePlaceholder": "例如：小王的家",
+    "create": "创建",
+    "operationFailed": "操作失败",
+    "memberAdded": "成员已加入组。",
+    "members": "{count, plural, other {# 名成员}}",
+    "confirmDeleteGroup": "删除组\"{name}\"？",
+    "delete": "删除",
+    "leave": "退出",
+    "you": "（你）",
+    "owner": "所有者",
+    "removeMember": "移除 {name}",
+    "invite": "邀请"
+  },
+  "settings": {
+    "page": {
+      "yourProfile": "你的资料",
+      "integrations": "集成",
+      "integrationsHint": "开启或关闭通知渠道。",
+      "contactTitle": "联系我们",
+      "contactHint": "有疑问或问题？管理者的联系方式",
+      "benchmarksTitle": "市场参考价",
+      "benchmarksHint": "更新 ARERA / AGCOM 平均价格",
+      "contactAdminTitle": "联系页面",
+      "contactAdminHint": "编辑公开的联系信息"
+    },
+    "profileForm": {
+      "name": "姓名",
+      "saveName": "保存姓名"
+    },
+    "google": {
+      "feedbackConnected": "Google 日历连接成功。",
+      "feedbackDenied": "Google 访问被拒绝。",
+      "feedbackError": "连接 Google 失败。请重试。",
+      "connected": "已连接",
+      "notConnected": "未连接",
+      "disconnect": "断开连接",
+      "connect": "连接",
+      "autoEvents": "自动创建日历事件",
+      "autoEventsHint": "为每笔新账单在日历中添加提醒。",
+      "connectHint": "连接 Google 日历后，可为每笔账单自动添加提醒。即使不连接，账单也会正常保存。如果你在本次更新前用 Google 登录过，请退出后重新用 Google 登录（或使用\"连接\"按钮）以授予日历权限。"
+    },
+    "reminders": {
+      "title": "邮件提醒",
+      "schedule": "提前 14 天和 7 天提醒，最后 3 天每天提醒直至到期，之后每天提醒直到你完成支付。",
+      "emailLabel": "接收提醒的邮箱",
+      "emailHint": "留空则使用登录邮箱（{email}）。也可以填写备用邮箱或家人的邮箱。"
+    },
+    "danger": {
+      "confirm": "永久删除账户？所有文档和账单都将被删除。此操作不可撤销。",
+      "failed": "删除失败。",
+      "networkError": "网络错误。",
+      "title": "删除账户",
+      "text": "永久删除账户、所有上传的文档和所有账单。无法撤销。",
+      "button": "删除我的账户"
+    }
+  },
+  "admin": {
+    "benchmarks": {
+      "title": "市场参考价",
+      "subtitle": "参考平均价格（电/燃气来自 ARERA，电话/网络来自 AGCOM）。每季度从官方来源更新数值 — 无需 SQL 迁移。",
+      "current": "当前：{amount}/月 · {period}",
+      "period": "时期",
+      "avgPerMonth": "平均 €/月",
+      "sourceUrl": "来源网址",
+      "notes": "备注",
+      "notesPlaceholder": "例如：典型家庭每年 2700 kWh"
+    },
+    "contact": {
+      "title": "联系页面",
+      "subtitle": "公开页面 <pageLink>/contatti</pageLink> 上显示的信息。修改后所有访客立即可见。",
+      "firstName": "名",
+      "lastName": "姓",
+      "contactEmail": "联系邮箱",
+      "phoneNumber": "电话号码"
+    }
+  },
+  "categories": {
+    "luce": "电费",
+    "gas": "燃气",
+    "acqua": "水费",
+    "condominio": "物业费",
+    "telefono": "电话",
+    "internet": "网络",
+    "mav": "MAV",
+    "imu": "房产税",
+    "assicurazione": "保险",
+    "altro": "其他",
+    "none": "未分类"
+  },
+  "benchmark": {
+    "over": "高于平均",
+    "inline": "与市场持平",
+    "under": "低于平均",
+    "publicSource": "公开来源",
+    "title": "市场对比",
+    "marketAvg": "市场平均",
+    "yourSpend": "你的支出",
+    "perMonth": "{amount}/月",
+    "sourceUpdated": "来源：{source} — 更新于 {period}"
+  },
+  "pwa": {
+    "installTitle": "安装 BillTracker",
+    "installText": "添加到主屏幕，像应用一样打开。",
+    "install": "安装",
+    "dismiss": "忽略"
+  },
+  "actionErrors": {
+    "errInvalidId": "ID 无效",
+    "errTitleRequired": "标题为必填项",
+    "errInvalidDate": "日期无效",
+    "errInvalidData": "数据无效",
+    "errInvalidSession": "会话无效",
+    "errCustomCategory": "请填写自定义类别",
+    "errSaveFailed": "保存失败",
+    "errNameRequired": "请输入名称",
+    "errCreateFailed": "创建失败",
+    "errOnlyOwnerRename": "只有所有者可以重命名组",
+    "errInvalidEmail": "邮箱无效",
+    "errOnlyOwnerInvite": "只有所有者可以邀请成员",
+    "errNoUserWithEmail": "没有使用此邮箱注册的用户。请先邀请对方注册。",
+    "errOnlyOwnerRemove": "只有所有者可以移除成员",
+    "errOwnerCannotRemoveSelf": "所有者不能移除自己",
+    "errOwnerCannotLeave": "所有者不能退出：请删除组",
+    "errOnlyOwnerDelete": "只有所有者可以删除组",
+    "errFirstNameRequired": "名字为必填项",
+    "errLastNameRequired": "姓氏为必填项",
+    "errPhoneRequired": "电话为必填项",
+    "errInvalidPhone": "电话号码无效",
+    "errNotAuthorized": "无权限",
+    "errInvalidPeriod": "时期无效（例如 2025-Q1）",
+    "errInvalidAmount": "金额无效",
+    "errInvalidUrl": "网址无效"
+  }
+}

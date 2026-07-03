@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { getTranslations } from "next-intl/server";
 import { ArrowLeft } from "lucide-react";
 import { BillDetail } from "@/components/bills/BillDetail";
 import { requireUser } from "@/lib/auth";
@@ -26,6 +27,7 @@ export default async function BillPage({ params }: { params: { id: string } }) {
   ]);
 
   const isPdf = (bill.document_url ?? "").toLowerCase().endsWith(".pdf");
+  const t = await getTranslations("upload");
 
   return (
     <div className="mx-auto max-w-xl">
@@ -33,7 +35,7 @@ export default async function BillPage({ params }: { params: { id: string } }) {
         href="/dashboard"
         className="mb-4 inline-flex items-center gap-1 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700"
       >
-        <ArrowLeft size={16} /> Torna alle scadenze
+        <ArrowLeft size={16} /> {t("backToBills")}
       </Link>
       <BillDetail
         bill={bill as Bill}

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { getLocale, getTranslations } from "next-intl/server";
+import { useTranslations } from "next-intl";
 import { Plus, Inbox } from "lucide-react";
 import { BillCard } from "@/components/bills/BillCard";
 import { BillFilters } from "@/components/bills/BillFilters";
@@ -31,11 +33,13 @@ export default async function DashboardPage({
 }) {
   const category = asCategory(searchParams.category);
   const month = searchParams.month ?? null;
-  const [bills, stats, benchmarkAverages, counts] = await Promise.all([
+  const [bills, stats, benchmarkAverages, counts, locale, t] = await Promise.all([
     listBills({ category, status: asStatus(searchParams.status), month }),
     getDashboardStats(),
     getBenchmarkAverages(),
     getBillCounts({ category, month }),
+    getLocale(),
+    getTranslations("dashboard"),
   ]);
 
   return (
@@ -43,21 +47,21 @@ export default async function DashboardPage({
       {/* Header stats */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
         <StatCard
-          label="In scadenza (30 giorni)"
-          value={formatCurrency(stats.dueNext30Total)}
-          hint={`${stats.dueNext30Count} scadenze`}
+          label={t("dueNext30")}
+          value={formatCurrency(stats.dueNext30Total, locale)}
+          hint={t("dueNext30Hint", { count: stats.dueNext30Count })}
           tone="amber"
         />
         <StatCard
-          label="Scadenze da pagare"
+          label={t("unpaid")}
           value={String(stats.unpaidCount)}
-          hint="totale non pagate"
+          hint={t("unpaidHint")}
           tone="red"
         />
         <StatCard
-          label="Pagato questo mese"
-          value={formatCurrency(stats.paidThisMonthTotal)}
-          hint="movimenti saldati"
+          label={t("paidThisMonth")}
+          value={formatCurrency(stats.paidThisMonthTotal, locale)}
+          hint={t("paidThisMonthHint")}
           tone="emerald"
         />
       </div>
@@ -87,7 +91,7 @@ export default async function DashboardPage({
       {/* Floating action button */}
       <Link
         href="/upload"
-        aria-label="Nuova scadenza"
+        aria-label={t("newBill")}
         className="tap-target fixed bottom-20 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand-600 text-white shadow-lg shadow-brand-600/30 transition hover:bg-brand-700 lg:bottom-8 lg:right-8"
       >
         <Plus size={26} />
@@ -126,21 +130,21 @@ function StatCard({
 }
 
 function EmptyState() {
+  const t = useTranslations("dashboard");
   return (
     <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 py-16 text-center">
       <Inbox className="text-slate-300" size={48} />
       <h2 className="mt-4 text-lg font-semibold text-slate-800 dark:text-slate-200">
-        Nessuna scadenza
+        {t("emptyTitle")}
       </h2>
       <p className="mt-1 max-w-xs text-sm text-slate-500 dark:text-slate-400">
-        Carica una bolletta e BillTracker estrarrà importo, scadenza e categoria
-        per te.
+        {t("emptyText")}
       </p>
       <Link
         href="/upload"
         className="mt-5 inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5 font-medium text-white transition hover:bg-brand-700"
       >
-        <Plus size={18} /> Carica una bolletta
+        <Plus size={18} /> {t("uploadCta")}
       </Link>
     </div>
   );

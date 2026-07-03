@@ -4,16 +4,21 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { z } from "zod";
+import { getTranslations } from "next-intl/server";
 import { createClient } from "@/lib/supabase/server";
 
-const credentialsSchema = z.object({
-  email: z.string().email("Inserisci un'email valida"),
-  password: z.string().min(8, "La password deve avere almeno 8 caratteri"),
-});
-
-const registerSchema = credentialsSchema.extend({
-  displayName: z.string().trim().min(1, "Inserisci un nome").max(80),
-});
+/** Schemas are built per-request so zod messages follow the active locale. */
+async function schemas() {
+  const t = await getTranslations("auth.errors");
+  const credentialsSchema = z.object({
+    email: z.string().email(t("invalidEmail")),
+    password: z.string().min(8, t("passwordMin")),
+  });
+  const registerSchema = credentialsSchema.extend({
+    displayName: z.string().trim().min(1, t("nameRequired")).max(80),
+  });
+  return { credentialsSchema, registerSchema, t };
+}
 
 export type AuthState =
   | { error: string; unverified?: boolean; email?: string }
@@ -33,12 +38,13 @@ export async function login(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
+  const { credentialsSchema, t } = await schemas();
   const parsed = credentialsSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
   });
   if (!parsed.success) {
-    return { error: parsed.error.issues[0]?.message ?? "Dati non validi" };
+    return { error: parsed.error.issues[0]?.message ?? t("invalidData") };
   }
 
   const supabase = createClient();
@@ -50,12 +56,12 @@ export async function login(
       /email not confirmed|not confirmed/i.test(error.message)
     ) {
       return {
-        error: "Email in corso di verifica",
+        error: t("unverified"),
         unverified: true,
         email: parsed.data.email,
       };
     }
-    return { error: "Email o password non corretti" };
+    return { error: t("wrongCredentials") };
   }
 
   revalidatePath("/", "layout");
@@ -67,7 +73,10 @@ export async function resendConfirmation(
   email: string,
 ): Promise<{ ok: boolean; error?: string }> {
   const parsed = z.string().email().safeParse(email);
-  if (!parsed.success) return { ok: false, error: "Email non valida" };
+  if (!parsed.success) {
+    const t = await getTranslations("auth.errors");
+    return { ok: false, error: t("invalidEmail") };
+  }
 
   const supabase = createClient();
   const { error } = await supabase.auth.resend({
@@ -83,13 +92,14 @@ export async function register(
   _prev: AuthState,
   formData: FormData,
 ): Promise<AuthState> {
+  const { registerSchema, t } = await schemas();
   const parsed = registerSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
     displayName: formData.get("displayName"),
   });
   if (!parsed.success) {
-    return { error: parsed.error.issues[0]?.message ?? "Dati non validi" };
+    return { error: parsed.error.issues[0]?.message ?? t("invalidData") };
   }
 
   const supabase = createClient();
@@ -124,7 +134,8 @@ export async function signInWithGoogle(): Promise<void> {
     },
   });
   if (error || !data.url) {
-    redirect(`/login?error=${encodeURIComponent("Login Google non riuscito")}`);
+    const t = await getTranslations("auth.errors");
+    redirect(`/login?error=${encodeURIComponent(t("googleFailed"))}`);
   }
   redirect(data.url);
 }

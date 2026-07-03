@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Loader2 } from "lucide-react";
 import {
   BILL_CATEGORIES,
@@ -9,12 +10,7 @@ import {
   type RecurrenceAmountMode,
   type RecurrenceUnit,
 } from "@/types";
-import {
-  CATEGORY_LABELS,
-  formatCurrency,
-  formatDate,
-  recurrenceLabel,
-} from "@/lib/utils";
+import { formatCurrency, formatDate } from "@/lib/utils";
 
 export interface BillFormValues {
   title: string;
@@ -48,6 +44,8 @@ export function BillForm({
   onSubmit: (values: BillFormValues) => Promise<{ ok: boolean; error?: string }>;
   onCancel?: () => void;
 }) {
+  const t = useTranslations("bills.form");
+  const tCat = useTranslations("categories");
   const [values, setValues] = useState<BillFormValues>({
     title: defaultValues?.title ?? "",
     amount: defaultValues?.amount ?? "",
@@ -71,15 +69,15 @@ export function BillForm({
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    if (!values.title.trim()) return setError("Inserisci un titolo");
-    if (!values.due_date) return setError("Inserisci una data di scadenza");
+    if (!values.title.trim()) return setError(t("errorTitle"));
+    if (!values.due_date) return setError(t("errorDueDate"));
     if (values.category === "altro" && !values.custom_category.trim()) {
-      return setError("Specifica la categoria personalizzata");
+      return setError(t("errorCustomCategory"));
     }
     setPending(true);
     const res = await onSubmit(values);
     setPending(false);
-    if (!res.ok) setError(res.error ?? "Salvataggio non riuscito");
+    if (!res.ok) setError(res.error ?? t("errorSave"));
   }
 
   const field =
@@ -95,14 +93,14 @@ export function BillForm({
 
       <div>
         <label htmlFor="title" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          Titolo
+          {t("title")}
         </label>
         <input
           id="title"
           className={field}
           value={values.title}
           onChange={(e) => set("title", e.target.value)}
-          placeholder="Es. Bolletta Enel maggio 2025"
+          placeholder={t("titlePlaceholder")}
           required
         />
       </div>
@@ -110,7 +108,7 @@ export function BillForm({
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label htmlFor="amount" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-            Importo (€)
+            {t("amount")}
           </label>
           <input
             id="amount"
@@ -123,7 +121,7 @@ export function BillForm({
         </div>
         <div>
           <label htmlFor="due_date" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-            Scadenza
+            {t("dueDate")}
           </label>
           <input
             id="due_date"
@@ -138,7 +136,7 @@ export function BillForm({
 
       <div>
         <label htmlFor="category" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          Categoria
+          {t("category")}
         </label>
         <select
           id="category"
@@ -154,10 +152,10 @@ export function BillForm({
             }));
           }}
         >
-          <option value="">Seleziona…</option>
+          <option value="">{t("selectPlaceholder")}</option>
           {BILL_CATEGORIES.map((c) => (
             <option key={c} value={c}>
-              {CATEGORY_LABELS[c]}
+              {tCat(c)}
             </option>
           ))}
         </select>
@@ -168,10 +166,10 @@ export function BillForm({
             className={field}
             value={values.custom_category}
             onChange={(e) => set("custom_category", e.target.value)}
-            placeholder="Categoria personalizzata (es. Abbonamento palestra)"
+            placeholder={t("customCategoryPlaceholder")}
             required
             maxLength={60}
-            aria-label="Categoria personalizzata"
+            aria-label={t("customCategory")}
           />
         )}
       </div>
@@ -179,7 +177,7 @@ export function BillForm({
       {groups && groups.length > 0 && (
         <div>
           <label htmlFor="group_id" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-            Condividi con
+            {t("shareWith")}
           </label>
           <select
             id="group_id"
@@ -187,7 +185,7 @@ export function BillForm({
             value={values.group_id}
             onChange={(e) => set("group_id", e.target.value)}
           >
-            <option value="">Solo io (personale)</option>
+            <option value="">{t("personalOnly")}</option>
             {groups.map((g) => (
               <option key={g.id} value={g.id}>
                 {g.name}
@@ -199,7 +197,7 @@ export function BillForm({
 
       <div>
         <label htmlFor="notes" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          Note
+          {t("notes")}
         </label>
         <textarea
           id="notes"
@@ -219,23 +217,15 @@ export function BillForm({
             className="mt-0.5 h-4 w-4 rounded border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500"
           />
           <span className="text-sm">
-            <span className="font-medium text-slate-800 dark:text-slate-200">Spesa ricorrente</span>
+            <span className="font-medium text-slate-800 dark:text-slate-200">{t("recurring")}</span>
             <span className="block text-slate-500 dark:text-slate-400">
-              Crea automaticamente la scadenza successiva con la frequenza scelta.
+              {t("recurringHint")}
             </span>
           </span>
         </label>
 
         {values.is_recurring && (
-          <RecurrencePanel
-            values={values}
-            set={set}
-            amountDisplay={
-              values.amount
-                ? formatCurrency(Number(values.amount.replace(",", ".")))
-                : null
-            }
-          />
+          <RecurrencePanel values={values} set={set} />
         )}
       </div>
 
@@ -246,7 +236,7 @@ export function BillForm({
             onClick={onCancel}
             className="tap-target flex-1 rounded-lg border border-slate-300 dark:border-slate-700 px-4 py-2.5 font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50"
           >
-            Annulla
+            {t("cancel")}
           </button>
         )}
         <button
@@ -262,48 +252,47 @@ export function BillForm({
   );
 }
 
-const UNIT_LABELS: Record<RecurrenceUnit, string> = {
-  week: "Settimana/e",
-  month: "Mese/i",
-  year: "Anno/i",
-};
-
 function RecurrencePanel({
   values,
   set,
-  amountDisplay,
 }: {
   values: BillFormValues;
   set: <K extends keyof BillFormValues>(key: K, value: BillFormValues[K]) => void;
-  amountDisplay: string | null;
 }) {
+  const locale = useLocale();
+  const t = useTranslations("bills.form");
+  const tBills = useTranslations("bills");
+
   const intervalNum = Math.max(1, parseInt(values.recurrence_interval || "1", 10) || 1);
-  const freq = recurrenceLabel(values.recurrence_unit, intervalNum);
+  const freq = tBills(`recurrence.${values.recurrence_unit}`, { count: intervalNum });
+  const amountDisplay = values.amount
+    ? formatCurrency(Number(values.amount.replace(",", ".")), locale)
+    : null;
 
   return (
     <div className="mt-3 space-y-3 border-t border-slate-200 dark:border-slate-800 pt-3">
       <div>
-        <p className="mb-1 text-xs font-medium text-slate-600 dark:text-slate-300">Frequenza</p>
+        <p className="mb-1 text-xs font-medium text-slate-600 dark:text-slate-300">{t("frequency")}</p>
         <div className="flex items-center gap-2">
-          <span className="text-sm text-slate-500 dark:text-slate-400">ogni</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400">{t("every")}</span>
           <input
             type="number"
             min={1}
             max={99}
             value={values.recurrence_interval}
             onChange={(e) => set("recurrence_interval", e.target.value)}
-            aria-label="Intervallo"
+            aria-label={t("interval")}
             className="w-16 rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
           />
           <select
             value={values.recurrence_unit}
             onChange={(e) => set("recurrence_unit", e.target.value as RecurrenceUnit)}
-            aria-label="Unità"
+            aria-label={t("unit")}
             className="flex-1 rounded-lg border border-slate-300 dark:border-slate-700 px-2 py-1.5 text-sm outline-none focus:border-brand-500"
           >
             {RECURRENCE_UNITS.map((u) => (
               <option key={u} value={u}>
-                {UNIT_LABELS[u]}
+                {t(`unit_${u}`)}
               </option>
             ))}
           </select>
@@ -312,7 +301,7 @@ function RecurrencePanel({
 
       <div>
         <p className="mb-1 text-xs font-medium text-slate-600 dark:text-slate-300">
-          Importo nelle prossime scadenze
+          {t("nextAmounts")}
         </p>
         <div className="space-y-1.5">
           <label className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
@@ -324,8 +313,7 @@ function RecurrencePanel({
               className="mt-0.5 h-4 w-4 border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500"
             />
             <span>
-              Stesso importo{amountDisplay ? ` (${amountDisplay})` : ""} — modificabile
-              all&apos;occorrenza
+              {t("sameAmount", { amount: amountDisplay ? ` (${amountDisplay})` : "" })}
             </span>
           </label>
           <label className="flex items-start gap-2 text-sm text-slate-700 dark:text-slate-300">
@@ -336,14 +324,18 @@ function RecurrencePanel({
               onChange={() => set("recurrence_amount_mode", "empty")}
               className="mt-0.5 h-4 w-4 border-slate-300 dark:border-slate-700 text-brand-600 focus:ring-brand-500"
             />
-            <span>Lascia importo vuoto — lo inserirò quando arriva la bolletta</span>
+            <span>{t("emptyAmount")}</span>
           </label>
         </div>
       </div>
 
       <p className="rounded-lg bg-brand-50 px-3 py-2 text-xs text-brand-800">
-        Verrà creata una nuova scadenza {freq}
-        {values.due_date ? ` a partire dal ${formatDate(values.due_date)}` : ""}.
+        {values.due_date
+          ? t("recurrenceSummaryFrom", {
+              freq,
+              date: formatDate(values.due_date, locale),
+            })
+          : t("recurrenceSummary", { freq })}
       </p>
     </div>
   );

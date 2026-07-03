@@ -1,13 +1,10 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Loader2, Check } from "lucide-react";
 import { upsertBenchmark } from "@/app/_actions/benchmarks";
-import {
-  CATEGORY_LABELS,
-  formatCurrency,
-  formatBenchmarkPeriod,
-} from "@/lib/utils";
+import { formatCurrency, formatBenchmarkPeriod } from "@/lib/utils";
 import { BENCHMARK_CATEGORIES, type BenchmarkCategory, type MarketBenchmark } from "@/types";
 
 function currentQuarter(): string {
@@ -39,6 +36,10 @@ function CategoryForm({
   category: BenchmarkCategory;
   current?: MarketBenchmark;
 }) {
+  const locale = useLocale();
+  const t = useTranslations("admin.benchmarks");
+  const tCat = useTranslations("categories");
+  const tCommon = useTranslations("common");
   const [pending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -63,11 +64,13 @@ function CategoryForm({
     >
       <input type="hidden" name="category" value={category} />
       <div className="flex items-center justify-between">
-        <h3 className="font-semibold text-slate-800 dark:text-slate-200">{CATEGORY_LABELS[category]}</h3>
+        <h3 className="font-semibold text-slate-800 dark:text-slate-200">{tCat(category)}</h3>
         {current && (
           <span className="text-xs text-slate-400 dark:text-slate-500">
-            Attuale: {formatCurrency(current.avg_monthly_eur)}/mese ·{" "}
-            {formatBenchmarkPeriod(current.period)}
+            {t("current", {
+              amount: formatCurrency(current.avg_monthly_eur, locale),
+              period: formatBenchmarkPeriod(current.period),
+            })}
           </span>
         )}
       </div>
@@ -80,7 +83,7 @@ function CategoryForm({
 
       <div className="mt-3 grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Periodo</label>
+          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">{t("period")}</label>
           <input
             name="period"
             required
@@ -91,7 +94,7 @@ function CategoryForm({
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Media €/mese</label>
+          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">{t("avgPerMonth")}</label>
           <input
             name="avg_monthly_eur"
             required
@@ -104,7 +107,7 @@ function CategoryForm({
       </div>
 
       <div className="mt-3">
-        <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">URL fonte</label>
+        <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">{t("sourceUrl")}</label>
         <input
           name="source_url"
           type="url"
@@ -115,11 +118,11 @@ function CategoryForm({
       </div>
 
       <div className="mt-3">
-        <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Note</label>
+        <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">{t("notes")}</label>
         <input
           name="notes"
           defaultValue={current?.notes ?? ""}
-          placeholder="Es. Famiglia tipo 2700 kWh/anno"
+          placeholder={t("notesPlaceholder")}
           className={field}
         />
       </div>
@@ -131,11 +134,11 @@ function CategoryForm({
           className="tap-target inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 disabled:opacity-60"
         >
           {pending && <Loader2 size={15} className="animate-spin" />}
-          Salva
+          {tCommon("save")}
         </button>
         {saved && (
           <span className="inline-flex items-center gap-1 text-sm text-emerald-600">
-            <Check size={15} /> Aggiornato
+            <Check size={15} /> {tCommon("updated")}
           </span>
         )}
       </div>

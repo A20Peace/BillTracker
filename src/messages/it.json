@@ -1,0 +1,458 @@
+{
+  "common": {
+    "language": "Lingua",
+    "email": "Email",
+    "password": "Password",
+    "save": "Salva",
+    "saved": "Salvato",
+    "updated": "Aggiornato",
+    "logout": "Esci",
+    "user": "Utente",
+    "themeLight": "Passa al tema chiaro",
+    "themeDark": "Passa al tema scuro",
+    "themeToggle": "Cambia tema"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Funzioni",
+    "howItWorks": "Come funziona",
+    "contact": "Contattaci",
+    "login": "Accedi",
+    "startFree": "Inizia gratis",
+    "backToApp": "Torna all'app",
+    "register": "Registrati",
+    "deadlines": "Scadenze",
+    "analytics": "Analytics",
+    "family": "Famiglia",
+    "profile": "Profilo"
+  },
+  "titles": {
+    "home": "Home",
+    "dashboard": "Le tue scadenze",
+    "analytics": "Analytics",
+    "family": "Gruppo familiare",
+    "profile": "Profilo",
+    "billDetail": "Dettaglio scadenza"
+  },
+  "landing": {
+    "metaTitle": "BillTracker — Non perdere mai più una scadenza",
+    "metaDescription": "Carica una bolletta: BillTracker legge importo e scadenza per te, ti avvisa via email e la mette sul calendario. Gratis.",
+    "badge": "Con lettura automatica delle bollette",
+    "heroTitle": "Le tue bollette, <highlight>sotto controllo</highlight>.",
+    "heroText": "Carica una bolletta e BillTracker legge importo e scadenza per te, ti avvisa via email prima che scada e la mette sul calendario. Niente more, niente sorprese.",
+    "ctaStart": "Inizia gratis",
+    "ctaLogin": "Accedi",
+    "ctaNote": "Gratuito. Nessuna carta di credito richiesta.",
+    "footerTagline": "BillTracker — gestione scadenze bollette",
+    "mock": {
+      "title": "Prossime scadenze",
+      "month": "Luglio",
+      "due1": "Scade il 15 lug",
+      "due2": "Scade il 22 lug",
+      "due3": "Scade il 3 lug",
+      "chipDueSoon": "In scadenza",
+      "chipScheduled": "Programmata",
+      "chipPaid": "Pagata ✓",
+      "badgeReminder": "Promemoria inviato",
+      "badgeCalendar": "Aggiunto al calendario",
+      "badgeParsed": "Importo letto: € 68,40"
+    },
+    "features": {
+      "heading": "Tutto quello che serve, in un posto solo",
+      "sub": "Dalla foto della bolletta al promemoria: BillTracker si occupa dei passaggi noiosi, tu solo di pagare in tempo.",
+      "scan": {
+        "title": "Lettura automatica",
+        "text": "Carica un PDF o una foto: l'intelligenza artificiale estrae importo, scadenza e categoria in pochi secondi."
+      },
+      "reminders": {
+        "title": "Promemoria email",
+        "text": "Un avviso nella tua casella prima di ogni scadenza. Mai più more, solleciti o distacchi."
+      },
+      "calendar": {
+        "title": "Google Calendar",
+        "text": "Ogni scadenza finisce da sola sul tuo calendario, con tanto di notifica sul telefono."
+      },
+      "family": {
+        "title": "Conti di famiglia",
+        "text": "Condividi le bollette con il tuo gruppo familiare: tutti vedono cosa c'è da pagare e chi se ne occupa."
+      },
+      "analytics": {
+        "title": "Analisi delle spese",
+        "text": "Grafici chiari per capire dove vanno i tuoi soldi, mese per mese e categoria per categoria."
+      },
+      "market": {
+        "title": "Confronto col mercato",
+        "text": "Scopri se paghi più della media nazionale (dati ARERA e AGCOM) e quando conviene cambiare fornitore."
+      }
+    },
+    "how": {
+      "heading": "Come funziona",
+      "sub": "Tre passaggi, meno di un minuto.",
+      "step1": {
+        "title": "Carica o fotografa",
+        "text": "Bolletta cartacea o PDF ricevuto via email: bastano due tocchi per caricarla."
+      },
+      "step2": {
+        "title": "L'AI legge per te",
+        "text": "Importo, scadenza e categoria vengono compilati automaticamente. Tu controlli e confermi."
+      },
+      "step3": {
+        "title": "Paga in tempo",
+        "text": "Promemoria via email e sul calendario. Paghi, la segni come pagata, e via alla prossima."
+      }
+    },
+    "cta": {
+      "title": "Pronto a non dimenticare più una scadenza?",
+      "text": "Crea il tuo account gratuito e carica la prima bolletta: ci pensa BillTracker a ricordartela.",
+      "button": "Inizia gratis"
+    }
+  },
+  "auth": {
+    "tagline": "Non perdere mai più una scadenza. Carica una bolletta e lascia che BillTracker estragga importo e data per te.",
+    "login": {
+      "title": "Bentornato",
+      "subtitle": "Accedi per gestire le tue scadenze.",
+      "submit": "Accedi",
+      "submitting": "Accesso in corso…",
+      "or": "oppure",
+      "google": "Continua con Google",
+      "noAccount": "Non hai un account?",
+      "registerLink": "Registrati"
+    },
+    "register": {
+      "title": "Crea il tuo account",
+      "subtitle": "Bastano un'email e una password.",
+      "name": "Nome",
+      "passwordHint": "Almeno 8 caratteri.",
+      "submit": "Crea account",
+      "submitting": "Creazione account…",
+      "haveAccount": "Hai già un account?",
+      "loginLink": "Accedi"
+    },
+    "unverified": {
+      "title": "Email in corso di verifica",
+      "text": "Controlla la tua casella di posta e clicca sul link che ti abbiamo inviato. Controlla anche la cartella spam.",
+      "resent": "Email di conferma reinviata ✓",
+      "resend": "Reinvia email di conferma",
+      "resendIn": "Reinvia tra {seconds}s",
+      "sendFailed": "Invio non riuscito"
+    },
+    "errors": {
+      "invalidEmail": "Inserisci un'email valida",
+      "passwordMin": "La password deve avere almeno 8 caratteri",
+      "nameRequired": "Inserisci un nome",
+      "invalidData": "Dati non validi",
+      "unverified": "Email in corso di verifica",
+      "wrongCredentials": "Email o password non corretti",
+      "googleFailed": "Login Google non riuscito"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contattaci — BillTracker",
+    "metaDescription": "I riferimenti per contattare il gestore di BillTracker.",
+    "title": "Contattaci",
+    "description": "Per domande, segnalazioni o suggerimenti su BillTracker, questi sono i riferimenti del gestore dell'app.",
+    "referent": "Referente",
+    "email": "Email",
+    "phone": "Telefono"
+  },
+  "home": {
+    "newBill": "Nuova scadenza",
+    "upcoming": {
+      "title": "Prossime scadenze",
+      "seeAll": "Vedi tutte",
+      "empty": "Nessuna scadenza in arrivo. Sei in pari! 🎉",
+      "payNow": "Da pagare ora",
+      "within7": "Entro 7 giorni",
+      "within30": "Entro 30 giorni",
+      "later": "Più avanti"
+    },
+    "month": {
+      "title": "Mese di {month}",
+      "toPay": "Da pagare questo mese",
+      "alreadyPaid": "Già pagato",
+      "overdueUnpaid": "Scadute non pagate",
+      "total": "Totale mese",
+      "paid": "Pagato"
+    },
+    "market": {
+      "title": "Prezzi medi di mercato",
+      "marketAvg": "Media mercato:",
+      "yourAvg": "La tua media:",
+      "noSpending": "Nessuna spesa registrata",
+      "source": "Fonte:",
+      "noBenchmark": "Benchmark non disponibile.",
+      "updateBenchmarks": "Aggiorna i prezzi di riferimento"
+    }
+  },
+  "dashboard": {
+    "dueNext30": "In scadenza (30 giorni)",
+    "dueNext30Hint": "{count, plural, one {# scadenza} other {# scadenze}}",
+    "unpaid": "Scadenze da pagare",
+    "unpaidHint": "totale non pagate",
+    "paidThisMonth": "Pagato questo mese",
+    "paidThisMonthHint": "movimenti saldati",
+    "newBill": "Nuova scadenza",
+    "emptyTitle": "Nessuna scadenza",
+    "emptyText": "Carica una bolletta e BillTracker estrarrà importo, scadenza e categoria per te.",
+    "uploadCta": "Carica una bolletta"
+  },
+  "bills": {
+    "shared": "Condivisa",
+    "categoryDue": "{category} · scade il {date}",
+    "benchmarkHint": "Confronto con la media di mercato — apri il dettaglio",
+    "undoPaid": "Annulla",
+    "markPaid": "Segna pagata",
+    "recurrence": {
+      "week": "{count, plural, one {ogni settimana} other {ogni # settimane}}",
+      "month": "{count, plural, one {ogni mese} other {ogni # mesi}}",
+      "year": "{count, plural, one {ogni anno} other {ogni # anni}}"
+    },
+    "statusBadge": {
+      "paid": "Pagata",
+      "overdueDays": "Scaduta da {days}g",
+      "dueToday": "Scade oggi",
+      "inDays": "Tra {days}g"
+    },
+    "detail": {
+      "confirmDelete": "Eliminare questa scadenza?",
+      "calendarNotConnected": "Collega Google Calendar dal Profilo per sincronizzare.",
+      "calendarExpired": "Autorizzazione Google scaduta: ricollega l'account dal Profilo.",
+      "calendarFailed": "Operazione Calendar non riuscita.",
+      "networkError": "Errore di rete.",
+      "editTitle": "Modifica scadenza",
+      "save": "Salva",
+      "recurring": "Ricorrente",
+      "dueDate": "Scadenza",
+      "status": "Stato",
+      "paidOn": "Pagata il",
+      "openPdf": "Apri documento PDF",
+      "openDocument": "Apri documento",
+      "reopen": "Riapri",
+      "paid": "Pagata",
+      "removeCalendar": "Rimuovi",
+      "edit": "Modifica",
+      "delete": "Elimina"
+    },
+    "form": {
+      "errorTitle": "Inserisci un titolo",
+      "errorDueDate": "Inserisci una data di scadenza",
+      "errorCustomCategory": "Specifica la categoria personalizzata",
+      "errorSave": "Salvataggio non riuscito",
+      "title": "Titolo",
+      "titlePlaceholder": "Es. Bolletta Enel maggio 2025",
+      "amount": "Importo (€)",
+      "dueDate": "Scadenza",
+      "category": "Categoria",
+      "selectPlaceholder": "Seleziona…",
+      "customCategory": "Categoria personalizzata",
+      "customCategoryPlaceholder": "Categoria personalizzata (es. Abbonamento palestra)",
+      "shareWith": "Condividi con",
+      "personalOnly": "Solo io (personale)",
+      "notes": "Note",
+      "recurring": "Spesa ricorrente",
+      "recurringHint": "Crea automaticamente la scadenza successiva con la frequenza scelta.",
+      "cancel": "Annulla",
+      "frequency": "Frequenza",
+      "every": "ogni",
+      "interval": "Intervallo",
+      "unit": "Unità",
+      "unit_week": "Settimana/e",
+      "unit_month": "Mese/i",
+      "unit_year": "Anno/i",
+      "nextAmounts": "Importo nelle prossime scadenze",
+      "sameAmount": "Stesso importo{amount} — modificabile all'occorrenza",
+      "emptyAmount": "Lascia importo vuoto — lo inserirò quando arriva la bolletta",
+      "recurrenceSummary": "Verrà creata una nuova scadenza {freq}.",
+      "recurrenceSummaryFrom": "Verrà creata una nuova scadenza {freq} a partire dal {date}."
+    },
+    "filters": {
+      "tab_unpaid": "Da pagare",
+      "tab_all": "Tutte le fatture",
+      "tab_paid": "Pagate",
+      "tab_overdue": "Scadute",
+      "byCategory": "Filtra per categoria",
+      "byMonth": "Filtra per mese",
+      "allCategories": "Tutte le categorie"
+    }
+  },
+  "upload": {
+    "backToBills": "Torna alle scadenze",
+    "title": "Nuova scadenza",
+    "subtitleParsing": "Carica il documento: estraiamo importo, data e categoria per te.",
+    "subtitleManual": "Compila i dati della scadenza.",
+    "fileTooLarge": "Il file supera i 10MB.",
+    "parseFailed": "Analisi non riuscita.",
+    "parseNetworkError": "Errore di rete durante l'analisi.",
+    "manualEntry": "Inserisci manualmente",
+    "saveBill": "Salva scadenza",
+    "uploadTitle": "Carica una bolletta",
+    "uploadHint": "PDF o immagine, fino a 10MB",
+    "takePhoto": "Scatta una foto",
+    "parsing": "Analisi del documento in corso…",
+    "parsedTitle": "Dati estratti automaticamente",
+    "parsedHint": "Controlla e correggi prima di salvare.",
+    "confidence": "Affidabilità {pct}%.",
+    "openPdf": "Apri documento PDF",
+    "previewAlt": "Anteprima documento"
+  },
+  "analytics": {
+    "last12": "Spesa ultimi 12 mesi",
+    "monthlyAvg": "Media mensile",
+    "monthsRecorded": "{count, plural, one {su # mese registrato} other {su # mesi registrati}}",
+    "monthlyByCategory": "Spesa mensile per categoria",
+    "avgNote": "{count, plural, one {Media calcolata su # mese con dati registrati{range}.} other {Media calcolata su # mesi con dati registrati{range}.}}",
+    "noData": "Nessun dato registrato negli ultimi 12 mesi.",
+    "noSpendingMonth": "Nessuna spesa registrata in questo mese",
+    "total": "Totale",
+    "avgLine": "media {amount}",
+    "trend": "Trend mensile",
+    "selectCategory": "Seleziona categoria",
+    "allCategories": "Tutte le categorie",
+    "spend": "Spesa",
+    "yoyTitle": "Confronto anno su anno",
+    "month": "Mese",
+    "thisYear": "Quest'anno",
+    "prevYear": "Anno prec.",
+    "change": "Variazione",
+    "yoyInsufficient": "Dati insufficienti per il confronto annuale."
+  },
+  "family": {
+    "title": "Gruppo familiare",
+    "subtitle": "Condividi le scadenze con la tua famiglia. I membri vedono le scadenze condivise e ricevono i promemoria.",
+    "empty": "Non fai parte di nessun gruppo. Creane uno per condividere le scadenze.",
+    "createTitle": "Crea un gruppo",
+    "namePlaceholder": "Es. Famiglia Rossi",
+    "create": "Crea",
+    "operationFailed": "Operazione non riuscita",
+    "memberAdded": "Membro aggiunto al gruppo.",
+    "members": "{count, plural, one {# membro} other {# membri}}",
+    "confirmDeleteGroup": "Eliminare il gruppo \"{name}\"?",
+    "delete": "Elimina",
+    "leave": "Esci",
+    "you": "(tu)",
+    "owner": "Proprietario",
+    "removeMember": "Rimuovi {name}",
+    "invite": "Invita"
+  },
+  "settings": {
+    "page": {
+      "yourProfile": "Il tuo profilo",
+      "integrations": "Integrazioni",
+      "integrationsHint": "Attiva o disattiva i canali di notifica.",
+      "contactTitle": "Contattaci",
+      "contactHint": "Domande o problemi? I riferimenti del gestore",
+      "benchmarksTitle": "Benchmark di mercato",
+      "benchmarksHint": "Aggiorna i prezzi medi ARERA / AGCOM",
+      "contactAdminTitle": "Pagina Contattaci",
+      "contactAdminHint": "Modifica i dati di contatto pubblici"
+    },
+    "profileForm": {
+      "name": "Nome",
+      "saveName": "Salva nome"
+    },
+    "google": {
+      "feedbackConnected": "Google Calendar collegato con successo.",
+      "feedbackDenied": "Accesso a Google negato.",
+      "feedbackError": "Collegamento a Google non riuscito. Riprova.",
+      "connected": "Collegato",
+      "notConnected": "Non collegato",
+      "disconnect": "Scollega",
+      "connect": "Collega",
+      "autoEvents": "Crea eventi automaticamente",
+      "autoEventsHint": "Aggiunge un promemoria al calendario per ogni nuova scadenza.",
+      "connectHint": "Collegando Google Calendar potrai aggiungere automaticamente un promemoria per ogni scadenza. Le scadenze si salvano comunque anche senza collegamento. Se hai effettuato l'accesso con Google prima di questo aggiornamento, esci e rientra con Google (oppure usa il pulsante Collega) per concedere il permesso al calendario."
+    },
+    "reminders": {
+      "title": "Promemoria via email",
+      "schedule": "Avvisi 14 e 7 giorni prima, ogni giorno dagli ultimi 3 fino alla scadenza, poi ogni giorno finché non la paghi.",
+      "emailLabel": "Email per i promemoria",
+      "emailHint": "Lascia vuoto per usare l'email di accesso ({email}). Può essere un indirizzo secondario o di un familiare."
+    },
+    "danger": {
+      "confirm": "Eliminare definitivamente l'account? Verranno cancellati tutti i documenti e tutte le scadenze. L'operazione è irreversibile.",
+      "failed": "Eliminazione non riuscita.",
+      "networkError": "Errore di rete.",
+      "title": "Elimina account",
+      "text": "Cancella definitivamente l'account, tutti i documenti caricati e tutte le scadenze. Non è possibile annullare.",
+      "button": "Elimina il mio account"
+    }
+  },
+  "admin": {
+    "benchmarks": {
+      "title": "Benchmark di mercato",
+      "subtitle": "Prezzi medi di riferimento (ARERA per luce/gas, AGCOM per telefono/internet). Aggiorna i valori ogni trimestre dalle fonti ufficiali — niente migrazioni SQL.",
+      "current": "Attuale: {amount}/mese · {period}",
+      "period": "Periodo",
+      "avgPerMonth": "Media €/mese",
+      "sourceUrl": "URL fonte",
+      "notes": "Note",
+      "notesPlaceholder": "Es. Famiglia tipo 2700 kWh/anno"
+    },
+    "contact": {
+      "title": "Pagina Contattaci",
+      "subtitle": "I riferimenti mostrati nella pagina pubblica <pageLink>/contatti</pageLink>. Le modifiche sono visibili subito a tutti i visitatori.",
+      "firstName": "Nome",
+      "lastName": "Cognome",
+      "contactEmail": "Email di contatto",
+      "phoneNumber": "Numero di telefono"
+    }
+  },
+  "categories": {
+    "luce": "Luce",
+    "gas": "Gas",
+    "acqua": "Acqua",
+    "condominio": "Condominio",
+    "telefono": "Telefono",
+    "internet": "Internet",
+    "mav": "MAV",
+    "imu": "IMU",
+    "assicurazione": "Assicurazione",
+    "altro": "Altro",
+    "none": "Senza categoria"
+  },
+  "benchmark": {
+    "over": "Sopra la media",
+    "inline": "In linea con il mercato",
+    "under": "Sotto la media",
+    "publicSource": "fonte pubblica",
+    "title": "Confronto con il mercato",
+    "marketAvg": "Media mercato",
+    "yourSpend": "La tua spesa",
+    "perMonth": "{amount}/mese",
+    "sourceUpdated": "Fonte: {source} — aggiornato {period}"
+  },
+  "pwa": {
+    "installTitle": "Installa BillTracker",
+    "installText": "Aggiungila alla home per aprirla come un'app.",
+    "install": "Installa",
+    "dismiss": "Ignora"
+  },
+  "actionErrors": {
+    "errInvalidId": "ID non valido",
+    "errTitleRequired": "Il titolo è obbligatorio",
+    "errInvalidDate": "Data non valida",
+    "errInvalidData": "Dati non validi",
+    "errInvalidSession": "Sessione non valida",
+    "errCustomCategory": "Specifica la categoria personalizzata",
+    "errSaveFailed": "Salvataggio non riuscito",
+    "errNameRequired": "Inserisci un nome",
+    "errCreateFailed": "Creazione non riuscita",
+    "errOnlyOwnerRename": "Solo il proprietario può rinominare il gruppo",
+    "errInvalidEmail": "Email non valida",
+    "errOnlyOwnerInvite": "Solo il proprietario può invitare membri",
+    "errNoUserWithEmail": "Nessun utente registrato con questa email. Invitalo a iscriversi prima.",
+    "errOnlyOwnerRemove": "Solo il proprietario può rimuovere membri",
+    "errOwnerCannotRemoveSelf": "Il proprietario non può rimuovere se stesso",
+    "errOwnerCannotLeave": "Il proprietario non può abbandonare: elimina il gruppo",
+    "errOnlyOwnerDelete": "Solo il proprietario può eliminare il gruppo",
+    "errFirstNameRequired": "Il nome è obbligatorio",
+    "errLastNameRequired": "Il cognome è obbligatorio",
+    "errPhoneRequired": "Il telefono è obbligatorio",
+    "errInvalidPhone": "Numero di telefono non valido",
+    "errNotAuthorized": "Non autorizzato",
+    "errInvalidPeriod": "Periodo non valido (es. 2025-Q1)",
+    "errInvalidAmount": "Importo non valido",
+    "errInvalidUrl": "URL non valido"
+  }
+}

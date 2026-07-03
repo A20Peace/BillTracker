@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createClient, createAdminClient } from "@/lib/supabase/server";
+import { translateActionError } from "@/lib/i18n";
 
 export type GroupActionResult = { ok: true } | { ok: false; error: string };
 
@@ -25,11 +26,11 @@ async function assertOwner(groupId: string, userId: string): Promise<boolean> {
 }
 
 export async function createGroup(formData: FormData): Promise<GroupActionResult> {
-  const name = z.string().trim().min(1, "Inserisci un nome").max(80).safeParse(formData.get("name"));
+  const name = z.string().trim().min(1, "errNameRequired").max(80).safeParse(formData.get("name"));
   if (!name.success) return { ok: false, error: name.error.issues[0]!.message };
 
   const uid = await currentUserId();
-  if (!uid) return { ok: false, error: "Sessione non valida" };
+  if (!uid) return { ok: false, error: await translateActionError("errInvalidSession") };
 
   const supabase = createClient();
   const { data: group, error } = await supabase
@@ -37,7 +38,7 @@ export async function createGroup(formData: FormData): Promise<GroupActionResult
     .insert({ name: name.data, owner_id: uid })
     .select("id")
     .single();
-  if (error || !group) return { ok: false, error: error?.message ?? "Creazione non riuscita" };
+  if (error || !group) return { ok: false, error: await translateActionError(error?.message ?? "errCreateFailed") };
 
   const { error: memberErr } = await supabase
     .from("group_members")
@@ -54,11 +55,11 @@ export async function renameGroup(
 ): Promise<GroupActionResult> {
   const parsed = z.object({ groupId: z.string().uuid(), name: z.string().trim().min(1).max(80) })
     .safeParse({ groupId, name });
-  if (!parsed.success) return { ok: false, error: "Dati non validi" };
+  if (!parsed.success) return { ok: false, error: await translateActionError("errInvalidData") };
 
   const uid = await currentUserId();
   if (!uid || !(await assertOwner(parsed.data.groupId, uid))) {
-    return { ok: false, error: "Solo il proprietario può rinominare il gruppo" };
+    return { ok: false, error: await translateActionError("errOnlyOwnerRename") };
   }
 
   const supabase = createClient();
@@ -84,11 +85,11 @@ export async function inviteMember(
   const parsed = z
     .object({ groupId: z.string().uuid(), email: z.string().email() })
     .safeParse({ groupId, email });
-  if (!parsed.success) return { ok: false, error: "Email non valida" };
+  if (!parsed.success) return { ok: false, error: await translateActionError("errInvalidEmail") };
 
   const uid = await currentUserId();
   if (!uid || !(await assertOwner(parsed.data.groupId, uid))) {
-    return { ok: false, error: "Solo il proprietario può invitare membri" };
+    return { ok: false, error: await translateActionError("errOnlyOwnerInvite") };
   }
 
   // Profile lookup across users requires the privileged client.
@@ -103,7 +104,7 @@ export async function inviteMember(
   if (!profile) {
     return {
       ok: false,
-      error: "Nessun utente registrato con questa email. Invitalo a iscriversi prima.",
+      error: await translateActionError("errNoUserWithEmail"),
     };
   }
 
@@ -126,14 +127,14 @@ export async function removeMember(
   const parsed = z
     .object({ groupId: z.string().uuid(), memberId: z.string().uuid() })
     .safeParse({ groupId, memberId });
-  if (!parsed.success) return { ok: false, error: "Dati non validi" };
+  if (!parsed.success) return { ok: false, error: await translateActionError("errInvalidData") };
 
   const uid = await currentUserId();
   if (!uid || !(await assertOwner(parsed.data.groupId, uid))) {
-    return { ok: false, error: "Solo il proprietario può rimuovere membri" };
+    return { ok: false, error: await translateActionError("errOnlyOwnerRemove") };
   }
   if (parsed.data.memberId === uid) {
-    return { ok: false, error: "Il proprietario non può rimuovere se stesso" };
+    return { ok: false, error: await translateActionError("errOwnerCannotRemoveSelf") };
   }
 
   const supabase = createClient();
@@ -150,12 +151,12 @@ export async function removeMember(
 
 export async function leaveGroup(groupId: string): Promise<GroupActionResult> {
   const parsed = z.string().uuid().safeParse(groupId);
-  if (!parsed.success) return { ok: false, error: "Dati non validi" };
+  if (!parsed.success) return { ok: false, error: await translateActionError("errInvalidData") };
 
   const uid = await currentUserId();
-  if (!uid) return { ok: false, error: "Sessione non valida" };
+  if (!uid) return { ok: false, error: await translateActionError("errInvalidSession") };
   if (await assertOwner(parsed.data, uid)) {
-    return { ok: false, error: "Il proprietario non può abbandonare: elimina il gruppo" };
+    return { ok: false, error: await translateActionError("errOwnerCannotLeave") };
   }
 
   const supabase = createClient();
@@ -172,11 +173,11 @@ export async function leaveGroup(groupId: string): Promise<GroupActionResult> {
 
 export async function deleteGroup(groupId: string): Promise<GroupActionResult> {
   const parsed = z.string().uuid().safeParse(groupId);
-  if (!parsed.success) return { ok: false, error: "Dati non validi" };
+  if (!parsed.success) return { ok: false, error: await translateActionError("errInvalidData") };
 
   const uid = await currentUserId();
   if (!uid || !(await assertOwner(parsed.data, uid))) {
-    return { ok: false, error: "Solo il proprietario può eliminare il gruppo" };
+    return { ok: false, error: await translateActionError("errOnlyOwnerDelete") };
   }
 
   const supabase = createClient();

@@ -2,8 +2,13 @@ import { google } from "googleapis";
 import type { Credentials, OAuth2Client } from "google-auth-library";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { Database } from "@/types/database";
-import { formatCurrency, CATEGORY_LABEL } from "@/lib/utils";
-import type { Bill } from "@/types";
+import { formatCurrency, CATEGORY_LABELS } from "@/lib/utils";
+import type { Bill, BillCategory } from "@/types";
+
+// Calendar events are generated server-side without a request locale; keep
+// the Italian labels used since the first release.
+const catLabel = (c: BillCategory | null): string =>
+  c ? CATEGORY_LABELS[c] : "Senza categoria";
 
 export const CALENDAR_SCOPE = "https://www.googleapis.com/auth/calendar.events";
 
@@ -148,7 +153,7 @@ export async function createBillEvent(
       calendarId: "primary",
       requestBody: {
         summary: `⏰ Scadenza: ${bill.title} — ${amountLabel}`,
-        description: `Importo: ${amountLabel}\nCategoria: ${CATEGORY_LABEL(
+        description: `Importo: ${amountLabel}\nCategoria: ${catLabel(
           bill.category,
         )}\nGestito da BillTracker`,
         start: { date: start },

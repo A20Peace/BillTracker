@@ -1,0 +1,458 @@
+{
+  "common": {
+    "language": "Language",
+    "email": "Email",
+    "password": "Password",
+    "save": "Save",
+    "saved": "Saved",
+    "updated": "Updated",
+    "logout": "Sign out",
+    "user": "User",
+    "themeLight": "Switch to light theme",
+    "themeDark": "Switch to dark theme",
+    "themeToggle": "Toggle theme"
+  },
+  "nav": {
+    "home": "Home",
+    "features": "Features",
+    "howItWorks": "How it works",
+    "contact": "Contact us",
+    "login": "Sign in",
+    "startFree": "Start for free",
+    "backToApp": "Back to the app",
+    "register": "Sign up",
+    "deadlines": "Bills",
+    "analytics": "Analytics",
+    "family": "Family",
+    "profile": "Profile"
+  },
+  "titles": {
+    "home": "Home",
+    "dashboard": "Your bills",
+    "analytics": "Analytics",
+    "family": "Family group",
+    "profile": "Profile",
+    "billDetail": "Bill details"
+  },
+  "landing": {
+    "metaTitle": "BillTracker — Never miss a due date again",
+    "metaDescription": "Upload a bill: BillTracker reads the amount and due date for you, reminds you by email and adds it to your calendar. Free.",
+    "badge": "With automatic bill reading",
+    "heroTitle": "Your bills, <highlight>under control</highlight>.",
+    "heroText": "Upload a bill and BillTracker reads the amount and due date for you, warns you by email before it's due and adds it to your calendar. No late fees, no surprises.",
+    "ctaStart": "Start for free",
+    "ctaLogin": "Sign in",
+    "ctaNote": "Free. No credit card required.",
+    "footerTagline": "BillTracker — bill due-date management",
+    "mock": {
+      "title": "Upcoming bills",
+      "month": "July",
+      "due1": "Due Jul 15",
+      "due2": "Due Jul 22",
+      "due3": "Due Jul 3",
+      "chipDueSoon": "Due soon",
+      "chipScheduled": "Scheduled",
+      "chipPaid": "Paid ✓",
+      "badgeReminder": "Reminder sent",
+      "badgeCalendar": "Added to calendar",
+      "badgeParsed": "Amount read: €68.40"
+    },
+    "features": {
+      "heading": "Everything you need, in one place",
+      "sub": "From the photo of the bill to the reminder: BillTracker handles the boring steps, you just pay on time.",
+      "scan": {
+        "title": "Automatic reading",
+        "text": "Upload a PDF or a photo: AI extracts the amount, due date and category in seconds."
+      },
+      "reminders": {
+        "title": "Email reminders",
+        "text": "A heads-up in your inbox before every due date. No more late fees, dunning letters or shut-offs."
+      },
+      "calendar": {
+        "title": "Google Calendar",
+        "text": "Every due date lands on your calendar by itself, complete with a notification on your phone."
+      },
+      "family": {
+        "title": "Family accounts",
+        "text": "Share bills with your family group: everyone sees what's due and who's taking care of it."
+      },
+      "analytics": {
+        "title": "Spending insights",
+        "text": "Clear charts to understand where your money goes, month by month and category by category."
+      },
+      "market": {
+        "title": "Market comparison",
+        "text": "Find out if you pay more than the national average (ARERA and AGCOM data) and when it's worth switching provider."
+      }
+    },
+    "how": {
+      "heading": "How it works",
+      "sub": "Three steps, under a minute.",
+      "step1": {
+        "title": "Upload or snap",
+        "text": "Paper bill or PDF received by email: two taps are enough to upload it."
+      },
+      "step2": {
+        "title": "AI reads it for you",
+        "text": "Amount, due date and category are filled in automatically. You check and confirm."
+      },
+      "step3": {
+        "title": "Pay on time",
+        "text": "Reminders by email and on your calendar. You pay, mark it as paid, and on to the next one."
+      }
+    },
+    "cta": {
+      "title": "Ready to never forget a due date again?",
+      "text": "Create your free account and upload your first bill: BillTracker will remember it for you.",
+      "button": "Start for free"
+    }
+  },
+  "auth": {
+    "tagline": "Never miss a due date again. Upload a bill and let BillTracker extract the amount and date for you.",
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Sign in to manage your bills.",
+      "submit": "Sign in",
+      "submitting": "Signing in…",
+      "or": "or",
+      "google": "Continue with Google",
+      "noAccount": "Don't have an account?",
+      "registerLink": "Sign up"
+    },
+    "register": {
+      "title": "Create your account",
+      "subtitle": "All you need is an email and a password.",
+      "name": "Name",
+      "passwordHint": "At least 8 characters.",
+      "submit": "Create account",
+      "submitting": "Creating account…",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Sign in"
+    },
+    "unverified": {
+      "title": "Email pending verification",
+      "text": "Check your inbox and click the link we sent you. Also check the spam folder.",
+      "resent": "Confirmation email resent ✓",
+      "resend": "Resend confirmation email",
+      "resendIn": "Resend in {seconds}s",
+      "sendFailed": "Sending failed"
+    },
+    "errors": {
+      "invalidEmail": "Enter a valid email",
+      "passwordMin": "The password must be at least 8 characters",
+      "nameRequired": "Enter a name",
+      "invalidData": "Invalid data",
+      "unverified": "Email pending verification",
+      "wrongCredentials": "Incorrect email or password",
+      "googleFailed": "Google sign-in failed"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contact us — BillTracker",
+    "metaDescription": "How to reach the person running BillTracker.",
+    "title": "Contact us",
+    "description": "For questions, reports or suggestions about BillTracker, these are the app manager's contact details.",
+    "referent": "Contact person",
+    "email": "Email",
+    "phone": "Phone"
+  },
+  "home": {
+    "newBill": "New bill",
+    "upcoming": {
+      "title": "Upcoming bills",
+      "seeAll": "See all",
+      "empty": "No bills coming up. You're all caught up! 🎉",
+      "payNow": "Pay now",
+      "within7": "Within 7 days",
+      "within30": "Within 30 days",
+      "later": "Later"
+    },
+    "month": {
+      "title": "Month of {month}",
+      "toPay": "To pay this month",
+      "alreadyPaid": "Already paid",
+      "overdueUnpaid": "Overdue unpaid",
+      "total": "Month total",
+      "paid": "Paid"
+    },
+    "market": {
+      "title": "Average market prices",
+      "marketAvg": "Market average:",
+      "yourAvg": "Your average:",
+      "noSpending": "No spending recorded",
+      "source": "Source:",
+      "noBenchmark": "Benchmark not available.",
+      "updateBenchmarks": "Update reference prices"
+    }
+  },
+  "dashboard": {
+    "dueNext30": "Due (next 30 days)",
+    "dueNext30Hint": "{count, plural, one {# bill} other {# bills}}",
+    "unpaid": "Bills to pay",
+    "unpaidHint": "total unpaid",
+    "paidThisMonth": "Paid this month",
+    "paidThisMonthHint": "settled payments",
+    "newBill": "New bill",
+    "emptyTitle": "No bills",
+    "emptyText": "Upload a bill and BillTracker will extract the amount, due date and category for you.",
+    "uploadCta": "Upload a bill"
+  },
+  "bills": {
+    "shared": "Shared",
+    "categoryDue": "{category} · due {date}",
+    "benchmarkHint": "Comparison with the market average — open details",
+    "undoPaid": "Undo",
+    "markPaid": "Mark paid",
+    "recurrence": {
+      "week": "{count, plural, one {every week} other {every # weeks}}",
+      "month": "{count, plural, one {every month} other {every # months}}",
+      "year": "{count, plural, one {every year} other {every # years}}"
+    },
+    "statusBadge": {
+      "paid": "Paid",
+      "overdueDays": "Overdue by {days}d",
+      "dueToday": "Due today",
+      "inDays": "In {days}d"
+    },
+    "detail": {
+      "confirmDelete": "Delete this bill?",
+      "calendarNotConnected": "Connect Google Calendar from your Profile to sync.",
+      "calendarExpired": "Google authorization expired: reconnect your account from the Profile.",
+      "calendarFailed": "Calendar operation failed.",
+      "networkError": "Network error.",
+      "editTitle": "Edit bill",
+      "save": "Save",
+      "recurring": "Recurring",
+      "dueDate": "Due date",
+      "status": "Status",
+      "paidOn": "Paid on",
+      "openPdf": "Open PDF document",
+      "openDocument": "Open document",
+      "reopen": "Reopen",
+      "paid": "Paid",
+      "removeCalendar": "Remove",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "form": {
+      "errorTitle": "Enter a title",
+      "errorDueDate": "Enter a due date",
+      "errorCustomCategory": "Specify the custom category",
+      "errorSave": "Saving failed",
+      "title": "Title",
+      "titlePlaceholder": "E.g. Enel bill May 2025",
+      "amount": "Amount (€)",
+      "dueDate": "Due date",
+      "category": "Category",
+      "selectPlaceholder": "Select…",
+      "customCategory": "Custom category",
+      "customCategoryPlaceholder": "Custom category (e.g. Gym membership)",
+      "shareWith": "Share with",
+      "personalOnly": "Just me (personal)",
+      "notes": "Notes",
+      "recurring": "Recurring expense",
+      "recurringHint": "Automatically creates the next due date with the chosen frequency.",
+      "cancel": "Cancel",
+      "frequency": "Frequency",
+      "every": "every",
+      "interval": "Interval",
+      "unit": "Unit",
+      "unit_week": "Week(s)",
+      "unit_month": "Month(s)",
+      "unit_year": "Year(s)",
+      "nextAmounts": "Amount for the next occurrences",
+      "sameAmount": "Same amount{amount} — editable when needed",
+      "emptyAmount": "Leave the amount empty — I'll fill it in when the bill arrives",
+      "recurrenceSummary": "A new bill will be created {freq}.",
+      "recurrenceSummaryFrom": "A new bill will be created {freq} starting from {date}."
+    },
+    "filters": {
+      "tab_unpaid": "To pay",
+      "tab_all": "All bills",
+      "tab_paid": "Paid",
+      "tab_overdue": "Overdue",
+      "byCategory": "Filter by category",
+      "byMonth": "Filter by month",
+      "allCategories": "All categories"
+    }
+  },
+  "upload": {
+    "backToBills": "Back to bills",
+    "title": "New bill",
+    "subtitleParsing": "Upload the document: we extract the amount, date and category for you.",
+    "subtitleManual": "Fill in the bill details.",
+    "fileTooLarge": "The file exceeds 10MB.",
+    "parseFailed": "Analysis failed.",
+    "parseNetworkError": "Network error during analysis.",
+    "manualEntry": "Enter manually",
+    "saveBill": "Save bill",
+    "uploadTitle": "Upload a bill",
+    "uploadHint": "PDF or image, up to 10MB",
+    "takePhoto": "Take a photo",
+    "parsing": "Analyzing the document…",
+    "parsedTitle": "Data extracted automatically",
+    "parsedHint": "Check and correct before saving.",
+    "confidence": "Confidence {pct}%.",
+    "openPdf": "Open PDF document",
+    "previewAlt": "Document preview"
+  },
+  "analytics": {
+    "last12": "Spending last 12 months",
+    "monthlyAvg": "Monthly average",
+    "monthsRecorded": "{count, plural, one {over # recorded month} other {over # recorded months}}",
+    "monthlyByCategory": "Monthly spending by category",
+    "avgNote": "{count, plural, one {Average computed over # month with recorded data{range}.} other {Average computed over # months with recorded data{range}.}}",
+    "noData": "No data recorded in the last 12 months.",
+    "noSpendingMonth": "No spending recorded this month",
+    "total": "Total",
+    "avgLine": "avg {amount}",
+    "trend": "Monthly trend",
+    "selectCategory": "Select category",
+    "allCategories": "All categories",
+    "spend": "Spending",
+    "yoyTitle": "Year-over-year comparison",
+    "month": "Month",
+    "thisYear": "This year",
+    "prevYear": "Prev. year",
+    "change": "Change",
+    "yoyInsufficient": "Not enough data for the yearly comparison."
+  },
+  "family": {
+    "title": "Family group",
+    "subtitle": "Share bills with your family. Members see shared bills and receive reminders.",
+    "empty": "You're not part of any group. Create one to share bills.",
+    "createTitle": "Create a group",
+    "namePlaceholder": "E.g. Smith family",
+    "create": "Create",
+    "operationFailed": "Operation failed",
+    "memberAdded": "Member added to the group.",
+    "members": "{count, plural, one {# member} other {# members}}",
+    "confirmDeleteGroup": "Delete the group \"{name}\"?",
+    "delete": "Delete",
+    "leave": "Leave",
+    "you": "(you)",
+    "owner": "Owner",
+    "removeMember": "Remove {name}",
+    "invite": "Invite"
+  },
+  "settings": {
+    "page": {
+      "yourProfile": "Your profile",
+      "integrations": "Integrations",
+      "integrationsHint": "Turn notification channels on or off.",
+      "contactTitle": "Contact us",
+      "contactHint": "Questions or issues? The manager's contact details",
+      "benchmarksTitle": "Market benchmarks",
+      "benchmarksHint": "Update ARERA / AGCOM average prices",
+      "contactAdminTitle": "Contact page",
+      "contactAdminHint": "Edit the public contact details"
+    },
+    "profileForm": {
+      "name": "Name",
+      "saveName": "Save name"
+    },
+    "google": {
+      "feedbackConnected": "Google Calendar connected successfully.",
+      "feedbackDenied": "Google access denied.",
+      "feedbackError": "Connecting to Google failed. Try again.",
+      "connected": "Connected",
+      "notConnected": "Not connected",
+      "disconnect": "Disconnect",
+      "connect": "Connect",
+      "autoEvents": "Create events automatically",
+      "autoEventsHint": "Adds a calendar reminder for every new bill.",
+      "connectHint": "By connecting Google Calendar you can automatically add a reminder for every bill. Bills are saved anyway even without the connection. If you signed in with Google before this update, sign out and back in with Google (or use the Connect button) to grant the calendar permission."
+    },
+    "reminders": {
+      "title": "Email reminders",
+      "schedule": "Alerts 14 and 7 days before, daily over the last 3 days until the due date, then daily until you pay.",
+      "emailLabel": "Email for reminders",
+      "emailHint": "Leave empty to use your sign-in email ({email}). It can be a secondary address or a family member's."
+    },
+    "danger": {
+      "confirm": "Permanently delete the account? All documents and all bills will be deleted. This cannot be undone.",
+      "failed": "Deletion failed.",
+      "networkError": "Network error.",
+      "title": "Delete account",
+      "text": "Permanently deletes the account, all uploaded documents and all bills. This cannot be undone.",
+      "button": "Delete my account"
+    }
+  },
+  "admin": {
+    "benchmarks": {
+      "title": "Market benchmarks",
+      "subtitle": "Reference average prices (ARERA for electricity/gas, AGCOM for phone/internet). Update the values every quarter from the official sources — no SQL migrations.",
+      "current": "Current: {amount}/month · {period}",
+      "period": "Period",
+      "avgPerMonth": "Average €/month",
+      "sourceUrl": "Source URL",
+      "notes": "Notes",
+      "notesPlaceholder": "E.g. Typical household 2700 kWh/year"
+    },
+    "contact": {
+      "title": "Contact page",
+      "subtitle": "The details shown on the public page <pageLink>/contatti</pageLink>. Changes are visible to all visitors immediately.",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "contactEmail": "Contact email",
+      "phoneNumber": "Phone number"
+    }
+  },
+  "categories": {
+    "luce": "Electricity",
+    "gas": "Gas",
+    "acqua": "Water",
+    "condominio": "Building fees",
+    "telefono": "Phone",
+    "internet": "Internet",
+    "mav": "MAV",
+    "imu": "Property tax",
+    "assicurazione": "Insurance",
+    "altro": "Other",
+    "none": "Uncategorized"
+  },
+  "benchmark": {
+    "over": "Above average",
+    "inline": "In line with the market",
+    "under": "Below average",
+    "publicSource": "public source",
+    "title": "Market comparison",
+    "marketAvg": "Market average",
+    "yourSpend": "Your spending",
+    "perMonth": "{amount}/month",
+    "sourceUpdated": "Source: {source} — updated {period}"
+  },
+  "pwa": {
+    "installTitle": "Install BillTracker",
+    "installText": "Add it to your home screen to open it like an app.",
+    "install": "Install",
+    "dismiss": "Dismiss"
+  },
+  "actionErrors": {
+    "errInvalidId": "Invalid ID",
+    "errTitleRequired": "The title is required",
+    "errInvalidDate": "Invalid date",
+    "errInvalidData": "Invalid data",
+    "errInvalidSession": "Invalid session",
+    "errCustomCategory": "Specify the custom category",
+    "errSaveFailed": "Saving failed",
+    "errNameRequired": "Enter a name",
+    "errCreateFailed": "Creation failed",
+    "errOnlyOwnerRename": "Only the owner can rename the group",
+    "errInvalidEmail": "Invalid email",
+    "errOnlyOwnerInvite": "Only the owner can invite members",
+    "errNoUserWithEmail": "No registered user with this email. Ask them to sign up first.",
+    "errOnlyOwnerRemove": "Only the owner can remove members",
+    "errOwnerCannotRemoveSelf": "The owner cannot remove themselves",
+    "errOwnerCannotLeave": "The owner cannot leave: delete the group instead",
+    "errOnlyOwnerDelete": "Only the owner can delete the group",
+    "errFirstNameRequired": "The first name is required",
+    "errLastNameRequired": "The last name is required",
+    "errPhoneRequired": "The phone number is required",
+    "errInvalidPhone": "Invalid phone number",
+    "errNotAuthorized": "Not authorized",
+    "errInvalidPeriod": "Invalid period (e.g. 2025-Q1)",
+    "errInvalidAmount": "Invalid amount",
+    "errInvalidUrl": "Invalid URL"
+  }
+}

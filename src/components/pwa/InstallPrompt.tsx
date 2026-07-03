@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 import { Download, X } from "lucide-react";
 
 interface BeforeInstallPromptEvent extends Event {
@@ -12,6 +13,7 @@ const DISMISS_KEY = "pwa-install-dismissed";
 
 /** Discreet bottom banner inviting PWA installation. Hidden once dismissed. */
 export function InstallPrompt() {
+  const t = useTranslations("pwa");
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -61,10 +63,10 @@ export function InstallPrompt() {
         </span>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
-            Installa BillTracker
+            {t("installTitle")}
           </p>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            Aggiungila alla home per aprirla come un&apos;app.
+            {t("installText")}
           </p>
         </div>
         <button
@@ -72,12 +74,12 @@ export function InstallPrompt() {
           onClick={install}
           className="tap-target inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
         >
-          <Download size={15} /> Installa
+          <Download size={15} /> {t("install")}
         </button>
         <button
           type="button"
           onClick={dismiss}
-          aria-label="Ignora"
+          aria-label={t("dismiss")}
           className="tap-target rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 dark:hover:bg-slate-800"
         >
           <X size={16} />

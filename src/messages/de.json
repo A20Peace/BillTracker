@@ -1,0 +1,458 @@
+{
+  "common": {
+    "language": "Sprache",
+    "email": "E-Mail",
+    "password": "Passwort",
+    "save": "Speichern",
+    "saved": "Gespeichert",
+    "updated": "Aktualisiert",
+    "logout": "Abmelden",
+    "user": "Benutzer",
+    "themeLight": "Zum hellen Design wechseln",
+    "themeDark": "Zum dunklen Design wechseln",
+    "themeToggle": "Design wechseln"
+  },
+  "nav": {
+    "home": "Start",
+    "features": "Funktionen",
+    "howItWorks": "So funktioniert's",
+    "contact": "Kontakt",
+    "login": "Anmelden",
+    "startFree": "Kostenlos starten",
+    "backToApp": "Zurück zur App",
+    "register": "Registrieren",
+    "deadlines": "Rechnungen",
+    "analytics": "Auswertung",
+    "family": "Familie",
+    "profile": "Profil"
+  },
+  "titles": {
+    "home": "Start",
+    "dashboard": "Deine Fälligkeiten",
+    "analytics": "Auswertung",
+    "family": "Familiengruppe",
+    "profile": "Profil",
+    "billDetail": "Rechnungsdetails"
+  },
+  "landing": {
+    "metaTitle": "BillTracker — Nie wieder eine Frist verpassen",
+    "metaDescription": "Lade eine Rechnung hoch: BillTracker liest Betrag und Fälligkeit für dich, erinnert dich per E-Mail und trägt sie in deinen Kalender ein. Kostenlos.",
+    "badge": "Mit automatischer Rechnungserkennung",
+    "heroTitle": "Deine Rechnungen, <highlight>unter Kontrolle</highlight>.",
+    "heroText": "Lade eine Rechnung hoch und BillTracker liest Betrag und Fälligkeit für dich, warnt dich per E-Mail vor dem Stichtag und trägt sie in den Kalender ein. Keine Mahngebühren, keine Überraschungen.",
+    "ctaStart": "Kostenlos starten",
+    "ctaLogin": "Anmelden",
+    "ctaNote": "Kostenlos. Keine Kreditkarte erforderlich.",
+    "footerTagline": "BillTracker — Verwaltung von Rechnungsfristen",
+    "mock": {
+      "title": "Nächste Fälligkeiten",
+      "month": "Juli",
+      "due1": "Fällig am 15. Juli",
+      "due2": "Fällig am 22. Juli",
+      "due3": "Fällig am 3. Juli",
+      "chipDueSoon": "Bald fällig",
+      "chipScheduled": "Geplant",
+      "chipPaid": "Bezahlt ✓",
+      "badgeReminder": "Erinnerung gesendet",
+      "badgeCalendar": "Zum Kalender hinzugefügt",
+      "badgeParsed": "Betrag erkannt: 68,40 €"
+    },
+    "features": {
+      "heading": "Alles, was du brauchst, an einem Ort",
+      "sub": "Vom Foto der Rechnung bis zur Erinnerung: BillTracker übernimmt die lästigen Schritte, du zahlst nur pünktlich.",
+      "scan": {
+        "title": "Automatische Erkennung",
+        "text": "Lade ein PDF oder ein Foto hoch: Die KI extrahiert Betrag, Fälligkeit und Kategorie in Sekunden."
+      },
+      "reminders": {
+        "title": "E-Mail-Erinnerungen",
+        "text": "Ein Hinweis in deinem Postfach vor jeder Fälligkeit. Nie wieder Mahngebühren, Mahnungen oder Sperrungen."
+      },
+      "calendar": {
+        "title": "Google Kalender",
+        "text": "Jede Fälligkeit landet von selbst in deinem Kalender, inklusive Benachrichtigung auf dem Handy."
+      },
+      "family": {
+        "title": "Familienkonten",
+        "text": "Teile Rechnungen mit deiner Familiengruppe: Alle sehen, was zu zahlen ist und wer sich darum kümmert."
+      },
+      "analytics": {
+        "title": "Ausgabenanalyse",
+        "text": "Übersichtliche Diagramme zeigen, wohin dein Geld fließt — Monat für Monat und Kategorie für Kategorie."
+      },
+      "market": {
+        "title": "Marktvergleich",
+        "text": "Finde heraus, ob du mehr als der Landesdurchschnitt zahlst (ARERA- und AGCOM-Daten) und wann sich ein Anbieterwechsel lohnt."
+      }
+    },
+    "how": {
+      "heading": "So funktioniert's",
+      "sub": "Drei Schritte, weniger als eine Minute.",
+      "step1": {
+        "title": "Hochladen oder fotografieren",
+        "text": "Papierrechnung oder per E-Mail erhaltenes PDF: Zwei Fingertipps genügen zum Hochladen."
+      },
+      "step2": {
+        "title": "Die KI liest für dich",
+        "text": "Betrag, Fälligkeit und Kategorie werden automatisch ausgefüllt. Du prüfst und bestätigst."
+      },
+      "step3": {
+        "title": "Pünktlich zahlen",
+        "text": "Erinnerungen per E-Mail und im Kalender. Du zahlst, markierst sie als bezahlt — und weiter zur nächsten."
+      }
+    },
+    "cta": {
+      "title": "Bereit, nie wieder eine Frist zu vergessen?",
+      "text": "Erstelle dein kostenloses Konto und lade deine erste Rechnung hoch: BillTracker erinnert dich daran.",
+      "button": "Kostenlos starten"
+    }
+  },
+  "auth": {
+    "tagline": "Nie wieder eine Frist verpassen. Lade eine Rechnung hoch und lass BillTracker Betrag und Datum für dich auslesen.",
+    "login": {
+      "title": "Willkommen zurück",
+      "subtitle": "Melde dich an, um deine Fälligkeiten zu verwalten.",
+      "submit": "Anmelden",
+      "submitting": "Anmeldung läuft…",
+      "or": "oder",
+      "google": "Mit Google fortfahren",
+      "noAccount": "Noch kein Konto?",
+      "registerLink": "Registrieren"
+    },
+    "register": {
+      "title": "Konto erstellen",
+      "subtitle": "E-Mail und Passwort genügen.",
+      "name": "Name",
+      "passwordHint": "Mindestens 8 Zeichen.",
+      "submit": "Konto erstellen",
+      "submitting": "Konto wird erstellt…",
+      "haveAccount": "Du hast schon ein Konto?",
+      "loginLink": "Anmelden"
+    },
+    "unverified": {
+      "title": "E-Mail wird verifiziert",
+      "text": "Prüfe dein Postfach und klicke auf den Link, den wir dir geschickt haben. Sieh auch im Spam-Ordner nach.",
+      "resent": "Bestätigungs-E-Mail erneut gesendet ✓",
+      "resend": "Bestätigungs-E-Mail erneut senden",
+      "resendIn": "Erneut senden in {seconds}s",
+      "sendFailed": "Senden fehlgeschlagen"
+    },
+    "errors": {
+      "invalidEmail": "Gib eine gültige E-Mail-Adresse ein",
+      "passwordMin": "Das Passwort muss mindestens 8 Zeichen haben",
+      "nameRequired": "Gib einen Namen ein",
+      "invalidData": "Ungültige Daten",
+      "unverified": "E-Mail wird verifiziert",
+      "wrongCredentials": "E-Mail oder Passwort falsch",
+      "googleFailed": "Google-Anmeldung fehlgeschlagen"
+    }
+  },
+  "contact": {
+    "metaTitle": "Kontakt — BillTracker",
+    "metaDescription": "So erreichst du den Betreiber von BillTracker.",
+    "title": "Kontakt",
+    "description": "Bei Fragen, Hinweisen oder Vorschlägen zu BillTracker sind dies die Kontaktdaten des App-Betreibers.",
+    "referent": "Ansprechpartner",
+    "email": "E-Mail",
+    "phone": "Telefon"
+  },
+  "home": {
+    "newBill": "Neue Fälligkeit",
+    "upcoming": {
+      "title": "Nächste Fälligkeiten",
+      "seeAll": "Alle anzeigen",
+      "empty": "Keine anstehenden Fälligkeiten. Alles erledigt! 🎉",
+      "payNow": "Jetzt zu zahlen",
+      "within7": "Innerhalb von 7 Tagen",
+      "within30": "Innerhalb von 30 Tagen",
+      "later": "Später"
+    },
+    "month": {
+      "title": "Monat {month}",
+      "toPay": "Diesen Monat zu zahlen",
+      "alreadyPaid": "Bereits bezahlt",
+      "overdueUnpaid": "Überfällig, unbezahlt",
+      "total": "Monatssumme",
+      "paid": "Bezahlt"
+    },
+    "market": {
+      "title": "Durchschnittliche Marktpreise",
+      "marketAvg": "Marktdurchschnitt:",
+      "yourAvg": "Dein Durchschnitt:",
+      "noSpending": "Keine Ausgaben erfasst",
+      "source": "Quelle:",
+      "noBenchmark": "Referenzwert nicht verfügbar.",
+      "updateBenchmarks": "Referenzpreise aktualisieren"
+    }
+  },
+  "dashboard": {
+    "dueNext30": "Fällig (30 Tage)",
+    "dueNext30Hint": "{count, plural, one {# Fälligkeit} other {# Fälligkeiten}}",
+    "unpaid": "Zu zahlende Rechnungen",
+    "unpaidHint": "insgesamt unbezahlt",
+    "paidThisMonth": "Diesen Monat bezahlt",
+    "paidThisMonthHint": "beglichene Zahlungen",
+    "newBill": "Neue Fälligkeit",
+    "emptyTitle": "Keine Fälligkeiten",
+    "emptyText": "Lade eine Rechnung hoch und BillTracker liest Betrag, Fälligkeit und Kategorie für dich aus.",
+    "uploadCta": "Rechnung hochladen"
+  },
+  "bills": {
+    "shared": "Geteilt",
+    "categoryDue": "{category} · fällig am {date}",
+    "benchmarkHint": "Vergleich mit dem Marktdurchschnitt — Details öffnen",
+    "undoPaid": "Rückgängig",
+    "markPaid": "Als bezahlt markieren",
+    "recurrence": {
+      "week": "{count, plural, one {jede Woche} other {alle # Wochen}}",
+      "month": "{count, plural, one {jeden Monat} other {alle # Monate}}",
+      "year": "{count, plural, one {jedes Jahr} other {alle # Jahre}}"
+    },
+    "statusBadge": {
+      "paid": "Bezahlt",
+      "overdueDays": "Überfällig seit {days} T.",
+      "dueToday": "Heute fällig",
+      "inDays": "In {days} T."
+    },
+    "detail": {
+      "confirmDelete": "Diese Fälligkeit löschen?",
+      "calendarNotConnected": "Verbinde Google Kalender im Profil, um zu synchronisieren.",
+      "calendarExpired": "Google-Autorisierung abgelaufen: Verbinde das Konto im Profil neu.",
+      "calendarFailed": "Kalender-Vorgang fehlgeschlagen.",
+      "networkError": "Netzwerkfehler.",
+      "editTitle": "Fälligkeit bearbeiten",
+      "save": "Speichern",
+      "recurring": "Wiederkehrend",
+      "dueDate": "Fälligkeit",
+      "status": "Status",
+      "paidOn": "Bezahlt am",
+      "openPdf": "PDF-Dokument öffnen",
+      "openDocument": "Dokument öffnen",
+      "reopen": "Wieder öffnen",
+      "paid": "Bezahlt",
+      "removeCalendar": "Entfernen",
+      "edit": "Bearbeiten",
+      "delete": "Löschen"
+    },
+    "form": {
+      "errorTitle": "Gib einen Titel ein",
+      "errorDueDate": "Gib ein Fälligkeitsdatum ein",
+      "errorCustomCategory": "Gib die eigene Kategorie an",
+      "errorSave": "Speichern fehlgeschlagen",
+      "title": "Titel",
+      "titlePlaceholder": "z. B. Stromrechnung Mai 2025",
+      "amount": "Betrag (€)",
+      "dueDate": "Fälligkeit",
+      "category": "Kategorie",
+      "selectPlaceholder": "Auswählen…",
+      "customCategory": "Eigene Kategorie",
+      "customCategoryPlaceholder": "Eigene Kategorie (z. B. Fitnessstudio-Abo)",
+      "shareWith": "Teilen mit",
+      "personalOnly": "Nur ich (persönlich)",
+      "notes": "Notizen",
+      "recurring": "Wiederkehrende Ausgabe",
+      "recurringHint": "Erstellt automatisch die nächste Fälligkeit im gewählten Rhythmus.",
+      "cancel": "Abbrechen",
+      "frequency": "Häufigkeit",
+      "every": "alle",
+      "interval": "Intervall",
+      "unit": "Einheit",
+      "unit_week": "Woche(n)",
+      "unit_month": "Monat(e)",
+      "unit_year": "Jahr(e)",
+      "nextAmounts": "Betrag der nächsten Fälligkeiten",
+      "sameAmount": "Gleicher Betrag{amount} — bei Bedarf änderbar",
+      "emptyAmount": "Betrag leer lassen — ich trage ihn ein, wenn die Rechnung kommt",
+      "recurrenceSummary": "Es wird eine neue Fälligkeit erstellt: {freq}.",
+      "recurrenceSummaryFrom": "Es wird eine neue Fälligkeit erstellt: {freq}, beginnend am {date}."
+    },
+    "filters": {
+      "tab_unpaid": "Zu zahlen",
+      "tab_all": "Alle Rechnungen",
+      "tab_paid": "Bezahlt",
+      "tab_overdue": "Überfällig",
+      "byCategory": "Nach Kategorie filtern",
+      "byMonth": "Nach Monat filtern",
+      "allCategories": "Alle Kategorien"
+    }
+  },
+  "upload": {
+    "backToBills": "Zurück zu den Fälligkeiten",
+    "title": "Neue Fälligkeit",
+    "subtitleParsing": "Lade das Dokument hoch: Wir extrahieren Betrag, Datum und Kategorie für dich.",
+    "subtitleManual": "Fülle die Daten der Fälligkeit aus.",
+    "fileTooLarge": "Die Datei ist größer als 10 MB.",
+    "parseFailed": "Analyse fehlgeschlagen.",
+    "parseNetworkError": "Netzwerkfehler während der Analyse.",
+    "manualEntry": "Manuell eingeben",
+    "saveBill": "Fälligkeit speichern",
+    "uploadTitle": "Rechnung hochladen",
+    "uploadHint": "PDF oder Bild, bis 10 MB",
+    "takePhoto": "Foto aufnehmen",
+    "parsing": "Dokument wird analysiert…",
+    "parsedTitle": "Automatisch ausgelesene Daten",
+    "parsedHint": "Prüfe und korrigiere vor dem Speichern.",
+    "confidence": "Zuverlässigkeit {pct} %.",
+    "openPdf": "PDF-Dokument öffnen",
+    "previewAlt": "Dokumentvorschau"
+  },
+  "analytics": {
+    "last12": "Ausgaben der letzten 12 Monate",
+    "monthlyAvg": "Monatsdurchschnitt",
+    "monthsRecorded": "{count, plural, one {über # erfassten Monat} other {über # erfasste Monate}}",
+    "monthlyByCategory": "Monatliche Ausgaben nach Kategorie",
+    "avgNote": "{count, plural, one {Durchschnitt berechnet über # Monat mit Daten{range}.} other {Durchschnitt berechnet über # Monate mit Daten{range}.}}",
+    "noData": "Keine Daten in den letzten 12 Monaten.",
+    "noSpendingMonth": "Keine Ausgaben in diesem Monat erfasst",
+    "total": "Gesamt",
+    "avgLine": "Ø {amount}",
+    "trend": "Monatstrend",
+    "selectCategory": "Kategorie auswählen",
+    "allCategories": "Alle Kategorien",
+    "spend": "Ausgabe",
+    "yoyTitle": "Jahresvergleich",
+    "month": "Monat",
+    "thisYear": "Dieses Jahr",
+    "prevYear": "Vorjahr",
+    "change": "Veränderung",
+    "yoyInsufficient": "Zu wenige Daten für den Jahresvergleich."
+  },
+  "family": {
+    "title": "Familiengruppe",
+    "subtitle": "Teile Fälligkeiten mit deiner Familie. Mitglieder sehen geteilte Rechnungen und erhalten Erinnerungen.",
+    "empty": "Du gehörst keiner Gruppe an. Erstelle eine, um Fälligkeiten zu teilen.",
+    "createTitle": "Gruppe erstellen",
+    "namePlaceholder": "z. B. Familie Müller",
+    "create": "Erstellen",
+    "operationFailed": "Vorgang fehlgeschlagen",
+    "memberAdded": "Mitglied zur Gruppe hinzugefügt.",
+    "members": "{count, plural, one {# Mitglied} other {# Mitglieder}}",
+    "confirmDeleteGroup": "Gruppe \"{name}\" löschen?",
+    "delete": "Löschen",
+    "leave": "Verlassen",
+    "you": "(du)",
+    "owner": "Eigentümer",
+    "removeMember": "{name} entfernen",
+    "invite": "Einladen"
+  },
+  "settings": {
+    "page": {
+      "yourProfile": "Dein Profil",
+      "integrations": "Integrationen",
+      "integrationsHint": "Aktiviere oder deaktiviere die Benachrichtigungskanäle.",
+      "contactTitle": "Kontakt",
+      "contactHint": "Fragen oder Probleme? Die Kontaktdaten des Betreibers",
+      "benchmarksTitle": "Marktreferenzen",
+      "benchmarksHint": "Aktualisiere die Durchschnittspreise ARERA / AGCOM",
+      "contactAdminTitle": "Kontaktseite",
+      "contactAdminHint": "Öffentliche Kontaktdaten bearbeiten"
+    },
+    "profileForm": {
+      "name": "Name",
+      "saveName": "Namen speichern"
+    },
+    "google": {
+      "feedbackConnected": "Google Kalender erfolgreich verbunden.",
+      "feedbackDenied": "Zugriff auf Google verweigert.",
+      "feedbackError": "Verbindung zu Google fehlgeschlagen. Versuche es erneut.",
+      "connected": "Verbunden",
+      "notConnected": "Nicht verbunden",
+      "disconnect": "Trennen",
+      "connect": "Verbinden",
+      "autoEvents": "Ereignisse automatisch erstellen",
+      "autoEventsHint": "Fügt für jede neue Fälligkeit eine Kalendererinnerung hinzu.",
+      "connectHint": "Mit verbundenem Google Kalender kannst du automatisch eine Erinnerung für jede Fälligkeit hinzufügen. Rechnungen werden auch ohne Verbindung gespeichert. Wenn du dich vor diesem Update mit Google angemeldet hast, melde dich ab und wieder mit Google an (oder nutze den Button Verbinden), um die Kalenderberechtigung zu erteilen."
+    },
+    "reminders": {
+      "title": "E-Mail-Erinnerungen",
+      "schedule": "Hinweise 14 und 7 Tage vorher, täglich in den letzten 3 Tagen bis zur Fälligkeit, danach täglich bis zur Zahlung.",
+      "emailLabel": "E-Mail für Erinnerungen",
+      "emailHint": "Leer lassen, um die Anmelde-E-Mail zu verwenden ({email}). Es kann auch eine Zweitadresse oder die eines Familienmitglieds sein."
+    },
+    "danger": {
+      "confirm": "Konto endgültig löschen? Alle Dokumente und alle Fälligkeiten werden gelöscht. Dieser Vorgang ist unwiderruflich.",
+      "failed": "Löschen fehlgeschlagen.",
+      "networkError": "Netzwerkfehler.",
+      "title": "Konto löschen",
+      "text": "Löscht das Konto, alle hochgeladenen Dokumente und alle Fälligkeiten endgültig. Kann nicht rückgängig gemacht werden.",
+      "button": "Mein Konto löschen"
+    }
+  },
+  "admin": {
+    "benchmarks": {
+      "title": "Marktreferenzen",
+      "subtitle": "Durchschnittliche Referenzpreise (ARERA für Strom/Gas, AGCOM für Telefon/Internet). Aktualisiere die Werte vierteljährlich aus den offiziellen Quellen — ohne SQL-Migrationen.",
+      "current": "Aktuell: {amount}/Monat · {period}",
+      "period": "Zeitraum",
+      "avgPerMonth": "Durchschnitt €/Monat",
+      "sourceUrl": "Quellen-URL",
+      "notes": "Notizen",
+      "notesPlaceholder": "z. B. Musterhaushalt 2700 kWh/Jahr"
+    },
+    "contact": {
+      "title": "Kontaktseite",
+      "subtitle": "Die Angaben auf der öffentlichen Seite <pageLink>/contatti</pageLink>. Änderungen sind für alle Besucher sofort sichtbar.",
+      "firstName": "Vorname",
+      "lastName": "Nachname",
+      "contactEmail": "Kontakt-E-Mail",
+      "phoneNumber": "Telefonnummer"
+    }
+  },
+  "categories": {
+    "luce": "Strom",
+    "gas": "Gas",
+    "acqua": "Wasser",
+    "condominio": "Hausgeld",
+    "telefono": "Telefon",
+    "internet": "Internet",
+    "mav": "MAV",
+    "imu": "Grundsteuer",
+    "assicurazione": "Versicherung",
+    "altro": "Sonstiges",
+    "none": "Ohne Kategorie"
+  },
+  "benchmark": {
+    "over": "Über dem Durchschnitt",
+    "inline": "Im Marktdurchschnitt",
+    "under": "Unter dem Durchschnitt",
+    "publicSource": "öffentliche Quelle",
+    "title": "Marktvergleich",
+    "marketAvg": "Marktdurchschnitt",
+    "yourSpend": "Deine Ausgabe",
+    "perMonth": "{amount}/Monat",
+    "sourceUpdated": "Quelle: {source} — aktualisiert {period}"
+  },
+  "pwa": {
+    "installTitle": "BillTracker installieren",
+    "installText": "Füge sie dem Startbildschirm hinzu, um sie wie eine App zu öffnen.",
+    "install": "Installieren",
+    "dismiss": "Verwerfen"
+  },
+  "actionErrors": {
+    "errInvalidId": "Ungültige ID",
+    "errTitleRequired": "Der Titel ist erforderlich",
+    "errInvalidDate": "Ungültiges Datum",
+    "errInvalidData": "Ungültige Daten",
+    "errInvalidSession": "Ungültige Sitzung",
+    "errCustomCategory": "Gib die eigene Kategorie an",
+    "errSaveFailed": "Speichern fehlgeschlagen",
+    "errNameRequired": "Gib einen Namen ein",
+    "errCreateFailed": "Erstellen fehlgeschlagen",
+    "errOnlyOwnerRename": "Nur der Eigentümer kann die Gruppe umbenennen",
+    "errInvalidEmail": "Ungültige E-Mail",
+    "errOnlyOwnerInvite": "Nur der Eigentümer kann Mitglieder einladen",
+    "errNoUserWithEmail": "Kein registrierter Benutzer mit dieser E-Mail. Bitte ihn, sich zuerst zu registrieren.",
+    "errOnlyOwnerRemove": "Nur der Eigentümer kann Mitglieder entfernen",
+    "errOwnerCannotRemoveSelf": "Der Eigentümer kann sich nicht selbst entfernen",
+    "errOwnerCannotLeave": "Der Eigentümer kann nicht austreten: Lösche die Gruppe",
+    "errOnlyOwnerDelete": "Nur der Eigentümer kann die Gruppe löschen",
+    "errFirstNameRequired": "Der Vorname ist erforderlich",
+    "errLastNameRequired": "Der Nachname ist erforderlich",
+    "errPhoneRequired": "Die Telefonnummer ist erforderlich",
+    "errInvalidPhone": "Ungültige Telefonnummer",
+    "errNotAuthorized": "Nicht berechtigt",
+    "errInvalidPeriod": "Ungültiger Zeitraum (z. B. 2025-Q1)",
+    "errInvalidAmount": "Ungültiger Betrag",
+    "errInvalidUrl": "Ungültige URL"
+  }
+}

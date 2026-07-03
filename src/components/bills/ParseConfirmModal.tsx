@@ -1,5 +1,6 @@
 "use client";
 
+import { useTranslations } from "next-intl";
 import { Sparkles, FileText } from "lucide-react";
 import { BillForm, type BillFormValues, type BillFormGroup } from "./BillForm";
 import { createBill } from "@/app/_actions/bills";
@@ -22,6 +23,7 @@ export function ParseConfirmModal({
   onSaved: () => void;
   onCancel: () => void;
 }) {
+  const t = useTranslations("upload");
   const confidence =
     typeof parsed.confidence === "number"
       ? Math.round(parsed.confidence * 100)
@@ -58,11 +60,13 @@ export function ParseConfirmModal({
       <div className="flex items-start gap-3 rounded-xl bg-brand-50 p-3 ring-1 ring-inset ring-brand-100">
         <Sparkles className="mt-0.5 shrink-0 text-brand-600" size={18} />
         <div className="text-sm">
-          <p className="font-medium text-brand-900">Dati estratti automaticamente</p>
+          <p className="font-medium text-brand-900">{t("parsedTitle")}</p>
           <p className="text-brand-700/80">
-            Controlla e correggi prima di salvare.
+            {t("parsedHint")}
             {confidence !== null && (
-              <span className="ml-1 font-medium">Affidabilità {confidence}%.</span>
+              <span className="ml-1 font-medium">
+                {t("confidence", { pct: confidence })}
+              </span>
             )}
           </p>
         </div>
@@ -77,13 +81,13 @@ export function ParseConfirmModal({
               rel="noreferrer"
               className="flex items-center gap-2 bg-slate-50 dark:bg-slate-800/50 px-4 py-3 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100"
             >
-              <FileText size={18} /> Apri documento PDF
+              <FileText size={18} /> {t("openPdf")}
             </a>
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={documentUrl}
-              alt="Anteprima documento"
+              alt={t("previewAlt")}
               className="max-h-48 w-full object-contain bg-slate-50 dark:bg-slate-800/50"
             />
           )}
@@ -91,7 +95,7 @@ export function ParseConfirmModal({
       )}
 
       <BillForm
-        submitLabel="Salva scadenza"
+        submitLabel={t("saveBill")}
         onSubmit={handleSubmit}
         onCancel={onCancel}
         groups={groups}

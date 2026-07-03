@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { translateActionError } from "@/lib/i18n";
 import { disconnectGoogle } from "@/lib/google/calendar";
 
 export type ProfileResult = { ok: true } | { ok: false; error: string };
@@ -18,12 +19,12 @@ async function requireUserId(): Promise<{ id: string } | null> {
 /** Updates the display name. */
 export async function updateProfile(formData: FormData): Promise<ProfileResult> {
   const parsed = z
-    .object({ display_name: z.string().trim().min(1, "Inserisci un nome").max(80) })
+    .object({ display_name: z.string().trim().min(1, "errNameRequired").max(80) })
     .safeParse({ display_name: formData.get("display_name") });
-  if (!parsed.success) return { ok: false, error: parsed.error.issues[0]!.message };
+  if (!parsed.success) return { ok: false, error: await translateActionError(parsed.error.issues[0]!.message) };
 
   const user = await requireUserId();
-  if (!user) return { ok: false, error: "Sessione non valida" };
+  if (!user) return { ok: false, error: await translateActionError("errInvalidSession") };
 
   const supabase = createClient();
   const { error } = await supabase
@@ -46,7 +47,7 @@ export async function updateEmailSettings(formData: FormData): Promise<ProfileRe
       reminder_email: z
         .string()
         .trim()
-        .email("Email non valida")
+        .email("errInvalidEmail")
         .or(z.literal(""))
         .transform((v) => (v ? v : null)),
     })
@@ -54,10 +55,10 @@ export async function updateEmailSettings(formData: FormData): Promise<ProfileRe
       email_reminders: formData.get("email_reminders"),
       reminder_email: formData.get("reminder_email") ?? "",
     });
-  if (!parsed.success) return { ok: false, error: parsed.error.issues[0]!.message };
+  if (!parsed.success) return { ok: false, error: await translateActionError(parsed.error.issues[0]!.message) };
 
   const user = await requireUserId();
-  if (!user) return { ok: false, error: "Sessione non valida" };
+  if (!user) return { ok: false, error: await translateActionError("errInvalidSession") };
 
   const supabase = createClient();
   const { error } = await supabase
@@ -76,7 +77,7 @@ export async function updateEmailSettings(formData: FormData): Promise<ProfileRe
 /** Enable/disable automatic Google Calendar event creation. */
 export async function setAutoCalendar(enabled: boolean): Promise<ProfileResult> {
   const user = await requireUserId();
-  if (!user) return { ok: false, error: "Sessione non valida" };
+  if (!user) return { ok: false, error: await translateActionError("errInvalidSession") };
 
   const supabase = createClient();
   const { error } = await supabase
@@ -94,7 +95,7 @@ export async function disconnectGoogleAccount(): Promise<ProfileResult> {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false, error: "Sessione non valida" };
+  if (!user) return { ok: false, error: await translateActionError("errInvalidSession") };
 
   await disconnectGoogle(supabase, user.id);
   revalidatePath("/settings/profile");

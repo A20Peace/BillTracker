@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Loader2, Check } from "lucide-react";
 import { updateProfile } from "@/app/_actions/profile";
 
@@ -11,6 +12,8 @@ export function ProfileForm({
   displayName: string;
   email: string;
 }) {
+  const t = useTranslations("settings.profileForm");
+  const tCommon = useTranslations("common");
   const [pending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +41,7 @@ export function ProfileForm({
           htmlFor="display_name"
           className="block text-sm font-medium text-slate-700 dark:text-slate-300"
         >
-          Nome
+          {t("name")}
         </label>
         <input
           id="display_name"
@@ -52,7 +55,7 @@ export function ProfileForm({
 
       <div>
         <label className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-          Email
+          {tCommon("email")}
         </label>
         <input
           value={email}
@@ -68,11 +71,11 @@ export function ProfileForm({
           className="tap-target inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5 font-semibold text-white transition hover:bg-brand-700 disabled:opacity-60"
         >
           {pending && <Loader2 size={16} className="animate-spin" />}
-          Salva nome
+          {t("saveName")}
         </button>
         {saved && (
           <span className="inline-flex items-center gap-1 text-sm text-emerald-600">
-            <Check size={16} /> Salvato
+            <Check size={16} /> {tCommon("saved")}
           </span>
         )}
       </div>

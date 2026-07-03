@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   Home,
   LayoutDashboard,
@@ -13,15 +14,16 @@ import {
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { href: "/home", label: "Home", icon: Home },
-  { href: "/dashboard", label: "Scadenze", icon: LayoutDashboard },
-  { href: "/analytics", label: "Analytics", icon: BarChart3 },
-  { href: "/settings/family", label: "Famiglia", icon: Users },
-  { href: "/settings/profile", label: "Profilo", icon: UserCog },
-];
+  { href: "/home", key: "home", icon: Home },
+  { href: "/dashboard", key: "deadlines", icon: LayoutDashboard },
+  { href: "/analytics", key: "analytics", icon: BarChart3 },
+  { href: "/settings/family", key: "family", icon: Users },
+  { href: "/settings/profile", key: "profile", icon: UserCog },
+] as const;
 
 export function Sidebar() {
   const pathname = usePathname();
+  const t = useTranslations("nav");
 
   return (
     <>
@@ -35,13 +37,19 @@ export function Sidebar() {
         </div>
         <nav className="flex-1 space-y-1 p-3">
           {NAV.map((item) => (
-            <NavLink key={item.href} {...item} active={isActive(pathname, item.href)} />
+            <NavLink
+              key={item.href}
+              href={item.href}
+              label={t(item.key)}
+              icon={item.icon}
+              active={isActive(pathname, item.href)}
+            />
           ))}
         </nav>
         <div className="border-t border-slate-200 p-3 dark:border-slate-800">
           <NavLink
             href="/contatti"
-            label="Contattaci"
+            label={t("contact")}
             icon={LifeBuoy}
             active={false}
           />
@@ -63,7 +71,7 @@ export function Sidebar() {
               )}
             >
               <Icon size={20} aria-hidden />
-              {item.label}
+              {t(item.key)}
             </Link>
           );
         })}

@@ -6,28 +6,52 @@ export function cn(...parts: Array<string | false | null | undefined>): string {
   return parts.filter(Boolean).join(" ");
 }
 
+/** App locale (cookie value) → BCP 47 tag for Intl formatters. */
+const INTL_LOCALES: Record<string, string> = {
+  it: "it-IT",
+  en: "en-GB",
+  es: "es-ES",
+  fr: "fr-FR",
+  de: "de-DE",
+  zh: "zh-CN",
+};
+
+export function intlLocale(locale?: string): string {
+  return INTL_LOCALES[locale ?? "it"] ?? "it-IT";
+}
+
 /** Format a number as EUR. Returns "—" for null/undefined. */
-export function formatCurrency(amount: number | null | undefined): string {
+export function formatCurrency(
+  amount: number | null | undefined,
+  locale?: string,
+): string {
   if (amount === null || amount === undefined || Number.isNaN(amount)) return "—";
-  return new Intl.NumberFormat("it-IT", {
+  return new Intl.NumberFormat(intlLocale(locale), {
     style: "currency",
     currency: "EUR",
   }).format(amount);
 }
 
 /** Format an ISO date (YYYY-MM-DD) as e.g. "23 giu 2026". */
-export function formatDate(iso: string | null | undefined): string {
+export function formatDate(
+  iso: string | null | undefined,
+  locale?: string,
+): string {
   if (!iso) return "—";
   const date = iso.length === 10 ? parseISO(iso) : new Date(iso);
   if (Number.isNaN(date.getTime())) return "—";
-  return new Intl.DateTimeFormat("it-IT", {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
     day: "numeric",
     month: "short",
     year: "numeric",
   }).format(date);
 }
 
-/** Human label per category. */
+/**
+ * Italian fallback labels per category, used only in non-request contexts
+ * (email reminders, calendar events). UI components read the translated
+ * labels from the dictionaries via t(`categories.${category}`).
+ */
 export const CATEGORY_LABELS: Record<BillCategory, string> = {
   luce: "Luce",
   gas: "Gas",
@@ -69,21 +93,20 @@ export const CATEGORY_COLORS: Record<BillCategory, string> = {
   altro: "#94a3b8",
 };
 
-export const CATEGORY_LABEL = (c: BillCategory | null): string =>
-  c ? CATEGORY_LABELS[c] : "Senza categoria";
-
 /**
- * Category label for a specific bill: shows the user's custom text instead of
- * "Altro" when category === "altro" and a custom value is set.
+ * Resolves the label shown for a bill's category: the user's custom text when
+ * category === "altro" and a custom value is set, otherwise the translated
+ * label provided by the caller (t(`categories.${category ?? "none"}`)).
  */
 export function billCategoryLabel(
   category: BillCategory | null,
-  customCategory?: string | null,
+  customCategory: string | null | undefined,
+  translatedLabel: string,
 ): string {
   if (category === "altro" && customCategory && customCategory.trim()) {
     return customCategory.trim();
   }
-  return CATEGORY_LABEL(category);
+  return translatedLabel;
 }
 
 /**
@@ -118,7 +141,6 @@ export type BenchmarkLevel = "over" | "inline" | "under";
 export interface BenchmarkComparison {
   level: BenchmarkLevel;
   diffPct: number; // signed fraction, e.g. +0.059 = +5.9%
-  label: string;
 }
 
 /**
@@ -126,6 +148,7 @@ export interface BenchmarkComparison {
  *  > +15% → "over" (sopra la media)
  *  within ±15% → "inline"
  *  < -15% → "under" (sotto la media)
+ * The human label lives in the dictionaries: t(`benchmark.${level}`).
  */
 export function compareToBenchmark(amount: number, avg: number): BenchmarkComparison {
   const diffPct = avg === 0 ? 0 : (amount - avg) / avg;
@@ -133,29 +156,7 @@ export function compareToBenchmark(amount: number, avg: number): BenchmarkCompar
   if (diffPct > 0.15) level = "over";
   else if (diffPct < -0.15) level = "under";
   else level = "inline";
-  const label =
-    level === "over"
-      ? "Sopra la media"
-      : level === "under"
-        ? "Sotto la media"
-        : "In linea con il mercato";
-  return { level, diffPct, label };
-}
-
-/** Compact recurrence label, e.g. "ogni mese", "ogni 2 settimane", "ogni anno". */
-export function recurrenceLabel(
-  unit: "week" | "month" | "year" | null | undefined,
-  interval: number | null | undefined,
-): string {
-  const u = unit ?? "month";
-  const n = interval && interval > 0 ? interval : 1;
-  const forms: Record<"week" | "month" | "year", [string, string]> = {
-    week: ["settimana", "settimane"],
-    month: ["mese", "mesi"],
-    year: ["anno", "anni"],
-  };
-  const [singular, plural] = forms[u];
-  return n === 1 ? `ogni ${singular}` : `ogni ${n} ${plural}`;
+  return { level, diffPct };
 }
 
 /** "2025-Q1" → "Q1 2025"; falls back to the raw value. */
@@ -164,10 +165,13 @@ export function formatBenchmarkPeriod(period: string): string {
   return m ? `${m[2]} ${m[1]}` : period;
 }
 
-/** Short source name inferred from the URL (ARERA / AGCOM). */
-export function benchmarkSourceName(url: string | null): string {
-  if (!url) return "fonte pubblica";
+/**
+ * Short source name inferred from the URL (ARERA / AGCOM).
+ * Returns null for unknown sources; callers show a translated fallback.
+ */
+export function benchmarkSourceName(url: string | null): string | null {
+  if (!url) return null;
   if (url.includes("arera")) return "ARERA";
   if (url.includes("agcom")) return "AGCOM";
-  return "fonte pubblica";
+  return null;
 }

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { UploadCloud, Camera, Loader2, PencilLine } from "lucide-react";
 import { ParseConfirmModal } from "./ParseConfirmModal";
 import { BillForm, type BillFormValues, type BillFormGroup } from "./BillForm";
@@ -26,6 +27,7 @@ export function UploadWizard({
   parsingEnabled?: boolean;
 }) {
   const router = useRouter();
+  const t = useTranslations("upload");
   const inputRef = useRef<HTMLInputElement>(null);
   const cameraRef = useRef<HTMLInputElement>(null);
   const [phase, setPhase] = useState<Phase>(
@@ -39,7 +41,7 @@ export function UploadWizard({
 
   async function handleFile(file: File) {
     if (file.size > 10 * 1024 * 1024) {
-      setPhase({ kind: "error", message: "Il file supera i 10MB." });
+      setPhase({ kind: "error", message: t("fileTooLarge") });
       return;
     }
     setPhase({ kind: "parsing" });
@@ -51,13 +53,13 @@ export function UploadWizard({
       if (!res.ok || "error" in json) {
         setPhase({
           kind: "error",
-          message: "error" in json ? json.error : "Analisi non riuscita.",
+          message: "error" in json ? json.error : t("parseFailed"),
         });
         return;
       }
       setPhase({ kind: "confirm", data: json, isPdf: file.type === "application/pdf" });
     } catch {
-      setPhase({ kind: "error", message: "Errore di rete durante l'analisi." });
+      setPhase({ kind: "error", message: t("parseNetworkError") });
     }
   }
 
@@ -116,11 +118,11 @@ export function UploadWizard({
       <div>
         {parsingEnabled && (
           <h2 className="mb-4 text-base font-semibold text-slate-800 dark:text-slate-200">
-            Inserisci manualmente
+            {t("manualEntry")}
           </h2>
         )}
         <BillForm
-          submitLabel="Salva scadenza"
+          submitLabel={t("saveBill")}
           groups={groups}
           onSubmit={saveManual}
           onCancel={cancelManual}
@@ -145,8 +147,8 @@ export function UploadWizard({
       >
         <UploadCloud className="text-brand-500" size={40} />
         <div>
-          <p className="font-semibold text-slate-800 dark:text-slate-200">Carica una bolletta</p>
-          <p className="text-sm text-slate-500 dark:text-slate-400">PDF o immagine, fino a 10MB</p>
+          <p className="font-semibold text-slate-800 dark:text-slate-200">{t("uploadTitle")}</p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">{t("uploadHint")}</p>
         </div>
       </button>
 
@@ -155,7 +157,7 @@ export function UploadWizard({
         onClick={() => cameraRef.current?.click()}
         className="tap-target flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 sm:hidden"
       >
-        <Camera size={18} /> Scatta una foto
+        <Camera size={18} /> {t("takePhoto")}
       </button>
 
       <button
@@ -163,7 +165,7 @@ export function UploadWizard({
         onClick={() => setPhase({ kind: "manual" })}
         className="tap-target flex w-full items-center justify-center gap-2 text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-700"
       >
-        <PencilLine size={16} /> Inserisci manualmente
+        <PencilLine size={16} /> {t("manualEntry")}
       </button>
 
       <input
@@ -186,11 +188,12 @@ export function UploadWizard({
 }
 
 function ParsingSkeleton() {
+  const t = useTranslations("upload");
   return (
     <div className="space-y-4" aria-busy="true" aria-live="polite">
       <div className="flex items-center gap-2 text-sm font-medium text-brand-700">
         <Loader2 size={16} className="animate-spin" />
-        Analisi del documento in corso…
+        {t("parsing")}
       </div>
       <div className="skeleton h-40 w-full" />
       <div className="space-y-2">

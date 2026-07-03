@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { Inbox, ArrowRight } from "lucide-react";
 import { BillCard } from "@/components/bills/BillCard";
 import { daysUntil } from "@/lib/utils";
@@ -12,6 +13,7 @@ export function UpcomingBills({
   bills: Bill[];
   benchmarkAverages: BenchmarkAverages;
 }) {
+  const t = useTranslations("home.upcoming");
   const visible = bills.slice(0, 8);
 
   const avgFor = (b: Bill) =>
@@ -31,12 +33,12 @@ export function UpcomingBills({
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between">
-        <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">Prossime scadenze</h2>
+        <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">{t("title")}</h2>
         <Link
           href="/dashboard"
           className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 hover:underline"
         >
-          Vedi tutte <ArrowRight size={14} />
+          {t("seeAll")} <ArrowRight size={14} />
         </Link>
       </div>
 
@@ -44,15 +46,15 @@ export function UpcomingBills({
         <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 py-12 text-center">
           <Inbox className="text-slate-300" size={40} />
           <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
-            Nessuna scadenza in arrivo. Sei in pari! 🎉
+            {t("empty")}
           </p>
         </div>
       ) : (
         <>
-          <Band title="Da pagare ora" items={overdue} avgFor={avgFor} />
-          <Band title="Entro 7 giorni" items={week} avgFor={avgFor} />
-          <Band title="Entro 30 giorni" items={month} avgFor={avgFor} />
-          <Band title="Più avanti" items={later} avgFor={avgFor} />
+          <Band title={t("payNow")} items={overdue} avgFor={avgFor} />
+          <Band title={t("within7")} items={week} avgFor={avgFor} />
+          <Band title={t("within30")} items={month} avgFor={avgFor} />
+          <Band title={t("later")} items={later} avgFor={avgFor} />
         </>
       )}
     </section>

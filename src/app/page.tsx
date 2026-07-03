@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
+import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 import {
   ArrowRight,
   BarChart3,
@@ -18,11 +20,13 @@ import { PublicNav } from "@/components/layout/PublicNav";
 
 export const dynamic = "force-dynamic";
 
-export const metadata: Metadata = {
-  title: "BillTracker — Non perdere mai più una scadenza",
-  description:
-    "Carica una bolletta: BillTracker legge importo e scadenza per te, ti avvisa via email e la mette sul calendario. Gratis.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("landing");
+  return {
+    title: t("metaTitle"),
+    description: t("metaDescription"),
+  };
+}
 
 export default async function LandingPage() {
   const supabase = createClient();
@@ -50,6 +54,8 @@ export default async function LandingPage() {
 /* ─── Hero ─────────────────────────────────────────────────────────────────── */
 
 function Hero() {
+  const t = useTranslations("landing");
+
   return (
     <section className="relative overflow-hidden">
       {/* Sfondo in movimento: blob sfumati che derivano lentamente */}
@@ -68,36 +74,36 @@ function Hero() {
       <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-2 lg:pb-28 lg:pt-24">
         <div>
           <p className="inline-flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 dark:border-brand-800 dark:bg-brand-900/30 dark:text-brand-300">
-            <Sparkles size={14} /> Con lettura automatica delle bollette
+            <Sparkles size={14} /> {t("badge")}
           </p>
           <h1 className="mt-5 text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-            Le tue bollette,{" "}
-            <span className="bg-gradient-to-r from-brand-600 to-sky-500 bg-clip-text text-transparent">
-              sotto controllo
-            </span>
-            .
+            {t.rich("heroTitle", {
+              highlight: (chunks) => (
+                <span className="bg-gradient-to-r from-brand-600 to-sky-500 bg-clip-text text-transparent">
+                  {chunks}
+                </span>
+              ),
+            })}
           </h1>
           <p className="mt-5 max-w-xl text-lg text-slate-600 dark:text-slate-300">
-            Carica una bolletta e BillTracker legge importo e scadenza per te,
-            ti avvisa via email prima che scada e la mette sul calendario.
-            Niente more, niente sorprese.
+            {t("heroText")}
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <Link
               href="/register"
               className="tap-target inline-flex items-center gap-2 rounded-xl bg-brand-600 px-6 py-3 font-semibold text-white shadow-lg shadow-brand-600/25 transition hover:bg-brand-700"
             >
-              Inizia gratis <ArrowRight size={18} />
+              {t("ctaStart")} <ArrowRight size={18} />
             </Link>
             <Link
               href="/login"
               className="tap-target inline-flex items-center gap-2 rounded-xl border border-slate-300 bg-white px-6 py-3 font-semibold text-slate-700 transition hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
             >
-              Accedi
+              {t("ctaLogin")}
             </Link>
           </div>
           <p className="mt-4 text-sm text-slate-400 dark:text-slate-500">
-            Gratuito. Nessuna carta di credito richiesta.
+            {t("ctaNote")}
           </p>
         </div>
 
@@ -108,20 +114,44 @@ function Hero() {
 }
 
 function HeroMockup() {
+  const t = useTranslations("landing.mock");
+  const tCat = useTranslations("categories");
+
   return (
     <div className="relative mx-auto w-full max-w-md" aria-hidden>
       {/* Pannello principale: lista scadenze */}
       <div className="animate-float rounded-3xl border border-slate-200 bg-white/90 p-5 shadow-2xl shadow-slate-900/10 backdrop-blur dark:border-slate-800 dark:bg-slate-900/90">
         <div className="mb-4 flex items-center justify-between">
-          <p className="font-bold">Prossime scadenze</p>
+          <p className="font-bold">{t("title")}</p>
           <span className="rounded-full bg-brand-100 px-2.5 py-0.5 text-xs font-semibold text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
-            Luglio
+            {t("month")}
           </span>
         </div>
         <div className="space-y-3">
-          <MockBill emoji="💡" title="Luce" due="15 lug" amount="€ 68,40" tone="amber" chip="In scadenza" />
-          <MockBill emoji="🔥" title="Gas" due="22 lug" amount="€ 85,00" tone="slate" chip="Programmata" />
-          <MockBill emoji="🌐" title="Internet" due="3 lug" amount="€ 27,90" tone="emerald" chip="Pagata ✓" />
+          <MockBill
+            emoji="💡"
+            title={tCat("luce")}
+            due={t("due1")}
+            amount="€ 68,40"
+            tone="amber"
+            chip={t("chipDueSoon")}
+          />
+          <MockBill
+            emoji="🔥"
+            title={tCat("gas")}
+            due={t("due2")}
+            amount="€ 85,00"
+            tone="slate"
+            chip={t("chipScheduled")}
+          />
+          <MockBill
+            emoji="🌐"
+            title={tCat("internet")}
+            due={t("due3")}
+            amount="€ 27,90"
+            tone="emerald"
+            chip={t("chipPaid")}
+          />
         </div>
       </div>
 
@@ -130,19 +160,19 @@ function HeroMockup() {
         className="animate-float absolute -right-3 -top-6 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-xl dark:border-slate-800 dark:bg-slate-900 sm:-right-8"
         style={{ animationDelay: "-2s", animationDuration: "7s" }}
       >
-        📬 Promemoria inviato
+        📬 {t("badgeReminder")}
       </div>
       <div
         className="animate-float absolute -bottom-6 -left-2 rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-xl dark:border-slate-800 dark:bg-slate-900 sm:-left-8"
         style={{ animationDelay: "-4s", animationDuration: "8s" }}
       >
-        📅 Aggiunto al calendario
+        📅 {t("badgeCalendar")}
       </div>
       <div
         className="animate-float absolute -left-4 top-10 hidden rounded-2xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium shadow-xl dark:border-slate-800 dark:bg-slate-900 lg:block"
         style={{ animationDelay: "-1s", animationDuration: "6.5s" }}
       >
-        ✨ Importo letto: € 68,40
+        ✨ {t("badgeParsed")}
       </div>
     </div>
   );
@@ -176,7 +206,7 @@ function MockBill({
       </span>
       <div className="min-w-0 flex-1">
         <p className="text-sm font-semibold">{title}</p>
-        <p className="text-xs text-slate-500 dark:text-slate-400">Scade il {due}</p>
+        <p className="text-xs text-slate-500 dark:text-slate-400">{due}</p>
       </div>
       <div className="text-right">
         <p className="text-sm font-bold">{amount}</p>
@@ -190,40 +220,18 @@ function MockBill({
 
 /* ─── Funzioni ─────────────────────────────────────────────────────────────── */
 
-const FEATURES = [
-  {
-    icon: ScanLine,
-    title: "Lettura automatica",
-    text: "Carica un PDF o una foto: l'intelligenza artificiale estrae importo, scadenza e categoria in pochi secondi.",
-  },
-  {
-    icon: BellRing,
-    title: "Promemoria email",
-    text: "Un avviso nella tua casella prima di ogni scadenza. Mai più more, solleciti o distacchi.",
-  },
-  {
-    icon: CalendarCheck,
-    title: "Google Calendar",
-    text: "Ogni scadenza finisce da sola sul tuo calendario, con tanto di notifica sul telefono.",
-  },
-  {
-    icon: Users,
-    title: "Conti di famiglia",
-    text: "Condividi le bollette con il tuo gruppo familiare: tutti vedono cosa c'è da pagare e chi se ne occupa.",
-  },
-  {
-    icon: BarChart3,
-    title: "Analisi delle spese",
-    text: "Grafici chiari per capire dove vanno i tuoi soldi, mese per mese e categoria per categoria.",
-  },
-  {
-    icon: TrendingDown,
-    title: "Confronto col mercato",
-    text: "Scopri se paghi più della media nazionale (dati ARERA e AGCOM) e quando conviene cambiare fornitore.",
-  },
+const FEATURE_ITEMS = [
+  { icon: ScanLine, key: "scan" },
+  { icon: BellRing, key: "reminders" },
+  { icon: CalendarCheck, key: "calendar" },
+  { icon: Users, key: "family" },
+  { icon: BarChart3, key: "analytics" },
+  { icon: TrendingDown, key: "market" },
 ] as const;
 
 function Features() {
+  const t = useTranslations("landing.features");
+
   return (
     <section id="funzioni" className="relative overflow-hidden scroll-mt-16">
       {/* Sfondo in movimento sotto le descrizioni */}
@@ -241,26 +249,25 @@ function Features() {
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Tutto quello che serve, in un posto solo
+            {t("heading")}
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-            Dalla foto della bolletta al promemoria: BillTracker si occupa dei
-            passaggi noiosi, tu solo di pagare in tempo.
+            {t("sub")}
           </p>
         </div>
 
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map(({ icon: Icon, title, text }) => (
+          {FEATURE_ITEMS.map(({ icon: Icon, key }) => (
             <div
-              key={title}
+              key={key}
               className="rounded-2xl border border-slate-200 bg-white/80 p-6 shadow-sm backdrop-blur transition hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900/80"
             >
               <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
                 <Icon size={22} />
               </span>
-              <h3 className="mt-4 font-bold">{title}</h3>
+              <h3 className="mt-4 font-bold">{t(`${key}.title`)}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                {text}
+                {t(`${key}.text`)}
               </p>
             </div>
           ))}
@@ -272,28 +279,15 @@ function Features() {
 
 /* ─── Come funziona ────────────────────────────────────────────────────────── */
 
-const STEPS = [
-  {
-    icon: Camera,
-    step: "1",
-    title: "Carica o fotografa",
-    text: "Bolletta cartacea o PDF ricevuto via email: bastano due tocchi per caricarla.",
-  },
-  {
-    icon: Sparkles,
-    step: "2",
-    title: "L'AI legge per te",
-    text: "Importo, scadenza e categoria vengono compilati automaticamente. Tu controlli e confermi.",
-  },
-  {
-    icon: Wallet,
-    step: "3",
-    title: "Paga in tempo",
-    text: "Promemoria via email e sul calendario. Paghi, la segni come pagata, e via alla prossima.",
-  },
+const STEP_ITEMS = [
+  { icon: Camera, key: "step1" },
+  { icon: Sparkles, key: "step2" },
+  { icon: Wallet, key: "step3" },
 ] as const;
 
 function HowItWorks() {
+  const t = useTranslations("landing.how");
+
   return (
     <section id="come-funziona" className="relative overflow-hidden scroll-mt-16 bg-slate-50 dark:bg-slate-900/40">
       {/* Sfondo in movimento: emoji che fluttuano dietro i passaggi */}
@@ -319,28 +313,28 @@ function HowItWorks() {
       <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-24">
         <div className="mx-auto max-w-2xl text-center">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Come funziona
+            {t("heading")}
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-300">
-            Tre passaggi, meno di un minuto.
+            {t("sub")}
           </p>
         </div>
 
         <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {STEPS.map(({ icon: Icon, step, title, text }) => (
+          {STEP_ITEMS.map(({ icon: Icon, key }, index) => (
             <div
-              key={step}
+              key={key}
               className="relative rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900"
             >
               <span className="absolute -top-4 left-6 flex h-8 w-8 items-center justify-center rounded-full bg-brand-600 text-sm font-bold text-white shadow-lg shadow-brand-600/30">
-                {step}
+                {index + 1}
               </span>
               <span className="mt-2 flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-brand-700 dark:bg-brand-900/40 dark:text-brand-300">
                 <Icon size={22} />
               </span>
-              <h3 className="mt-4 font-bold">{title}</h3>
+              <h3 className="mt-4 font-bold">{t(`${key}.title`)}</h3>
               <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
-                {text}
+                {t(`${key}.text`)}
               </p>
             </div>
           ))}
@@ -353,6 +347,8 @@ function HowItWorks() {
 /* ─── CTA finale + footer ──────────────────────────────────────────────────── */
 
 function FinalCta() {
+  const t = useTranslations("landing.cta");
+
   return (
     <section className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
       <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-brand-600 to-indigo-600 px-6 py-14 text-center text-white shadow-2xl shadow-brand-600/25 sm:px-12">
@@ -365,17 +361,16 @@ function FinalCta() {
         </div>
         <div className="relative">
           <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-            Pronto a non dimenticare più una scadenza?
+            {t("title")}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-white/85">
-            Crea il tuo account gratuito e carica la prima bolletta: ci pensa
-            BillTracker a ricordartela.
+            {t("text")}
           </p>
           <Link
             href="/register"
             className="tap-target mt-8 inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3 font-semibold text-brand-700 shadow-lg transition hover:bg-brand-50"
           >
-            Inizia gratis <ArrowRight size={18} />
+            {t("button")} <ArrowRight size={18} />
           </Link>
         </div>
       </div>
@@ -384,31 +379,33 @@ function FinalCta() {
 }
 
 function LandingFooter() {
+  const t = useTranslations("landing");
+  const tNav = useTranslations("nav");
+
   return (
     <footer className="border-t border-slate-200 dark:border-slate-800">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 py-8 sm:flex-row sm:px-6">
         <p className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400">
-          <span className="text-lg">🧾</span> BillTracker — gestione scadenze
-          bollette
+          <span className="text-lg">🧾</span> {t("footerTagline")}
         </p>
         <nav className="flex items-center gap-5 text-sm">
           <Link
             href="/contatti"
             className="font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100"
           >
-            Contattaci
+            {tNav("contact")}
           </Link>
           <Link
             href="/login"
             className="font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100"
           >
-            Accedi
+            {tNav("login")}
           </Link>
           <Link
             href="/register"
             className="font-medium text-brand-600 transition hover:text-brand-700 dark:text-brand-400"
           >
-            Registrati
+            {tNav("register")}
           </Link>
         </nav>
       </div>

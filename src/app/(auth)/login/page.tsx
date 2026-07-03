@@ -4,6 +4,7 @@ import { useFormState, useFormStatus } from "react-dom";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { MailCheck, Loader2 } from "lucide-react";
 import {
   login,
@@ -14,13 +15,14 @@ import {
 
 function SubmitButton() {
   const { pending } = useFormStatus();
+  const t = useTranslations("auth.login");
   return (
     <button
       type="submit"
       disabled={pending}
       className="tap-target w-full rounded-lg bg-brand-600 px-4 py-2.5 font-semibold text-white transition hover:bg-brand-700 disabled:opacity-60"
     >
-      {pending ? "Accesso in corso…" : "Accedi"}
+      {pending ? t("submitting") : t("submit")}
     </button>
   );
 }
@@ -29,12 +31,14 @@ function LoginForm() {
   const [state, formAction] = useFormState<AuthState, FormData>(login, null);
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error");
+  const t = useTranslations("auth.login");
+  const tCommon = useTranslations("common");
 
   return (
     <div>
-      <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">Bentornato</h1>
+      <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{t("title")}</h1>
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-        Accedi per gestire le tue scadenze.
+        {t("subtitle")}
       </p>
 
       {state?.unverified ? (
@@ -53,7 +57,7 @@ function LoginForm() {
       <form action={formAction} className="mt-6 space-y-4">
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-            Email
+            {tCommon("email")}
           </label>
           <input
             id="email"
@@ -66,7 +70,7 @@ function LoginForm() {
         </div>
         <div>
           <label htmlFor="password" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
-            Password
+            {tCommon("password")}
           </label>
           <input
             id="password"
@@ -82,7 +86,7 @@ function LoginForm() {
 
       <div className="my-5 flex items-center gap-3 text-xs text-slate-400 dark:text-slate-500">
         <span className="h-px flex-1 bg-slate-200" />
-        oppure
+        {t("or")}
         <span className="h-px flex-1 bg-slate-200" />
       </div>
 
@@ -92,14 +96,14 @@ function LoginForm() {
           className="tap-target flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-4 py-2.5 font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50"
         >
           <GoogleIcon />
-          Continua con Google
+          {t("google")}
         </button>
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
-        Non hai un account?{" "}
+        {t("noAccount")}{" "}
         <Link href="/register" className="font-semibold text-brand-600 hover:underline">
-          Registrati
+          {t("registerLink")}
         </Link>
       </p>
     </div>
@@ -111,11 +115,12 @@ function UnverifiedNotice({ email }: { email: string }) {
   const [pending, startTransition] = useTransition();
   const [sent, setSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const t = useTranslations("auth.unverified");
 
   useEffect(() => {
     if (cooldown <= 0) return;
-    const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(timer);
   }, [cooldown]);
 
   function resend() {
@@ -128,7 +133,7 @@ function UnverifiedNotice({ email }: { email: string }) {
         setSent(true);
         setCooldown(60);
       } else {
-        setError(res.error ?? "Invio non riuscito");
+        setError(res.error ?? t("sendFailed"));
       }
     });
   }
@@ -136,15 +141,14 @@ function UnverifiedNotice({ email }: { email: string }) {
   return (
     <div className="mt-4 rounded-lg bg-amber-50 px-4 py-3 text-sm text-amber-800 ring-1 ring-inset ring-amber-200">
       <p className="flex items-center gap-2 font-semibold">
-        <MailCheck size={16} /> Email in corso di verifica
+        <MailCheck size={16} /> {t("title")}
       </p>
       <p className="mt-1 text-amber-800/90">
-        Controlla la tua casella di posta e clicca sul link che ti abbiamo inviato.
-        Controlla anche la cartella spam.
+        {t("text")}
       </p>
 
       {sent && (
-        <p className="mt-2 text-emerald-700">Email di conferma reinviata ✓</p>
+        <p className="mt-2 text-emerald-700">{t("resent")}</p>
       )}
       {error && <p className="mt-2 text-red-700">{error}</p>}
 
@@ -155,7 +159,7 @@ function UnverifiedNotice({ email }: { email: string }) {
         className="tap-target mt-2 inline-flex items-center gap-1.5 rounded-lg border border-amber-300 bg-white dark:bg-slate-900 px-3 py-1.5 text-sm font-medium text-amber-800 transition hover:bg-amber-50 disabled:opacity-60"
       >
         {pending && <Loader2 size={14} className="animate-spin" />}
-        {cooldown > 0 ? `Reinvia tra ${cooldown}s` : "Reinvia email di conferma"}
+        {cooldown > 0 ? t("resendIn", { seconds: cooldown }) : t("resend")}
       </button>
     </div>
   );

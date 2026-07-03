@@ -3,6 +3,7 @@
 import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 import { createClient, createAdminClient } from "@/lib/supabase/server";
+import { translateActionError } from "@/lib/i18n";
 import { isCurrentUserAdmin } from "@/lib/auth";
 import { BENCHMARK_CATEGORIES } from "@/types";
 
@@ -10,15 +11,15 @@ export type BenchmarkResult = { ok: true } | { ok: false; error: string };
 
 const schema = z.object({
   category: z.enum(BENCHMARK_CATEGORIES),
-  period: z.string().regex(/^\d{4}-Q[1-4]$/, "Periodo non valido (es. 2025-Q1)"),
+  period: z.string().regex(/^\d{4}-Q[1-4]$/, "errInvalidPeriod"),
   avg_monthly_eur: z
     .union([z.string(), z.number()])
     .transform((v) => (typeof v === "string" ? Number(v.replace(",", ".")) : v))
-    .refine((n) => Number.isFinite(n) && n > 0, "Importo non valido"),
+    .refine((n) => Number.isFinite(n) && n > 0, "errInvalidAmount"),
   source_url: z
     .string()
     .trim()
-    .url("URL non valido")
+    .url("errInvalidUrl")
     .or(z.literal(""))
     .nullable()
     .optional()
@@ -37,9 +38,9 @@ export async function upsertBenchmark(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false, error: "Sessione non valida" };
+  if (!user) return { ok: false, error: await translateActionError("errInvalidSession") };
   if (!(await isCurrentUserAdmin(supabase))) {
-    return { ok: false, error: "Non autorizzato a modificare i benchmark" };
+    return { ok: false, error: await translateActionError("errNotAuthorized") };
   }
 
   const parsed = schema.safeParse({
@@ -50,7 +51,7 @@ export async function upsertBenchmark(
     notes: formData.get("notes"),
   });
   if (!parsed.success) {
-    return { ok: false, error: parsed.error.issues[0]?.message ?? "Dati non validi" };
+    return { ok: false, error: await translateActionError(parsed.error.issues[0]?.message) };
   }
 
   const admin = createAdminClient();

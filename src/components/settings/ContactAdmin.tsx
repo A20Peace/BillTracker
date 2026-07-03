@@ -1,11 +1,14 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Loader2, Check } from "lucide-react";
 import { updateContactSettings } from "@/app/_actions/app-settings";
 import type { ContactInfo } from "@/lib/app-settings/queries";
 
 export function ContactAdmin({ contact }: { contact: ContactInfo }) {
+  const t = useTranslations("admin.contact");
+  const tCommon = useTranslations("common");
   const [pending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -36,7 +39,7 @@ export function ContactAdmin({ contact }: { contact: ContactInfo }) {
 
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Nome</label>
+          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">{t("firstName")}</label>
           <input
             name="first_name"
             required
@@ -46,7 +49,7 @@ export function ContactAdmin({ contact }: { contact: ContactInfo }) {
           />
         </div>
         <div>
-          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">Cognome</label>
+          <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">{t("lastName")}</label>
           <input
             name="last_name"
             required
@@ -59,7 +62,7 @@ export function ContactAdmin({ contact }: { contact: ContactInfo }) {
 
       <div className="mt-3">
         <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">
-          Email di contatto
+          {t("contactEmail")}
         </label>
         <input
           name="email"
@@ -73,7 +76,7 @@ export function ContactAdmin({ contact }: { contact: ContactInfo }) {
 
       <div className="mt-3">
         <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">
-          Numero di telefono
+          {t("phoneNumber")}
         </label>
         <input
           name="phone"
@@ -92,11 +95,11 @@ export function ContactAdmin({ contact }: { contact: ContactInfo }) {
           className="tap-target inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 disabled:opacity-60"
         >
           {pending && <Loader2 size={15} className="animate-spin" />}
-          Salva
+          {tCommon("save")}
         </button>
         {saved && (
           <span className="inline-flex items-center gap-1 text-sm text-emerald-600">
-            <Check size={15} /> Aggiornato
+            <Check size={15} /> {tCommon("updated")}
           </span>
         )}
       </div>

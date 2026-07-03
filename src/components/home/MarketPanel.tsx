@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { useLocale, useTranslations } from "next-intl";
 import {
   compareToBenchmark,
   formatCurrency,
   formatBenchmarkPeriod,
   benchmarkSourceName,
+  intlLocale,
   cn,
-  CATEGORY_LABELS,
   CATEGORY_EMOJI,
   type BenchmarkLevel,
 } from "@/lib/utils";
@@ -21,12 +22,6 @@ const LEVEL_STYLES: Record<BenchmarkLevel, string> = {
   under: "bg-emerald-50 text-emerald-700 ring-emerald-200",
 };
 
-const pctFmt = new Intl.NumberFormat("it-IT", {
-  style: "percent",
-  maximumFractionDigits: 0,
-  signDisplay: "always",
-});
-
 export function MarketPanel({
   benchmarks,
   userAverages,
@@ -34,9 +29,20 @@ export function MarketPanel({
   benchmarks: LatestBenchmarks;
   userAverages: Partial<Record<BenchmarkCategory, number>>;
 }) {
+  const locale = useLocale();
+  const t = useTranslations("home.market");
+  const tCat = useTranslations("categories");
+  const tBench = useTranslations("benchmark");
+
+  const pctFmt = new Intl.NumberFormat(intlLocale(locale), {
+    style: "percent",
+    maximumFractionDigits: 0,
+    signDisplay: "always",
+  });
+
   return (
     <div className="space-y-3">
-      <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">Prezzi medi di mercato</h2>
+      <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">{t("title")}</h2>
 
       {ORDER.map((cat) => {
         const bench = benchmarks[cat];
@@ -52,24 +58,28 @@ export function MarketPanel({
             className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm"
           >
             <p className="flex items-center gap-2 font-semibold text-slate-800 dark:text-slate-200">
-              <span aria-hidden>{CATEGORY_EMOJI[cat]}</span> {CATEGORY_LABELS[cat]}
+              <span aria-hidden>{CATEGORY_EMOJI[cat]}</span> {tCat(cat)}
             </p>
 
             {bench ? (
               <>
                 <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
-                  Media mercato:{" "}
+                  {t("marketAvg")}{" "}
                   <span className="font-semibold text-slate-800 dark:text-slate-200">
-                    {formatCurrency(bench.avg_monthly_eur)}/mese
+                    {tBench("perMonth", {
+                      amount: formatCurrency(bench.avg_monthly_eur, locale),
+                    })}
                   </span>
                 </p>
 
                 {userAvg !== undefined ? (
                   <div className="mt-1.5 flex items-center justify-between">
                     <span className="text-sm text-slate-600 dark:text-slate-300">
-                      La tua media:{" "}
+                      {t("yourAvg")}{" "}
                       <span className="font-semibold text-slate-800 dark:text-slate-200">
-                        {formatCurrency(userAvg)}/mese
+                        {tBench("perMonth", {
+                          amount: formatCurrency(userAvg, locale),
+                        })}
                       </span>
                     </span>
                     {cmp && (
@@ -79,24 +89,25 @@ export function MarketPanel({
                           LEVEL_STYLES[cmp.level],
                         )}
                       >
-                        {cmp.label} {pctFmt.format(cmp.diffPct)}
+                        {tBench(cmp.level)} {pctFmt.format(cmp.diffPct)}
                       </span>
                     )}
                   </div>
                 ) : (
                   <p className="mt-1.5 text-sm text-slate-400 dark:text-slate-500">
-                    Nessuna spesa registrata
+                    {t("noSpending")}
                   </p>
                 )}
 
                 <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
-                  Fonte: {benchmarkSourceName(bench.source_url)} ·{" "}
+                  {t("source")}{" "}
+                  {benchmarkSourceName(bench.source_url) ?? tBench("publicSource")} ·{" "}
                   {formatBenchmarkPeriod(bench.period)}
                 </p>
               </>
             ) : (
               <p className="mt-2 text-sm text-slate-400 dark:text-slate-500">
-                Benchmark non disponibile.
+                {t("noBenchmark")}
               </p>
             )}
           </div>
@@ -107,7 +118,7 @@ export function MarketPanel({
         href="/settings/benchmarks"
         className="block text-center text-xs text-slate-400 dark:text-slate-500 hover:text-slate-600 hover:underline"
       >
-        Aggiorna i prezzi di riferimento
+        {t("updateBenchmarks")}
       </Link>
     </div>
   );

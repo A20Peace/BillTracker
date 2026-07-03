@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import { Loader2, Check, Mail } from "lucide-react";
 import { updateEmailSettings } from "@/app/_actions/profile";
 
@@ -13,6 +14,8 @@ export function EmailReminders({
   reminderEmail: string;
   loginEmail: string;
 }) {
+  const t = useTranslations("settings.reminders");
+  const tCommon = useTranslations("common");
   const [on, setOn] = useState(enabled);
   const [pending, startTransition] = useTransition();
   const [saved, setSaved] = useState(false);
@@ -36,11 +39,10 @@ export function EmailReminders({
         </span>
         <div className="flex-1">
           <p className="font-medium text-slate-800 dark:text-slate-200">
-            Promemoria via email
+            {t("title")}
           </p>
           <p className="text-sm text-slate-500 dark:text-slate-400">
-            Avvisi 14 e 7 giorni prima, ogni giorno dagli ultimi 3 fino alla
-            scadenza, poi ogni giorno finché non la paghi.
+            {t("schedule")}
           </p>
         </div>
         <label className="relative inline-flex cursor-pointer items-center">
@@ -61,7 +63,7 @@ export function EmailReminders({
           htmlFor="reminder_email"
           className="block text-sm font-medium text-slate-700 dark:text-slate-300"
         >
-          Email per i promemoria
+          {t("emailLabel")}
         </label>
         <input
           id="reminder_email"
@@ -73,8 +75,7 @@ export function EmailReminders({
           disabled={!on}
         />
         <p className="mt-1 text-xs text-slate-400 dark:text-slate-500">
-          Lascia vuoto per usare l&apos;email di accesso ({loginEmail}). Può essere
-          un indirizzo secondario o di un familiare.
+          {t("emailHint", { email: loginEmail })}
         </p>
       </div>
 
@@ -87,11 +88,11 @@ export function EmailReminders({
           className="tap-target inline-flex items-center gap-2 rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700 disabled:opacity-60"
         >
           {pending && <Loader2 size={15} className="animate-spin" />}
-          Salva
+          {tCommon("save")}
         </button>
         {saved && (
           <span className="inline-flex items-center gap-1 text-sm text-emerald-600">
-            <Check size={15} /> Salvato
+            <Check size={15} /> {tCommon("saved")}
           </span>
         )}
       </div>

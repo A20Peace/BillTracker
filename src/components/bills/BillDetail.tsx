@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { useLocale, useTranslations } from "next-intl";
 import {
   Check,
   Undo2,
@@ -20,7 +21,6 @@ import { setBillPaid, deleteBill, updateBill } from "@/app/_actions/bills";
 import {
   formatCurrency,
   formatDate,
-  recurrenceLabel,
   billCategoryLabel,
   CATEGORY_EMOJI,
 } from "@/lib/utils";
@@ -38,6 +38,10 @@ export function BillDetail({
   groups: BillFormGroup[];
 }) {
   const router = useRouter();
+  const locale = useLocale();
+  const t = useTranslations("bills");
+  const tDetail = useTranslations("bills.detail");
+  const tCat = useTranslations("categories");
   const [editing, setEditing] = useState(false);
   const [pending, startTransition] = useTransition();
   const [calBusy, setCalBusy] = useState(false);
@@ -58,7 +62,7 @@ export function BillDetail({
   }
 
   function remove() {
-    if (!confirm("Eliminare questa scadenza?")) return;
+    if (!confirm(tDetail("confirmDelete"))) return;
     startTransition(async () => {
       const res = await deleteBill(bill.id);
       if (!res.ok) setError(res.error);
@@ -76,13 +80,12 @@ export function BillDetail({
       const res = await fetch(`/api/bills/${bill.id}/calendar`, {
         method: bill.calendar_event_id ? "DELETE" : "POST",
       });
-      if (res.status === 401) setError("Collega Google Calendar dal Profilo per sincronizzare.");
-      else if (res.status === 412)
-        setError("Autorizzazione Google scaduta: ricollega l'account dal Profilo.");
-      else if (!res.ok) setError("Operazione Calendar non riuscita.");
+      if (res.status === 401) setError(tDetail("calendarNotConnected"));
+      else if (res.status === 412) setError(tDetail("calendarExpired"));
+      else if (!res.ok) setError(tDetail("calendarFailed"));
       else refresh();
     } catch {
-      setError("Errore di rete.");
+      setError(tDetail("networkError"));
     } finally {
       setCalBusy(false);
     }
@@ -112,9 +115,11 @@ export function BillDetail({
   if (editing) {
     return (
       <div className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-5 shadow-sm">
-        <h2 className="mb-4 text-base font-semibold text-slate-800 dark:text-slate-200">Modifica scadenza</h2>
+        <h2 className="mb-4 text-base font-semibold text-slate-800 dark:text-slate-200">
+          {tDetail("editTitle")}
+        </h2>
         <BillForm
-          submitLabel="Salva"
+          submitLabel={tDetail("save")}
           groups={groups}
           onSubmit={saveEdit}
           onCancel={() => setEditing(false)}
@@ -152,35 +157,45 @@ export function BillDetail({
           <div className="min-w-0 flex-1">
             <h1 className="text-xl font-bold text-slate-900 dark:text-slate-100">{bill.title}</h1>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              {billCategoryLabel(bill.category, bill.custom_category)}
+              {billCategoryLabel(
+                bill.category,
+                bill.custom_category,
+                tCat(bill.category ?? "none"),
+              )}
             </p>
             {bill.is_recurring && (
               <span className="mt-1 inline-flex items-center gap-1 rounded-full bg-brand-50 px-2 py-0.5 text-xs font-medium text-brand-700 ring-1 ring-inset ring-brand-100">
-                <Repeat size={12} /> Ricorrente ·{" "}
-                {recurrenceLabel(bill.recurrence_unit, bill.recurrence_interval)}
+                <Repeat size={12} /> {tDetail("recurring")} ·{" "}
+                {t(`recurrence.${bill.recurrence_unit ?? "month"}`, {
+                  count: bill.recurrence_interval ?? 1,
+                })}
               </span>
             )}
           </div>
           <span className="text-2xl font-bold text-slate-900 dark:text-slate-100">
-            {formatCurrency(bill.amount)}
+            {formatCurrency(bill.amount, locale)}
           </span>
         </div>
 
         <dl className="mt-5 grid grid-cols-2 gap-4 text-sm">
           <div>
-            <dt className="text-slate-400 dark:text-slate-500">Scadenza</dt>
-            <dd className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{formatDate(bill.due_date)}</dd>
+            <dt className="text-slate-400 dark:text-slate-500">{tDetail("dueDate")}</dt>
+            <dd className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">
+              {formatDate(bill.due_date, locale)}
+            </dd>
           </div>
           <div>
-            <dt className="text-slate-400 dark:text-slate-500">Stato</dt>
+            <dt className="text-slate-400 dark:text-slate-500">{tDetail("status")}</dt>
             <dd className="mt-1">
               <StatusBadge status={bill.status} dueDate={bill.due_date} />
             </dd>
           </div>
           {bill.paid_at && (
             <div>
-              <dt className="text-slate-400 dark:text-slate-500">Pagata il</dt>
-              <dd className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">{formatDate(bill.paid_at)}</dd>
+              <dt className="text-slate-400 dark:text-slate-500">{tDetail("paidOn")}</dt>
+              <dd className="mt-0.5 font-medium text-slate-800 dark:text-slate-200">
+                {formatDate(bill.paid_at, locale)}
+              </dd>
             </div>
           )}
         </dl>
@@ -203,7 +218,7 @@ export function BillDetail({
             className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-brand-600 hover:underline"
           >
             <FileText size={16} />
-            {isPdf ? "Apri documento PDF" : "Apri documento"}
+            {isPdf ? tDetail("openPdf") : tDetail("openDocument")}
           </a>
         )}
       </div>
@@ -222,7 +237,7 @@ export function BillDetail({
           }
         >
           {isPaid ? <Undo2 size={16} /> : <Check size={16} />}
-          {isPaid ? "Riapri" : "Pagata"}
+          {isPaid ? tDetail("reopen") : tDetail("paid")}
         </button>
 
         <button
@@ -238,7 +253,7 @@ export function BillDetail({
           ) : (
             <CalendarPlus size={16} />
           )}
-          {bill.calendar_event_id ? "Rimuovi" : "Calendar"}
+          {bill.calendar_event_id ? tDetail("removeCalendar") : "Calendar"}
         </button>
 
         <button
@@ -246,7 +261,7 @@ export function BillDetail({
           onClick={() => setEditing(true)}
           className="tap-target inline-flex items-center justify-center gap-1.5 rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50"
         >
-          <Pencil size={16} /> Modifica
+          <Pencil size={16} /> {tDetail("edit")}
         </button>
 
         <button
@@ -255,7 +270,7 @@ export function BillDetail({
           disabled={pending}
           className="tap-target inline-flex items-center justify-center gap-1.5 rounded-lg border border-red-200 px-3 py-2.5 text-sm font-medium text-red-600 transition hover:bg-red-50 disabled:opacity-60"
         >
-          <Trash2 size={16} /> Elimina
+          <Trash2 size={16} /> {tDetail("delete")}
         </button>
       </div>
     </div>

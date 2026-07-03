@@ -1,18 +1,21 @@
+import { getTranslations } from "next-intl/server";
 import { FamilyManager } from "@/components/family/FamilyManager";
 import { getFamilyData } from "@/lib/groups/queries";
 
 export const dynamic = "force-dynamic";
 
 export default async function FamilyPage() {
-  const { groups } = await getFamilyData();
+  const [{ groups }, t] = await Promise.all([
+    getFamilyData(),
+    getTranslations("family"),
+  ]);
 
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-5">
-        <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">Gruppo familiare</h1>
+        <h1 className="text-lg font-bold text-slate-900 dark:text-slate-100">{t("title")}</h1>
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          Condividi le scadenze con la tua famiglia. I membri vedono le scadenze
-          condivise e ricevono i promemoria.
+          {t("subtitle")}
         </p>
       </div>
       <FamilyManager groups={groups} />

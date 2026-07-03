@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import {
   LineChart,
   Line,
@@ -11,19 +12,15 @@ import {
   CartesianGrid,
 } from "recharts";
 import { TrendingUp, TrendingDown, Minus } from "lucide-react";
-import {
-  CATEGORY_COLORS,
-  CATEGORY_LABELS,
-  formatCurrency,
-} from "@/lib/utils";
+import { CATEGORY_COLORS, formatCurrency, intlLocale } from "@/lib/utils";
 import type { BillCategory, MonthlySpending } from "@/types";
 
 type Selection = BillCategory | "__total__";
 
-function monthLabel(ym: string, withYear = true): string {
+function monthLabel(ym: string, locale: string, withYear = true): string {
   const [y, m] = ym.split("-");
   const date = new Date(Number(y), Number(m) - 1, 1);
-  return new Intl.DateTimeFormat("it-IT", {
+  return new Intl.DateTimeFormat(intlLocale(locale), {
     month: "short",
     ...(withYear ? { year: "2-digit" } : {}),
   }).format(date);
@@ -40,12 +37,15 @@ export function CategoryBreakdown({
   buckets: MonthlySpending[];
   categories: BillCategory[];
 }) {
+  const locale = useLocale();
+  const t = useTranslations("analytics");
+  const tCat = useTranslations("categories");
   const [sel, setSel] = useState<Selection>("__total__");
 
   const last12 = buckets.slice(-12);
   const lineColor = sel === "__total__" ? "#1b5df5" : CATEGORY_COLORS[sel];
   const lineData = last12.map((b) => ({
-    label: monthLabel(b.month),
+    label: monthLabel(b.month, locale),
     value: valueFor(b, sel),
   }));
 
@@ -64,17 +64,17 @@ export function CategoryBreakdown({
     <div className="space-y-6">
       <div>
         <div className="mb-3 flex items-center justify-between gap-3">
-          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Trend mensile</h3>
+          <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">{t("trend")}</h3>
           <select
             value={sel}
             onChange={(e) => setSel(e.target.value as Selection)}
-            aria-label="Seleziona categoria"
+            aria-label={t("selectCategory")}
             className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-sm outline-none focus:border-brand-500"
           >
-            <option value="__total__">Tutte le categorie</option>
+            <option value="__total__">{t("allCategories")}</option>
             {categories.map((c) => (
               <option key={c} value={c}>
-                {CATEGORY_LABELS[c]}
+                {tCat(c)}
               </option>
             ))}
           </select>
@@ -87,7 +87,7 @@ export function CategoryBreakdown({
               <YAxis tick={{ fontSize: 11 }} stroke="#94a3b8" width={56}
                 tickFormatter={(v: number) => `€${v}`} />
               <Tooltip
-                formatter={(value: number) => [formatCurrency(value), "Spesa"]}
+                formatter={(value: number) => [formatCurrency(value, locale), t("spend")]}
                 contentStyle={{ borderRadius: 12, border: "1px solid #e2e8f0", fontSize: 13 }}
               />
               <Line
@@ -105,34 +105,34 @@ export function CategoryBreakdown({
 
       <div>
         <h3 className="mb-3 text-sm font-semibold text-slate-700 dark:text-slate-300">
-          Confronto anno su anno
+          {t("yoyTitle")}
         </h3>
         <div className="overflow-x-auto rounded-xl border border-slate-200 dark:border-slate-800">
           <table className="w-full text-sm">
             <thead className="bg-slate-50 dark:bg-slate-800/50 text-left text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
               <tr>
-                <th className="px-3 py-2 font-medium">Mese</th>
-                <th className="px-3 py-2 text-right font-medium">Quest&apos;anno</th>
-                <th className="px-3 py-2 text-right font-medium">Anno prec.</th>
-                <th className="px-3 py-2 text-right font-medium">Variazione</th>
+                <th className="px-3 py-2 font-medium">{t("month")}</th>
+                <th className="px-3 py-2 text-right font-medium">{t("thisYear")}</th>
+                <th className="px-3 py-2 text-right font-medium">{t("prevYear")}</th>
+                <th className="px-3 py-2 text-right font-medium">{t("change")}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
               {yoy.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-3 py-6 text-center text-slate-400 dark:text-slate-500">
-                    Dati insufficienti per il confronto annuale.
+                    {t("yoyInsufficient")}
                   </td>
                 </tr>
               ) : (
                 yoy.map((r) => (
                   <tr key={r.month}>
                     <td className="px-3 py-2 font-medium text-slate-700 dark:text-slate-300">
-                      {monthLabel(r.month)}
+                      {monthLabel(r.month, locale)}
                     </td>
-                    <td className="px-3 py-2 text-right">{formatCurrency(r.cur)}</td>
+                    <td className="px-3 py-2 text-right">{formatCurrency(r.cur, locale)}</td>
                     <td className="px-3 py-2 text-right text-slate-500 dark:text-slate-400">
-                      {formatCurrency(r.prev)}
+                      {formatCurrency(r.prev, locale)}
                     </td>
                     <td className="px-3 py-2 text-right">
                       <DeltaBadge delta={r.delta} />

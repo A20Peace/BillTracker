@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useTransition } from "react";
+import { useTranslations } from "next-intl";
 import {
   Users,
   UserPlus,
@@ -20,6 +21,7 @@ import {
 import type { GroupDetail } from "@/lib/groups/queries";
 
 export function FamilyManager({ groups }: { groups: GroupDetail[] }) {
+  const t = useTranslations("family");
   return (
     <div className="space-y-6">
       <CreateGroupCard />
@@ -27,7 +29,7 @@ export function FamilyManager({ groups }: { groups: GroupDetail[] }) {
         <div className="rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 py-12 text-center">
           <Users className="mx-auto text-slate-300" size={40} />
           <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
-            Non fai parte di nessun gruppo. Creane uno per condividere le scadenze.
+            {t("empty")}
           </p>
         </div>
       ) : (
@@ -38,6 +40,7 @@ export function FamilyManager({ groups }: { groups: GroupDetail[] }) {
 }
 
 function CreateGroupCard() {
+  const t = useTranslations("family");
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
 
@@ -54,7 +57,7 @@ function CreateGroupCard() {
       action={action}
       className="rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-4 shadow-sm sm:p-5"
     >
-      <h2 className="mb-3 text-base font-semibold text-slate-800 dark:text-slate-200">Crea un gruppo</h2>
+      <h2 className="mb-3 text-base font-semibold text-slate-800 dark:text-slate-200">{t("createTitle")}</h2>
       {error && (
         <p role="alert" className="mb-3 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">
           {error}
@@ -65,7 +68,7 @@ function CreateGroupCard() {
           name="name"
           required
           maxLength={80}
-          placeholder="Es. Famiglia Rossi"
+          placeholder={t("namePlaceholder")}
           className="tap-target min-w-0 flex-1 rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-200"
         />
         <button
@@ -74,7 +77,7 @@ function CreateGroupCard() {
           className="tap-target inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-4 font-semibold text-white transition hover:bg-brand-700 disabled:opacity-60"
         >
           {pending ? <Loader2 size={16} className="animate-spin" /> : <Plus size={16} />}
-          Crea
+          {t("create")}
         </button>
       </div>
     </form>
@@ -82,6 +85,7 @@ function CreateGroupCard() {
 }
 
 function GroupCard({ group }: { group: GroupDetail }) {
+  const t = useTranslations("family");
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const [inviteEmail, setInviteEmail] = useState("");
@@ -91,7 +95,7 @@ function GroupCard({ group }: { group: GroupDetail }) {
     setError(null);
     startTransition(async () => {
       const res = await fn();
-      if (!res.ok) setError(res.error ?? "Operazione non riuscita");
+      if (!res.ok) setError(res.error ?? t("operationFailed"));
       else onOk?.();
     });
   }
@@ -105,7 +109,7 @@ function GroupCard({ group }: { group: GroupDetail }) {
       if (!res.ok) setError(res.error);
       else {
         setInviteEmail("");
-        setInviteMsg("Membro aggiunto al gruppo.");
+        setInviteMsg(t("memberAdded"));
       }
     });
   }
@@ -120,7 +124,7 @@ function GroupCard({ group }: { group: GroupDetail }) {
           <div>
             <h3 className="font-semibold text-slate-900 dark:text-slate-100">{group.name}</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">
-              {group.memberCount} {group.memberCount === 1 ? "membro" : "membri"}
+              {t("members", { count: group.memberCount })}
             </p>
           </div>
         </div>
@@ -129,13 +133,13 @@ function GroupCard({ group }: { group: GroupDetail }) {
             type="button"
             disabled={pending}
             onClick={() => {
-              if (confirm(`Eliminare il gruppo "${group.name}"?`)) {
+              if (confirm(t("confirmDeleteGroup", { name: group.name }))) {
                 run(() => deleteGroup(group.id));
               }
             }}
             className="tap-target inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-sm text-red-600 transition hover:bg-red-50"
           >
-            <Trash2 size={15} /> Elimina
+            <Trash2 size={15} /> {t("delete")}
           </button>
         ) : (
           <button
@@ -144,7 +148,7 @@ function GroupCard({ group }: { group: GroupDetail }) {
             onClick={() => run(() => leaveGroup(group.id))}
             className="tap-target inline-flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-sm text-slate-600 dark:text-slate-300 transition hover:bg-slate-100"
           >
-            <LogOut size={15} /> Esci
+            <LogOut size={15} /> {t("leave")}
           </button>
         )}
       </div>
@@ -170,7 +174,9 @@ function GroupCard({ group }: { group: GroupDetail }) {
               <div className="text-sm">
                 <p className="font-medium text-slate-800 dark:text-slate-200">
                   {m.name || m.email}
-                  {m.isYou && <span className="ml-1 text-slate-400 dark:text-slate-500">(tu)</span>}
+                  {m.isYou && (
+                    <span className="ml-1 text-slate-400 dark:text-slate-500">{t("you")}</span>
+                  )}
                 </p>
                 {m.email && m.name && <p className="text-xs text-slate-400 dark:text-slate-500">{m.email}</p>}
               </div>
@@ -178,7 +184,7 @@ function GroupCard({ group }: { group: GroupDetail }) {
             <div className="flex items-center gap-2">
               {m.role === "owner" && (
                 <span className="inline-flex items-center gap-1 text-xs font-medium text-amber-600">
-                  <Crown size={13} /> Proprietario
+                  <Crown size={13} /> {t("owner")}
                 </span>
               )}
               {group.isOwner && !m.isYou && (
@@ -186,7 +192,7 @@ function GroupCard({ group }: { group: GroupDetail }) {
                   type="button"
                   disabled={pending}
                   onClick={() => run(() => removeMember(group.id, m.userId))}
-                  aria-label={`Rimuovi ${m.name || m.email}`}
+                  aria-label={t("removeMember", { name: m.name || m.email || "" })}
                   className="tap-target rounded-lg p-1.5 text-slate-400 dark:text-slate-500 transition hover:bg-red-50 hover:text-red-600"
                 >
                   <Trash2 size={15} />
@@ -213,7 +219,7 @@ function GroupCard({ group }: { group: GroupDetail }) {
             className="tap-target inline-flex items-center gap-1.5 rounded-lg border border-brand-200 bg-brand-50 px-3 font-medium text-brand-700 transition hover:bg-brand-100 disabled:opacity-60"
           >
             {pending ? <Loader2 size={15} className="animate-spin" /> : <UserPlus size={15} />}
-            Invita
+            {t("invite")}
           </button>
         </form>
       )}

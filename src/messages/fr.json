@@ -1,0 +1,458 @@
+{
+  "common": {
+    "language": "Langue",
+    "email": "E-mail",
+    "password": "Mot de passe",
+    "save": "Enregistrer",
+    "saved": "Enregistré",
+    "updated": "Mis à jour",
+    "logout": "Se déconnecter",
+    "user": "Utilisateur",
+    "themeLight": "Passer au thème clair",
+    "themeDark": "Passer au thème sombre",
+    "themeToggle": "Changer de thème"
+  },
+  "nav": {
+    "home": "Accueil",
+    "features": "Fonctionnalités",
+    "howItWorks": "Comment ça marche",
+    "contact": "Contactez-nous",
+    "login": "Se connecter",
+    "startFree": "Commencer gratuitement",
+    "backToApp": "Retour à l'app",
+    "register": "S'inscrire",
+    "deadlines": "Factures",
+    "analytics": "Analyses",
+    "family": "Famille",
+    "profile": "Profil"
+  },
+  "titles": {
+    "home": "Accueil",
+    "dashboard": "Vos échéances",
+    "analytics": "Analyses",
+    "family": "Groupe familial",
+    "profile": "Profil",
+    "billDetail": "Détail de la facture"
+  },
+  "landing": {
+    "metaTitle": "BillTracker — Ne ratez plus jamais une échéance",
+    "metaDescription": "Téléversez une facture : BillTracker lit le montant et l'échéance pour vous, vous prévient par e-mail et l'ajoute à votre calendrier. Gratuit.",
+    "badge": "Avec lecture automatique des factures",
+    "heroTitle": "Vos factures, <highlight>sous contrôle</highlight>.",
+    "heroText": "Téléversez une facture et BillTracker lit le montant et l'échéance pour vous, vous prévient par e-mail avant la date limite et l'ajoute au calendrier. Pas de pénalités, pas de surprises.",
+    "ctaStart": "Commencer gratuitement",
+    "ctaLogin": "Se connecter",
+    "ctaNote": "Gratuit. Aucune carte bancaire requise.",
+    "footerTagline": "BillTracker — gestion des échéances de factures",
+    "mock": {
+      "title": "Prochaines échéances",
+      "month": "Juillet",
+      "due1": "Échéance le 15 juil.",
+      "due2": "Échéance le 22 juil.",
+      "due3": "Échéance le 3 juil.",
+      "chipDueSoon": "Bientôt due",
+      "chipScheduled": "Planifiée",
+      "chipPaid": "Payée ✓",
+      "badgeReminder": "Rappel envoyé",
+      "badgeCalendar": "Ajouté au calendrier",
+      "badgeParsed": "Montant lu : 68,40 €"
+    },
+    "features": {
+      "heading": "Tout ce qu'il faut, au même endroit",
+      "sub": "De la photo de la facture au rappel : BillTracker s'occupe des étapes ennuyeuses, vous n'avez qu'à payer à temps.",
+      "scan": {
+        "title": "Lecture automatique",
+        "text": "Téléversez un PDF ou une photo : l'intelligence artificielle extrait le montant, l'échéance et la catégorie en quelques secondes."
+      },
+      "reminders": {
+        "title": "Rappels par e-mail",
+        "text": "Un avertissement dans votre boîte avant chaque échéance. Fini les pénalités, relances et coupures."
+      },
+      "calendar": {
+        "title": "Google Calendar",
+        "text": "Chaque échéance arrive toute seule sur votre calendrier, notification sur le téléphone comprise."
+      },
+      "family": {
+        "title": "Comptes familiaux",
+        "text": "Partagez les factures avec votre groupe familial : tout le monde voit ce qu'il y a à payer et qui s'en occupe."
+      },
+      "analytics": {
+        "title": "Analyse des dépenses",
+        "text": "Des graphiques clairs pour comprendre où va votre argent, mois par mois et catégorie par catégorie."
+      },
+      "market": {
+        "title": "Comparaison avec le marché",
+        "text": "Découvrez si vous payez plus que la moyenne nationale (données ARERA et AGCOM) et quand il vaut la peine de changer de fournisseur."
+      }
+    },
+    "how": {
+      "heading": "Comment ça marche",
+      "sub": "Trois étapes, moins d'une minute.",
+      "step1": {
+        "title": "Téléversez ou photographiez",
+        "text": "Facture papier ou PDF reçu par e-mail : deux gestes suffisent pour la téléverser."
+      },
+      "step2": {
+        "title": "L'IA la lit pour vous",
+        "text": "Montant, échéance et catégorie sont remplis automatiquement. Vous vérifiez et confirmez."
+      },
+      "step3": {
+        "title": "Payez à temps",
+        "text": "Rappels par e-mail et sur le calendrier. Vous payez, vous la marquez comme payée, et au suivant."
+      }
+    },
+    "cta": {
+      "title": "Prêt à ne plus jamais oublier une échéance ?",
+      "text": "Créez votre compte gratuit et téléversez votre première facture : BillTracker s'en souviendra pour vous.",
+      "button": "Commencer gratuitement"
+    }
+  },
+  "auth": {
+    "tagline": "Ne ratez plus jamais une échéance. Téléversez une facture et laissez BillTracker extraire le montant et la date pour vous.",
+    "login": {
+      "title": "Bon retour",
+      "subtitle": "Connectez-vous pour gérer vos échéances.",
+      "submit": "Se connecter",
+      "submitting": "Connexion en cours…",
+      "or": "ou",
+      "google": "Continuer avec Google",
+      "noAccount": "Pas encore de compte ?",
+      "registerLink": "S'inscrire"
+    },
+    "register": {
+      "title": "Créez votre compte",
+      "subtitle": "Un e-mail et un mot de passe suffisent.",
+      "name": "Nom",
+      "passwordHint": "Au moins 8 caractères.",
+      "submit": "Créer le compte",
+      "submitting": "Création du compte…",
+      "haveAccount": "Vous avez déjà un compte ?",
+      "loginLink": "Se connecter"
+    },
+    "unverified": {
+      "title": "E-mail en attente de vérification",
+      "text": "Consultez votre boîte de réception et cliquez sur le lien que nous vous avons envoyé. Vérifiez aussi le dossier spam.",
+      "resent": "E-mail de confirmation renvoyé ✓",
+      "resend": "Renvoyer l'e-mail de confirmation",
+      "resendIn": "Renvoyer dans {seconds}s",
+      "sendFailed": "Envoi échoué"
+    },
+    "errors": {
+      "invalidEmail": "Saisissez un e-mail valide",
+      "passwordMin": "Le mot de passe doit contenir au moins 8 caractères",
+      "nameRequired": "Saisissez un nom",
+      "invalidData": "Données non valides",
+      "unverified": "E-mail en attente de vérification",
+      "wrongCredentials": "E-mail ou mot de passe incorrects",
+      "googleFailed": "Échec de la connexion Google"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contactez-nous — BillTracker",
+    "metaDescription": "Les coordonnées pour contacter le responsable de BillTracker.",
+    "title": "Contactez-nous",
+    "description": "Pour toute question, signalement ou suggestion sur BillTracker, voici les coordonnées du responsable de l'app.",
+    "referent": "Contact",
+    "email": "E-mail",
+    "phone": "Téléphone"
+  },
+  "home": {
+    "newBill": "Nouvelle échéance",
+    "upcoming": {
+      "title": "Prochaines échéances",
+      "seeAll": "Tout voir",
+      "empty": "Aucune échéance à venir. Vous êtes à jour ! 🎉",
+      "payNow": "À payer maintenant",
+      "within7": "Sous 7 jours",
+      "within30": "Sous 30 jours",
+      "later": "Plus tard"
+    },
+    "month": {
+      "title": "Mois de {month}",
+      "toPay": "À payer ce mois-ci",
+      "alreadyPaid": "Déjà payé",
+      "overdueUnpaid": "Échues impayées",
+      "total": "Total du mois",
+      "paid": "Payé"
+    },
+    "market": {
+      "title": "Prix moyens du marché",
+      "marketAvg": "Moyenne du marché :",
+      "yourAvg": "Votre moyenne :",
+      "noSpending": "Aucune dépense enregistrée",
+      "source": "Source :",
+      "noBenchmark": "Référence non disponible.",
+      "updateBenchmarks": "Mettre à jour les prix de référence"
+    }
+  },
+  "dashboard": {
+    "dueNext30": "À échoir (30 jours)",
+    "dueNext30Hint": "{count, plural, one {# échéance} other {# échéances}}",
+    "unpaid": "Factures à payer",
+    "unpaidHint": "total impayé",
+    "paidThisMonth": "Payé ce mois-ci",
+    "paidThisMonthHint": "paiements réglés",
+    "newBill": "Nouvelle échéance",
+    "emptyTitle": "Aucune échéance",
+    "emptyText": "Téléversez une facture et BillTracker extraira le montant, l'échéance et la catégorie pour vous.",
+    "uploadCta": "Téléverser une facture"
+  },
+  "bills": {
+    "shared": "Partagée",
+    "categoryDue": "{category} · échéance le {date}",
+    "benchmarkHint": "Comparaison avec la moyenne du marché — ouvrir le détail",
+    "undoPaid": "Annuler",
+    "markPaid": "Marquer payée",
+    "recurrence": {
+      "week": "{count, plural, one {chaque semaine} other {toutes les # semaines}}",
+      "month": "{count, plural, one {chaque mois} other {tous les # mois}}",
+      "year": "{count, plural, one {chaque année} other {tous les # ans}}"
+    },
+    "statusBadge": {
+      "paid": "Payée",
+      "overdueDays": "Échue depuis {days}j",
+      "dueToday": "Échéance aujourd'hui",
+      "inDays": "Dans {days}j"
+    },
+    "detail": {
+      "confirmDelete": "Supprimer cette échéance ?",
+      "calendarNotConnected": "Connectez Google Calendar depuis le Profil pour synchroniser.",
+      "calendarExpired": "Autorisation Google expirée : reconnectez le compte depuis le Profil.",
+      "calendarFailed": "Opération Calendar échouée.",
+      "networkError": "Erreur réseau.",
+      "editTitle": "Modifier l'échéance",
+      "save": "Enregistrer",
+      "recurring": "Récurrente",
+      "dueDate": "Échéance",
+      "status": "Statut",
+      "paidOn": "Payée le",
+      "openPdf": "Ouvrir le document PDF",
+      "openDocument": "Ouvrir le document",
+      "reopen": "Rouvrir",
+      "paid": "Payée",
+      "removeCalendar": "Retirer",
+      "edit": "Modifier",
+      "delete": "Supprimer"
+    },
+    "form": {
+      "errorTitle": "Saisissez un titre",
+      "errorDueDate": "Saisissez une date d'échéance",
+      "errorCustomCategory": "Précisez la catégorie personnalisée",
+      "errorSave": "Échec de l'enregistrement",
+      "title": "Titre",
+      "titlePlaceholder": "Ex. Facture EDF mai 2025",
+      "amount": "Montant (€)",
+      "dueDate": "Échéance",
+      "category": "Catégorie",
+      "selectPlaceholder": "Sélectionner…",
+      "customCategory": "Catégorie personnalisée",
+      "customCategoryPlaceholder": "Catégorie personnalisée (ex. Abonnement salle de sport)",
+      "shareWith": "Partager avec",
+      "personalOnly": "Moi seulement (personnel)",
+      "notes": "Notes",
+      "recurring": "Dépense récurrente",
+      "recurringHint": "Crée automatiquement la prochaine échéance à la fréquence choisie.",
+      "cancel": "Annuler",
+      "frequency": "Fréquence",
+      "every": "tous les",
+      "interval": "Intervalle",
+      "unit": "Unité",
+      "unit_week": "Semaine(s)",
+      "unit_month": "Mois",
+      "unit_year": "Année(s)",
+      "nextAmounts": "Montant des prochaines échéances",
+      "sameAmount": "Même montant{amount} — modifiable au besoin",
+      "emptyAmount": "Laisser le montant vide — je le saisirai à l'arrivée de la facture",
+      "recurrenceSummary": "Une nouvelle échéance sera créée {freq}.",
+      "recurrenceSummaryFrom": "Une nouvelle échéance sera créée {freq} à partir du {date}."
+    },
+    "filters": {
+      "tab_unpaid": "À payer",
+      "tab_all": "Toutes les factures",
+      "tab_paid": "Payées",
+      "tab_overdue": "Échues",
+      "byCategory": "Filtrer par catégorie",
+      "byMonth": "Filtrer par mois",
+      "allCategories": "Toutes les catégories"
+    }
+  },
+  "upload": {
+    "backToBills": "Retour aux échéances",
+    "title": "Nouvelle échéance",
+    "subtitleParsing": "Téléversez le document : nous extrayons le montant, la date et la catégorie pour vous.",
+    "subtitleManual": "Renseignez les informations de l'échéance.",
+    "fileTooLarge": "Le fichier dépasse 10 Mo.",
+    "parseFailed": "Analyse échouée.",
+    "parseNetworkError": "Erreur réseau pendant l'analyse.",
+    "manualEntry": "Saisir manuellement",
+    "saveBill": "Enregistrer l'échéance",
+    "uploadTitle": "Téléverser une facture",
+    "uploadHint": "PDF ou image, jusqu'à 10 Mo",
+    "takePhoto": "Prendre une photo",
+    "parsing": "Analyse du document en cours…",
+    "parsedTitle": "Données extraites automatiquement",
+    "parsedHint": "Vérifiez et corrigez avant d'enregistrer.",
+    "confidence": "Fiabilité {pct} %.",
+    "openPdf": "Ouvrir le document PDF",
+    "previewAlt": "Aperçu du document"
+  },
+  "analytics": {
+    "last12": "Dépenses des 12 derniers mois",
+    "monthlyAvg": "Moyenne mensuelle",
+    "monthsRecorded": "{count, plural, one {sur # mois enregistré} other {sur # mois enregistrés}}",
+    "monthlyByCategory": "Dépenses mensuelles par catégorie",
+    "avgNote": "{count, plural, one {Moyenne calculée sur # mois avec des données{range}.} other {Moyenne calculée sur # mois avec des données{range}.}}",
+    "noData": "Aucune donnée enregistrée au cours des 12 derniers mois.",
+    "noSpendingMonth": "Aucune dépense enregistrée ce mois-ci",
+    "total": "Total",
+    "avgLine": "moyenne {amount}",
+    "trend": "Tendance mensuelle",
+    "selectCategory": "Sélectionner la catégorie",
+    "allCategories": "Toutes les catégories",
+    "spend": "Dépense",
+    "yoyTitle": "Comparaison d'une année sur l'autre",
+    "month": "Mois",
+    "thisYear": "Cette année",
+    "prevYear": "Année préc.",
+    "change": "Variation",
+    "yoyInsufficient": "Données insuffisantes pour la comparaison annuelle."
+  },
+  "family": {
+    "title": "Groupe familial",
+    "subtitle": "Partagez les échéances avec votre famille. Les membres voient les factures partagées et reçoivent les rappels.",
+    "empty": "Vous ne faites partie d'aucun groupe. Créez-en un pour partager les échéances.",
+    "createTitle": "Créer un groupe",
+    "namePlaceholder": "Ex. Famille Martin",
+    "create": "Créer",
+    "operationFailed": "Opération échouée",
+    "memberAdded": "Membre ajouté au groupe.",
+    "members": "{count, plural, one {# membre} other {# membres}}",
+    "confirmDeleteGroup": "Supprimer le groupe « {name} » ?",
+    "delete": "Supprimer",
+    "leave": "Quitter",
+    "you": "(vous)",
+    "owner": "Propriétaire",
+    "removeMember": "Retirer {name}",
+    "invite": "Inviter"
+  },
+  "settings": {
+    "page": {
+      "yourProfile": "Votre profil",
+      "integrations": "Intégrations",
+      "integrationsHint": "Activez ou désactivez les canaux de notification.",
+      "contactTitle": "Contactez-nous",
+      "contactHint": "Questions ou problèmes ? Les coordonnées du responsable",
+      "benchmarksTitle": "Références du marché",
+      "benchmarksHint": "Mettez à jour les prix moyens ARERA / AGCOM",
+      "contactAdminTitle": "Page Contact",
+      "contactAdminHint": "Modifier les coordonnées publiques"
+    },
+    "profileForm": {
+      "name": "Nom",
+      "saveName": "Enregistrer le nom"
+    },
+    "google": {
+      "feedbackConnected": "Google Calendar connecté avec succès.",
+      "feedbackDenied": "Accès à Google refusé.",
+      "feedbackError": "Échec de la connexion à Google. Réessayez.",
+      "connected": "Connecté",
+      "notConnected": "Non connecté",
+      "disconnect": "Déconnecter",
+      "connect": "Connecter",
+      "autoEvents": "Créer les événements automatiquement",
+      "autoEventsHint": "Ajoute un rappel au calendrier pour chaque nouvelle échéance.",
+      "connectHint": "En connectant Google Calendar, vous pourrez ajouter automatiquement un rappel pour chaque échéance. Les factures sont enregistrées même sans connexion. Si vous vous êtes connecté avec Google avant cette mise à jour, déconnectez-vous puis reconnectez-vous avec Google (ou utilisez le bouton Connecter) pour accorder l'autorisation du calendrier."
+    },
+    "reminders": {
+      "title": "Rappels par e-mail",
+      "schedule": "Alertes 14 et 7 jours avant, chaque jour pendant les 3 derniers jours jusqu'à l'échéance, puis chaque jour jusqu'au paiement.",
+      "emailLabel": "E-mail pour les rappels",
+      "emailHint": "Laissez vide pour utiliser l'e-mail de connexion ({email}). Il peut s'agir d'une adresse secondaire ou de celle d'un proche."
+    },
+    "danger": {
+      "confirm": "Supprimer définitivement le compte ? Tous les documents et toutes les échéances seront effacés. L'opération est irréversible.",
+      "failed": "Suppression échouée.",
+      "networkError": "Erreur réseau.",
+      "title": "Supprimer le compte",
+      "text": "Supprime définitivement le compte, tous les documents téléversés et toutes les échéances. Impossible d'annuler.",
+      "button": "Supprimer mon compte"
+    }
+  },
+  "admin": {
+    "benchmarks": {
+      "title": "Références du marché",
+      "subtitle": "Prix moyens de référence (ARERA pour l'électricité/le gaz, AGCOM pour le téléphone/Internet). Mettez à jour les valeurs chaque trimestre depuis les sources officielles — sans migrations SQL.",
+      "current": "Actuel : {amount}/mois · {period}",
+      "period": "Période",
+      "avgPerMonth": "Moyenne €/mois",
+      "sourceUrl": "URL de la source",
+      "notes": "Notes",
+      "notesPlaceholder": "Ex. Foyer type 2700 kWh/an"
+    },
+    "contact": {
+      "title": "Page Contact",
+      "subtitle": "Les coordonnées affichées sur la page publique <pageLink>/contatti</pageLink>. Les modifications sont immédiatement visibles par tous les visiteurs.",
+      "firstName": "Prénom",
+      "lastName": "Nom",
+      "contactEmail": "E-mail de contact",
+      "phoneNumber": "Numéro de téléphone"
+    }
+  },
+  "categories": {
+    "luce": "Électricité",
+    "gas": "Gaz",
+    "acqua": "Eau",
+    "condominio": "Charges d'immeuble",
+    "telefono": "Téléphone",
+    "internet": "Internet",
+    "mav": "MAV",
+    "imu": "Taxe foncière",
+    "assicurazione": "Assurance",
+    "altro": "Autre",
+    "none": "Sans catégorie"
+  },
+  "benchmark": {
+    "over": "Au-dessus de la moyenne",
+    "inline": "Dans la moyenne du marché",
+    "under": "En dessous de la moyenne",
+    "publicSource": "source publique",
+    "title": "Comparaison avec le marché",
+    "marketAvg": "Moyenne du marché",
+    "yourSpend": "Votre dépense",
+    "perMonth": "{amount}/mois",
+    "sourceUpdated": "Source : {source} — mis à jour {period}"
+  },
+  "pwa": {
+    "installTitle": "Installer BillTracker",
+    "installText": "Ajoutez-la à l'écran d'accueil pour l'ouvrir comme une app.",
+    "install": "Installer",
+    "dismiss": "Ignorer"
+  },
+  "actionErrors": {
+    "errInvalidId": "Identifiant non valide",
+    "errTitleRequired": "Le titre est obligatoire",
+    "errInvalidDate": "Date non valide",
+    "errInvalidData": "Données non valides",
+    "errInvalidSession": "Session non valide",
+    "errCustomCategory": "Précisez la catégorie personnalisée",
+    "errSaveFailed": "Échec de l'enregistrement",
+    "errNameRequired": "Saisissez un nom",
+    "errCreateFailed": "Échec de la création",
+    "errOnlyOwnerRename": "Seul le propriétaire peut renommer le groupe",
+    "errInvalidEmail": "E-mail non valide",
+    "errOnlyOwnerInvite": "Seul le propriétaire peut inviter des membres",
+    "errNoUserWithEmail": "Aucun utilisateur inscrit avec cet e-mail. Invitez-le à s'inscrire d'abord.",
+    "errOnlyOwnerRemove": "Seul le propriétaire peut retirer des membres",
+    "errOwnerCannotRemoveSelf": "Le propriétaire ne peut pas se retirer lui-même",
+    "errOwnerCannotLeave": "Le propriétaire ne peut pas quitter : supprimez le groupe",
+    "errOnlyOwnerDelete": "Seul le propriétaire peut supprimer le groupe",
+    "errFirstNameRequired": "Le prénom est obligatoire",
+    "errLastNameRequired": "Le nom est obligatoire",
+    "errPhoneRequired": "Le téléphone est obligatoire",
+    "errInvalidPhone": "Numéro de téléphone non valide",
+    "errNotAuthorized": "Non autorisé",
+    "errInvalidPeriod": "Période non valide (ex. 2025-Q1)",
+    "errInvalidAmount": "Montant non valide",
+    "errInvalidUrl": "URL non valide"
+  }
+}

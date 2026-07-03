@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
+import { translateActionError } from "@/lib/i18n";
 import { ensureNextRecurrence } from "@/lib/bills/recurrence";
 import {
   BILL_CATEGORIES,
@@ -48,7 +49,7 @@ export async function setBillPaid(
   paid: boolean,
 ): Promise<ActionResult> {
   const id = idSchema.safeParse(billId);
-  if (!id.success) return { ok: false, error: "ID non valido" };
+  if (!id.success) return { ok: false, error: await translateActionError("errInvalidId") };
 
   const supabase = createClient();
   const { data: bill, error } = await supabase
@@ -80,7 +81,7 @@ export async function setBillPaid(
 
 export async function deleteBill(billId: string): Promise<ActionResult> {
   const id = idSchema.safeParse(billId);
-  if (!id.success) return { ok: false, error: "ID non valido" };
+  if (!id.success) return { ok: false, error: await translateActionError("errInvalidId") };
 
   const supabase = createClient();
   const { error } = await supabase.from("bills").delete().eq("id", id.data);
@@ -91,7 +92,7 @@ export async function deleteBill(billId: string): Promise<ActionResult> {
 }
 
 const createSchema = z.object({
-  title: z.string().trim().min(1, "Il titolo è obbligatorio").max(200),
+  title: z.string().trim().min(1, "errTitleRequired").max(200),
   amount: z
     .union([z.number(), z.string()])
     .nullable()
@@ -100,7 +101,7 @@ const createSchema = z.object({
       const n = typeof v === "string" ? Number(v.replace(",", ".")) : v;
       return Number.isFinite(n) ? n : null;
     }),
-  due_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Data non valida"),
+  due_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "errInvalidDate"),
   category: z.enum(BILL_CATEGORIES).nullable(),
   custom_category: z.string().trim().max(60).nullable().optional(),
   notes: z.string().max(2000).nullable().optional(),
@@ -133,17 +134,17 @@ export async function createBill(
 ): Promise<ActionResult & { id?: string }> {
   const parsed = createSchema.safeParse(input);
   if (!parsed.success) {
-    return { ok: false, error: parsed.error.issues[0]?.message ?? "Dati non validi" };
+    return { ok: false, error: await translateActionError(parsed.error.issues[0]?.message) };
   }
 
   const supabase = createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { ok: false, error: "Sessione non valida" };
+  if (!user) return { ok: false, error: await translateActionError("errInvalidSession") };
 
   if (parsed.data.category === "altro" && !parsed.data.custom_category?.trim()) {
-    return { ok: false, error: "Specifica la categoria personalizzata" };
+    return { ok: false, error: await translateActionError("errCustomCategory") };
   }
 
   const { data, error } = await supabase
@@ -175,7 +176,7 @@ export async function createBill(
     .single();
 
   if (error || !data) {
-    return { ok: false, error: error?.message ?? "Salvataggio non riuscito" };
+    return { ok: false, error: await translateActionError(error?.message ?? "errSaveFailed") };
   }
 
   // Auto-add a Google Calendar reminder if the user is connected (best-effort;
@@ -209,7 +210,7 @@ export async function updateBill(
 ): Promise<ActionResult> {
   const parsed = updateSchema.safeParse(input);
   if (!parsed.success) {
-    return { ok: false, error: parsed.error.issues[0]?.message ?? "Dati non validi" };
+    return { ok: false, error: await translateActionError(parsed.error.issues[0]?.message) };
   }
   const {
     id,
@@ -243,7 +244,7 @@ export async function updateBill(
     parsed.data.category === "altro" &&
     !parsed.data.custom_category?.trim()
   ) {
-    return { ok: false, error: "Specifica la categoria personalizzata" };
+    return { ok: false, error: await translateActionError("errCustomCategory") };
   }
   const customCategory = categoryEdited
     ? {

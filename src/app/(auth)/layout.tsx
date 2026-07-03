@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import { PublicNav } from "@/components/layout/PublicNav";
 
 export default function AuthLayout({
@@ -5,6 +6,7 @@ export default function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const t = useTranslations("auth");
   return (
     <div className="flex min-h-screen flex-col bg-gradient-to-b from-brand-50 to-slate-50 dark:from-slate-950 dark:to-slate-900">
       <PublicNav />
@@ -13,8 +15,7 @@ export default function AuthLayout({
           {children}
         </div>
         <p className="mt-6 max-w-md text-center text-xs text-slate-400 dark:text-slate-500">
-          Non perdere mai più una scadenza. Carica una bolletta e lascia che
-          BillTracker estragga importo e data per te.
+          {t("tagline")}
         </p>
       </div>
     </div>

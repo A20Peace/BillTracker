@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { getTranslations } from "next-intl/server";
 import { BarChart3, ChevronRight, Contact, LifeBuoy } from "lucide-react";
 import { ProfileForm } from "@/components/settings/ProfileForm";
 import { GoogleConnect } from "@/components/settings/GoogleConnect";
@@ -12,7 +13,10 @@ export const dynamic = "force-dynamic";
 
 export default async function ProfilePage() {
   const { supabase, user, profile } = await requireUser();
-  const connected = await hasGoogleConnected(supabase, user.id);
+  const [connected, t] = await Promise.all([
+    hasGoogleConnected(supabase, user.id),
+    getTranslations("settings.page"),
+  ]);
 
   const email = profile?.email ?? user.email ?? "";
   const displayName = profile?.display_name ?? "";
@@ -25,17 +29,17 @@ export default async function ProfilePage() {
     <div className="mx-auto max-w-xl space-y-6">
       <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-5">
         <h2 className="mb-4 text-base font-semibold text-slate-800 dark:text-slate-200">
-          Il tuo profilo
+          {t("yourProfile")}
         </h2>
         <ProfileForm displayName={displayName} email={email} />
       </section>
 
       <section className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-5">
         <h2 className="text-base font-semibold text-slate-800 dark:text-slate-200">
-          Integrazioni
+          {t("integrations")}
         </h2>
         <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
-          Attiva o disattiva i canali di notifica.
+          {t("integrationsHint")}
         </p>
 
         <div className="space-y-5 divide-y divide-slate-100 dark:divide-slate-800">
@@ -61,9 +65,9 @@ export default async function ProfilePage() {
             <LifeBuoy size={20} />
           </span>
           <div>
-            <p className="font-semibold text-slate-800 dark:text-slate-200">Contattaci</p>
+            <p className="font-semibold text-slate-800 dark:text-slate-200">{t("contactTitle")}</p>
             <p className="text-sm text-slate-500 dark:text-slate-400">
-              Domande o problemi? I riferimenti del gestore
+              {t("contactHint")}
             </p>
           </div>
         </div>
@@ -81,9 +85,9 @@ export default async function ProfilePage() {
                 <BarChart3 size={20} />
               </span>
               <div>
-                <p className="font-semibold text-slate-800 dark:text-slate-200">Benchmark di mercato</p>
+                <p className="font-semibold text-slate-800 dark:text-slate-200">{t("benchmarksTitle")}</p>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Aggiorna i prezzi medi ARERA / AGCOM
+                  {t("benchmarksHint")}
                 </p>
               </div>
             </div>
@@ -99,9 +103,9 @@ export default async function ProfilePage() {
                 <Contact size={20} />
               </span>
               <div>
-                <p className="font-semibold text-slate-800 dark:text-slate-200">Pagina Contattaci</p>
+                <p className="font-semibold text-slate-800 dark:text-slate-200">{t("contactAdminTitle")}</p>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Modifica i dati di contatto pubblici
+                  {t("contactAdminHint")}
                 </p>
               </div>
             </div>

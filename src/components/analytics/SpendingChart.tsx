@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocale, useTranslations } from "next-intl";
 import {
   BarChart,
   Bar,
@@ -11,13 +12,16 @@ import {
   Legend,
   ReferenceLine,
 } from "recharts";
-import { CATEGORY_COLORS, CATEGORY_LABELS, formatCurrency } from "@/lib/utils";
+import { CATEGORY_COLORS, formatCurrency, intlLocale } from "@/lib/utils";
 import type { BillCategory, MonthlySpending } from "@/types";
 
-function monthLabel(ym: string): string {
+function monthLabel(ym: string, locale: string): string {
   const [y, m] = ym.split("-");
   const date = new Date(Number(y), Number(m) - 1, 1);
-  return new Intl.DateTimeFormat("it-IT", { month: "short", year: "2-digit" }).format(date);
+  return new Intl.DateTimeFormat(intlLocale(locale), {
+    month: "short",
+    year: "2-digit",
+  }).format(date);
 }
 
 interface TooltipEntry {
@@ -36,6 +40,9 @@ function ChartTooltip({
   payload?: TooltipEntry[];
   label?: string;
 }) {
+  const locale = useLocale();
+  const t = useTranslations("analytics");
+  const tCat = useTranslations("categories");
   if (!active || !payload) return null;
   const entries = payload.filter((p) => (p.value ?? 0) > 0);
   const total = payload.reduce((s, p) => s + (p.value ?? 0), 0);
@@ -44,20 +51,20 @@ function ChartTooltip({
     <div className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 px-3 py-2 text-[13px] shadow-sm">
       <p className="mb-1 font-semibold text-slate-800 dark:text-slate-200">{label}</p>
       {entries.length === 0 ? (
-        <p className="text-slate-400 dark:text-slate-500">Nessuna spesa registrata in questo mese</p>
+        <p className="text-slate-400 dark:text-slate-500">{t("noSpendingMonth")}</p>
       ) : (
         <>
           {entries.map((e) => (
             <div key={String(e.dataKey)} className="flex justify-between gap-6">
               <span style={{ color: e.color }}>
-                {CATEGORY_LABELS[e.dataKey as BillCategory] ?? String(e.dataKey)}
+                {tCat(String(e.dataKey))}
               </span>
-              <span className="font-semibold">{formatCurrency(e.value ?? 0)}</span>
+              <span className="font-semibold">{formatCurrency(e.value ?? 0, locale)}</span>
             </div>
           ))}
           <div className="mt-1 flex justify-between gap-6 border-t border-slate-200 dark:border-slate-800 pt-1">
-            <span>Totale</span>
-            <span className="font-bold">{formatCurrency(total)}</span>
+            <span>{t("total")}</span>
+            <span className="font-bold">{formatCurrency(total, locale)}</span>
           </div>
         </>
       )}
@@ -76,8 +83,12 @@ export function SpendingChart({
   /** Average over months-with-data; drawn as a dashed reference line. */
   average?: number;
 }) {
+  const locale = useLocale();
+  const t = useTranslations("analytics");
+  const tCat = useTranslations("categories");
+
   const data = buckets.slice(-12).map((b) => ({
-    label: monthLabel(b.month),
+    label: monthLabel(b.month, locale),
     ...b.byCategory,
   }));
 
@@ -93,7 +104,7 @@ export function SpendingChart({
             tickFormatter={(v: number) => `€${v}`} />
           <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(148,163,184,0.12)" }} />
           <Legend
-            formatter={(value: string) => CATEGORY_LABELS[value as BillCategory] ?? value}
+            formatter={(value: string) => tCat(value)}
             wrapperStyle={{ fontSize: 12 }}
           />
           {average > 0 && (
@@ -102,7 +113,7 @@ export function SpendingChart({
               stroke="#1b5df5"
               strokeDasharray="4 4"
               label={{
-                value: `media ${formatCurrency(average)}`,
+                value: t("avgLine", { amount: formatCurrency(average, locale) }),
                 position: "insideTopRight",
                 fill: "#1b5df5",
                 fontSize: 11,

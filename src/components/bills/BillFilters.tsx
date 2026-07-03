@@ -2,22 +2,25 @@
 
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
+import { useTranslations } from "next-intl";
 import { BILL_CATEGORIES } from "@/types";
-import { CATEGORY_LABELS, cn } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import type { BillCounts } from "@/lib/bills/queries";
 
 // Tab order requested: Da pagare → Tutte → Pagate → Scadute.
 const TABS = [
-  { value: "unpaid", label: "Da pagare", key: "unpaid" },
-  { value: "all", label: "Tutte le fatture", key: "all" },
-  { value: "paid", label: "Pagate", key: "paid" },
-  { value: "overdue", label: "Scadute", key: "overdue" },
+  { value: "unpaid", key: "unpaid" },
+  { value: "all", key: "all" },
+  { value: "paid", key: "paid" },
+  { value: "overdue", key: "overdue" },
 ] as const;
 
 export function BillFilters({ counts }: { counts: BillCounts }) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
+  const t = useTranslations("bills.filters");
+  const tCat = useTranslations("categories");
 
   // Selects (category/month) replace history; tabs push it (so Back works).
   const setParam = useCallback(
@@ -57,7 +60,7 @@ export function BillFilters({ counts }: { counts: BillCounts }) {
                   : "bg-white dark:bg-slate-900 text-slate-600 dark:text-slate-300 ring-1 ring-inset ring-slate-200 dark:ring-slate-800 hover:bg-slate-50 dark:bg-slate-900 dark:text-slate-300 dark:ring-slate-700 dark:hover:bg-slate-800",
               )}
             >
-              {tab.label}
+              {t(`tab_${tab.key}`)}
               <span
                 className={cn(
                   "min-w-5 rounded-full px-1.5 py-0.5 text-center text-xs font-semibold tabular-nums",
@@ -77,22 +80,22 @@ export function BillFilters({ counts }: { counts: BillCounts }) {
 
       <div className="flex gap-2">
         <select
-          aria-label="Filtra per categoria"
+          aria-label={t("byCategory")}
           value={category}
           onChange={(e) => setParam("category", e.target.value)}
           className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-sm outline-none focus:border-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
         >
-          <option value="">Tutte le categorie</option>
+          <option value="">{t("allCategories")}</option>
           {BILL_CATEGORIES.map((c) => (
             <option key={c} value={c}>
-              {CATEGORY_LABELS[c]}
+              {tCat(c)}
             </option>
           ))}
         </select>
 
         <input
           type="month"
-          aria-label="Filtra per mese"
+          aria-label={t("byMonth")}
           value={month}
           onChange={(e) => setParam("month", e.target.value)}
           className="rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-900 px-2.5 py-1.5 text-sm outline-none focus:border-brand-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"

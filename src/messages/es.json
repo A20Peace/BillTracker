@@ -1,0 +1,458 @@
+{
+  "common": {
+    "language": "Idioma",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "save": "Guardar",
+    "saved": "Guardado",
+    "updated": "Actualizado",
+    "logout": "Cerrar sesión",
+    "user": "Usuario",
+    "themeLight": "Cambiar al tema claro",
+    "themeDark": "Cambiar al tema oscuro",
+    "themeToggle": "Cambiar tema"
+  },
+  "nav": {
+    "home": "Inicio",
+    "features": "Funciones",
+    "howItWorks": "Cómo funciona",
+    "contact": "Contáctanos",
+    "login": "Iniciar sesión",
+    "startFree": "Empieza gratis",
+    "backToApp": "Volver a la app",
+    "register": "Regístrate",
+    "deadlines": "Facturas",
+    "analytics": "Análisis",
+    "family": "Familia",
+    "profile": "Perfil"
+  },
+  "titles": {
+    "home": "Inicio",
+    "dashboard": "Tus vencimientos",
+    "analytics": "Análisis",
+    "family": "Grupo familiar",
+    "profile": "Perfil",
+    "billDetail": "Detalle de la factura"
+  },
+  "landing": {
+    "metaTitle": "BillTracker — No vuelvas a perder un vencimiento",
+    "metaDescription": "Sube una factura: BillTracker lee el importe y la fecha de vencimiento por ti, te avisa por correo y la añade a tu calendario. Gratis.",
+    "badge": "Con lectura automática de facturas",
+    "heroTitle": "Tus facturas, <highlight>bajo control</highlight>.",
+    "heroText": "Sube una factura y BillTracker lee el importe y el vencimiento por ti, te avisa por correo antes de que venza y la añade al calendario. Sin recargos, sin sorpresas.",
+    "ctaStart": "Empieza gratis",
+    "ctaLogin": "Iniciar sesión",
+    "ctaNote": "Gratuito. No se requiere tarjeta de crédito.",
+    "footerTagline": "BillTracker — gestión de vencimientos de facturas",
+    "mock": {
+      "title": "Próximos vencimientos",
+      "month": "Julio",
+      "due1": "Vence el 15 jul",
+      "due2": "Vence el 22 jul",
+      "due3": "Vence el 3 jul",
+      "chipDueSoon": "Por vencer",
+      "chipScheduled": "Programada",
+      "chipPaid": "Pagada ✓",
+      "badgeReminder": "Recordatorio enviado",
+      "badgeCalendar": "Añadido al calendario",
+      "badgeParsed": "Importe leído: 68,40 €"
+    },
+    "features": {
+      "heading": "Todo lo que necesitas, en un solo lugar",
+      "sub": "De la foto de la factura al recordatorio: BillTracker se encarga de los pasos aburridos, tú solo paga a tiempo.",
+      "scan": {
+        "title": "Lectura automática",
+        "text": "Sube un PDF o una foto: la inteligencia artificial extrae el importe, el vencimiento y la categoría en segundos."
+      },
+      "reminders": {
+        "title": "Recordatorios por correo",
+        "text": "Un aviso en tu bandeja antes de cada vencimiento. Se acabaron los recargos, avisos y cortes."
+      },
+      "calendar": {
+        "title": "Google Calendar",
+        "text": "Cada vencimiento llega solo a tu calendario, con notificación en el móvil incluida."
+      },
+      "family": {
+        "title": "Cuentas familiares",
+        "text": "Comparte las facturas con tu grupo familiar: todos ven qué hay que pagar y quién se encarga."
+      },
+      "analytics": {
+        "title": "Análisis de gastos",
+        "text": "Gráficos claros para entender adónde va tu dinero, mes a mes y categoría por categoría."
+      },
+      "market": {
+        "title": "Comparación con el mercado",
+        "text": "Descubre si pagas más que la media nacional (datos ARERA y AGCOM) y cuándo conviene cambiar de proveedor."
+      }
+    },
+    "how": {
+      "heading": "Cómo funciona",
+      "sub": "Tres pasos, menos de un minuto.",
+      "step1": {
+        "title": "Sube o fotografía",
+        "text": "Factura en papel o PDF recibido por correo: bastan dos toques para subirla."
+      },
+      "step2": {
+        "title": "La IA la lee por ti",
+        "text": "Importe, vencimiento y categoría se rellenan automáticamente. Tú revisas y confirmas."
+      },
+      "step3": {
+        "title": "Paga a tiempo",
+        "text": "Recordatorios por correo y en el calendario. Pagas, la marcas como pagada y a por la siguiente."
+      }
+    },
+    "cta": {
+      "title": "¿Listo para no olvidar ningún vencimiento más?",
+      "text": "Crea tu cuenta gratuita y sube tu primera factura: BillTracker te la recordará.",
+      "button": "Empieza gratis"
+    }
+  },
+  "auth": {
+    "tagline": "No vuelvas a perder un vencimiento. Sube una factura y deja que BillTracker extraiga el importe y la fecha por ti.",
+    "login": {
+      "title": "Bienvenido de nuevo",
+      "subtitle": "Inicia sesión para gestionar tus vencimientos.",
+      "submit": "Iniciar sesión",
+      "submitting": "Iniciando sesión…",
+      "or": "o bien",
+      "google": "Continuar con Google",
+      "noAccount": "¿No tienes cuenta?",
+      "registerLink": "Regístrate"
+    },
+    "register": {
+      "title": "Crea tu cuenta",
+      "subtitle": "Solo necesitas un correo y una contraseña.",
+      "name": "Nombre",
+      "passwordHint": "Al menos 8 caracteres.",
+      "submit": "Crear cuenta",
+      "submitting": "Creando cuenta…",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Inicia sesión"
+    },
+    "unverified": {
+      "title": "Correo pendiente de verificación",
+      "text": "Revisa tu bandeja de entrada y haz clic en el enlace que te enviamos. Revisa también la carpeta de spam.",
+      "resent": "Correo de confirmación reenviado ✓",
+      "resend": "Reenviar correo de confirmación",
+      "resendIn": "Reenviar en {seconds}s",
+      "sendFailed": "Envío fallido"
+    },
+    "errors": {
+      "invalidEmail": "Introduce un correo válido",
+      "passwordMin": "La contraseña debe tener al menos 8 caracteres",
+      "nameRequired": "Introduce un nombre",
+      "invalidData": "Datos no válidos",
+      "unverified": "Correo pendiente de verificación",
+      "wrongCredentials": "Correo o contraseña incorrectos",
+      "googleFailed": "Error al iniciar sesión con Google"
+    }
+  },
+  "contact": {
+    "metaTitle": "Contáctanos — BillTracker",
+    "metaDescription": "Los datos para contactar con el responsable de BillTracker.",
+    "title": "Contáctanos",
+    "description": "Para preguntas, avisos o sugerencias sobre BillTracker, estos son los datos de contacto del responsable de la app.",
+    "referent": "Persona de contacto",
+    "email": "Correo electrónico",
+    "phone": "Teléfono"
+  },
+  "home": {
+    "newBill": "Nueva factura",
+    "upcoming": {
+      "title": "Próximos vencimientos",
+      "seeAll": "Ver todos",
+      "empty": "No hay vencimientos a la vista. ¡Estás al día! 🎉",
+      "payNow": "Pagar ahora",
+      "within7": "En 7 días",
+      "within30": "En 30 días",
+      "later": "Más adelante"
+    },
+    "month": {
+      "title": "Mes de {month}",
+      "toPay": "Por pagar este mes",
+      "alreadyPaid": "Ya pagado",
+      "overdueUnpaid": "Vencidas sin pagar",
+      "total": "Total del mes",
+      "paid": "Pagado"
+    },
+    "market": {
+      "title": "Precios medios de mercado",
+      "marketAvg": "Media del mercado:",
+      "yourAvg": "Tu media:",
+      "noSpending": "Sin gastos registrados",
+      "source": "Fuente:",
+      "noBenchmark": "Referencia no disponible.",
+      "updateBenchmarks": "Actualizar precios de referencia"
+    }
+  },
+  "dashboard": {
+    "dueNext30": "Por vencer (30 días)",
+    "dueNext30Hint": "{count, plural, one {# vencimiento} other {# vencimientos}}",
+    "unpaid": "Facturas por pagar",
+    "unpaidHint": "total sin pagar",
+    "paidThisMonth": "Pagado este mes",
+    "paidThisMonthHint": "pagos liquidados",
+    "newBill": "Nueva factura",
+    "emptyTitle": "Sin vencimientos",
+    "emptyText": "Sube una factura y BillTracker extraerá el importe, el vencimiento y la categoría por ti.",
+    "uploadCta": "Subir una factura"
+  },
+  "bills": {
+    "shared": "Compartida",
+    "categoryDue": "{category} · vence el {date}",
+    "benchmarkHint": "Comparación con la media del mercado — abre el detalle",
+    "undoPaid": "Deshacer",
+    "markPaid": "Marcar pagada",
+    "recurrence": {
+      "week": "{count, plural, one {cada semana} other {cada # semanas}}",
+      "month": "{count, plural, one {cada mes} other {cada # meses}}",
+      "year": "{count, plural, one {cada año} other {cada # años}}"
+    },
+    "statusBadge": {
+      "paid": "Pagada",
+      "overdueDays": "Vencida hace {days}d",
+      "dueToday": "Vence hoy",
+      "inDays": "En {days}d"
+    },
+    "detail": {
+      "confirmDelete": "¿Eliminar este vencimiento?",
+      "calendarNotConnected": "Conecta Google Calendar desde el Perfil para sincronizar.",
+      "calendarExpired": "Autorización de Google caducada: vuelve a conectar la cuenta desde el Perfil.",
+      "calendarFailed": "Operación de Calendar fallida.",
+      "networkError": "Error de red.",
+      "editTitle": "Editar vencimiento",
+      "save": "Guardar",
+      "recurring": "Recurrente",
+      "dueDate": "Vencimiento",
+      "status": "Estado",
+      "paidOn": "Pagada el",
+      "openPdf": "Abrir documento PDF",
+      "openDocument": "Abrir documento",
+      "reopen": "Reabrir",
+      "paid": "Pagada",
+      "removeCalendar": "Quitar",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "form": {
+      "errorTitle": "Introduce un título",
+      "errorDueDate": "Introduce una fecha de vencimiento",
+      "errorCustomCategory": "Especifica la categoría personalizada",
+      "errorSave": "Error al guardar",
+      "title": "Título",
+      "titlePlaceholder": "Ej. Factura de luz mayo 2025",
+      "amount": "Importe (€)",
+      "dueDate": "Vencimiento",
+      "category": "Categoría",
+      "selectPlaceholder": "Selecciona…",
+      "customCategory": "Categoría personalizada",
+      "customCategoryPlaceholder": "Categoría personalizada (ej. Cuota del gimnasio)",
+      "shareWith": "Compartir con",
+      "personalOnly": "Solo yo (personal)",
+      "notes": "Notas",
+      "recurring": "Gasto recurrente",
+      "recurringHint": "Crea automáticamente el próximo vencimiento con la frecuencia elegida.",
+      "cancel": "Cancelar",
+      "frequency": "Frecuencia",
+      "every": "cada",
+      "interval": "Intervalo",
+      "unit": "Unidad",
+      "unit_week": "Semana(s)",
+      "unit_month": "Mes(es)",
+      "unit_year": "Año(s)",
+      "nextAmounts": "Importe en los próximos vencimientos",
+      "sameAmount": "Mismo importe{amount} — editable cuando haga falta",
+      "emptyAmount": "Dejar el importe vacío — lo rellenaré cuando llegue la factura",
+      "recurrenceSummary": "Se creará un nuevo vencimiento {freq}.",
+      "recurrenceSummaryFrom": "Se creará un nuevo vencimiento {freq} a partir del {date}."
+    },
+    "filters": {
+      "tab_unpaid": "Por pagar",
+      "tab_all": "Todas las facturas",
+      "tab_paid": "Pagadas",
+      "tab_overdue": "Vencidas",
+      "byCategory": "Filtrar por categoría",
+      "byMonth": "Filtrar por mes",
+      "allCategories": "Todas las categorías"
+    }
+  },
+  "upload": {
+    "backToBills": "Volver a los vencimientos",
+    "title": "Nueva factura",
+    "subtitleParsing": "Sube el documento: extraemos el importe, la fecha y la categoría por ti.",
+    "subtitleManual": "Rellena los datos del vencimiento.",
+    "fileTooLarge": "El archivo supera los 10MB.",
+    "parseFailed": "Análisis fallido.",
+    "parseNetworkError": "Error de red durante el análisis.",
+    "manualEntry": "Introducir manualmente",
+    "saveBill": "Guardar vencimiento",
+    "uploadTitle": "Subir una factura",
+    "uploadHint": "PDF o imagen, hasta 10MB",
+    "takePhoto": "Hacer una foto",
+    "parsing": "Analizando el documento…",
+    "parsedTitle": "Datos extraídos automáticamente",
+    "parsedHint": "Revisa y corrige antes de guardar.",
+    "confidence": "Fiabilidad {pct}%.",
+    "openPdf": "Abrir documento PDF",
+    "previewAlt": "Vista previa del documento"
+  },
+  "analytics": {
+    "last12": "Gasto últimos 12 meses",
+    "monthlyAvg": "Media mensual",
+    "monthsRecorded": "{count, plural, one {sobre # mes registrado} other {sobre # meses registrados}}",
+    "monthlyByCategory": "Gasto mensual por categoría",
+    "avgNote": "{count, plural, one {Media calculada sobre # mes con datos registrados{range}.} other {Media calculada sobre # meses con datos registrados{range}.}}",
+    "noData": "Sin datos registrados en los últimos 12 meses.",
+    "noSpendingMonth": "Sin gastos registrados este mes",
+    "total": "Total",
+    "avgLine": "media {amount}",
+    "trend": "Tendencia mensual",
+    "selectCategory": "Seleccionar categoría",
+    "allCategories": "Todas las categorías",
+    "spend": "Gasto",
+    "yoyTitle": "Comparación interanual",
+    "month": "Mes",
+    "thisYear": "Este año",
+    "prevYear": "Año ant.",
+    "change": "Variación",
+    "yoyInsufficient": "Datos insuficientes para la comparación anual."
+  },
+  "family": {
+    "title": "Grupo familiar",
+    "subtitle": "Comparte los vencimientos con tu familia. Los miembros ven las facturas compartidas y reciben los recordatorios.",
+    "empty": "No formas parte de ningún grupo. Crea uno para compartir los vencimientos.",
+    "createTitle": "Crear un grupo",
+    "namePlaceholder": "Ej. Familia García",
+    "create": "Crear",
+    "operationFailed": "Operación fallida",
+    "memberAdded": "Miembro añadido al grupo.",
+    "members": "{count, plural, one {# miembro} other {# miembros}}",
+    "confirmDeleteGroup": "¿Eliminar el grupo \"{name}\"?",
+    "delete": "Eliminar",
+    "leave": "Salir",
+    "you": "(tú)",
+    "owner": "Propietario",
+    "removeMember": "Quitar a {name}",
+    "invite": "Invitar"
+  },
+  "settings": {
+    "page": {
+      "yourProfile": "Tu perfil",
+      "integrations": "Integraciones",
+      "integrationsHint": "Activa o desactiva los canales de notificación.",
+      "contactTitle": "Contáctanos",
+      "contactHint": "¿Preguntas o problemas? Los datos del responsable",
+      "benchmarksTitle": "Referencias de mercado",
+      "benchmarksHint": "Actualiza los precios medios ARERA / AGCOM",
+      "contactAdminTitle": "Página Contáctanos",
+      "contactAdminHint": "Edita los datos de contacto públicos"
+    },
+    "profileForm": {
+      "name": "Nombre",
+      "saveName": "Guardar nombre"
+    },
+    "google": {
+      "feedbackConnected": "Google Calendar conectado correctamente.",
+      "feedbackDenied": "Acceso a Google denegado.",
+      "feedbackError": "Error al conectar con Google. Inténtalo de nuevo.",
+      "connected": "Conectado",
+      "notConnected": "No conectado",
+      "disconnect": "Desconectar",
+      "connect": "Conectar",
+      "autoEvents": "Crear eventos automáticamente",
+      "autoEventsHint": "Añade un recordatorio al calendario por cada nuevo vencimiento.",
+      "connectHint": "Al conectar Google Calendar podrás añadir automáticamente un recordatorio por cada vencimiento. Las facturas se guardan igualmente aunque no haya conexión. Si iniciaste sesión con Google antes de esta actualización, cierra sesión y vuelve a entrar con Google (o usa el botón Conectar) para conceder el permiso del calendario."
+    },
+    "reminders": {
+      "title": "Recordatorios por correo",
+      "schedule": "Avisos 14 y 7 días antes, cada día durante los últimos 3 hasta el vencimiento, y luego cada día hasta que la pagues.",
+      "emailLabel": "Correo para los recordatorios",
+      "emailHint": "Déjalo vacío para usar el correo de acceso ({email}). Puede ser una dirección secundaria o de un familiar."
+    },
+    "danger": {
+      "confirm": "¿Eliminar definitivamente la cuenta? Se borrarán todos los documentos y todos los vencimientos. La operación es irreversible.",
+      "failed": "Eliminación fallida.",
+      "networkError": "Error de red.",
+      "title": "Eliminar cuenta",
+      "text": "Elimina definitivamente la cuenta, todos los documentos subidos y todos los vencimientos. No se puede deshacer.",
+      "button": "Eliminar mi cuenta"
+    }
+  },
+  "admin": {
+    "benchmarks": {
+      "title": "Referencias de mercado",
+      "subtitle": "Precios medios de referencia (ARERA para luz/gas, AGCOM para teléfono/internet). Actualiza los valores cada trimestre desde las fuentes oficiales — sin migraciones SQL.",
+      "current": "Actual: {amount}/mes · {period}",
+      "period": "Periodo",
+      "avgPerMonth": "Media €/mes",
+      "sourceUrl": "URL de la fuente",
+      "notes": "Notas",
+      "notesPlaceholder": "Ej. Hogar tipo 2700 kWh/año"
+    },
+    "contact": {
+      "title": "Página Contáctanos",
+      "subtitle": "Los datos mostrados en la página pública <pageLink>/contatti</pageLink>. Los cambios son visibles de inmediato para todos los visitantes.",
+      "firstName": "Nombre",
+      "lastName": "Apellido",
+      "contactEmail": "Correo de contacto",
+      "phoneNumber": "Número de teléfono"
+    }
+  },
+  "categories": {
+    "luce": "Luz",
+    "gas": "Gas",
+    "acqua": "Agua",
+    "condominio": "Comunidad",
+    "telefono": "Teléfono",
+    "internet": "Internet",
+    "mav": "MAV",
+    "imu": "Impuesto inmobiliario",
+    "assicurazione": "Seguro",
+    "altro": "Otros",
+    "none": "Sin categoría"
+  },
+  "benchmark": {
+    "over": "Por encima de la media",
+    "inline": "En línea con el mercado",
+    "under": "Por debajo de la media",
+    "publicSource": "fuente pública",
+    "title": "Comparación con el mercado",
+    "marketAvg": "Media del mercado",
+    "yourSpend": "Tu gasto",
+    "perMonth": "{amount}/mes",
+    "sourceUpdated": "Fuente: {source} — actualizado {period}"
+  },
+  "pwa": {
+    "installTitle": "Instala BillTracker",
+    "installText": "Añádela a la pantalla de inicio para abrirla como una app.",
+    "install": "Instalar",
+    "dismiss": "Descartar"
+  },
+  "actionErrors": {
+    "errInvalidId": "ID no válido",
+    "errTitleRequired": "El título es obligatorio",
+    "errInvalidDate": "Fecha no válida",
+    "errInvalidData": "Datos no válidos",
+    "errInvalidSession": "Sesión no válida",
+    "errCustomCategory": "Especifica la categoría personalizada",
+    "errSaveFailed": "Error al guardar",
+    "errNameRequired": "Introduce un nombre",
+    "errCreateFailed": "Error al crear",
+    "errOnlyOwnerRename": "Solo el propietario puede renombrar el grupo",
+    "errInvalidEmail": "Correo no válido",
+    "errOnlyOwnerInvite": "Solo el propietario puede invitar miembros",
+    "errNoUserWithEmail": "No hay ningún usuario registrado con este correo. Pídele que se registre primero.",
+    "errOnlyOwnerRemove": "Solo el propietario puede quitar miembros",
+    "errOwnerCannotRemoveSelf": "El propietario no puede quitarse a sí mismo",
+    "errOwnerCannotLeave": "El propietario no puede salir: elimina el grupo",
+    "errOnlyOwnerDelete": "Solo el propietario puede eliminar el grupo",
+    "errFirstNameRequired": "El nombre es obligatorio",
+    "errLastNameRequired": "El apellido es obligatorio",
+    "errPhoneRequired": "El teléfono es obligatorio",
+    "errInvalidPhone": "Número de teléfono no válido",
+    "errNotAuthorized": "No autorizado",
+    "errInvalidPeriod": "Periodo no válido (ej. 2025-Q1)",
+    "errInvalidAmount": "Importe no válido",
+    "errInvalidUrl": "URL no válida"
+  }
+}

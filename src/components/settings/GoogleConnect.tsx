@@ -2,13 +2,14 @@
 
 import { useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { CalendarCheck, Loader2, Link2Off } from "lucide-react";
 import { disconnectGoogleAccount, setAutoCalendar } from "@/app/_actions/profile";
 
-const FEEDBACK: Record<string, { tone: "ok" | "err"; text: string }> = {
-  connected: { tone: "ok", text: "Google Calendar collegato con successo." },
-  denied: { tone: "err", text: "Accesso a Google negato." },
-  error: { tone: "err", text: "Collegamento a Google non riuscito. Riprova." },
+const FEEDBACK: Record<string, { tone: "ok" | "err"; key: string }> = {
+  connected: { tone: "ok", key: "feedbackConnected" },
+  denied: { tone: "err", key: "feedbackDenied" },
+  error: { tone: "err", key: "feedbackError" },
 };
 
 export function GoogleConnect({
@@ -18,6 +19,7 @@ export function GoogleConnect({
   connected: boolean;
   autoCalendar: boolean;
 }) {
+  const t = useTranslations("settings.google");
   const params = useSearchParams();
   const feedback = FEEDBACK[params.get("google") ?? ""];
   const [pending, startTransition] = useTransition();
@@ -42,7 +44,7 @@ export function GoogleConnect({
               : "bg-red-50 text-red-700")
           }
         >
-          {feedback.text}
+          {t(feedback.key)}
         </p>
       )}
 
@@ -54,7 +56,7 @@ export function GoogleConnect({
           <div className="text-sm">
             <p className="font-medium text-slate-800 dark:text-slate-200">Google Calendar</p>
             <p className={connected ? "text-emerald-600" : "text-slate-500 dark:text-slate-400"}>
-              {connected ? "Collegato" : "Non collegato"}
+              {connected ? t("connected") : t("notConnected")}
             </p>
           </div>
         </div>
@@ -67,14 +69,14 @@ export function GoogleConnect({
             className="tap-target inline-flex items-center gap-1.5 rounded-lg border border-slate-300 dark:border-slate-700 px-3 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 transition hover:bg-slate-50 disabled:opacity-60"
           >
             {pending ? <Loader2 size={15} className="animate-spin" /> : <Link2Off size={15} />}
-            Scollega
+            {t("disconnect")}
           </button>
         ) : (
           <a
             href="/api/google/connect"
             className="tap-target inline-flex items-center rounded-lg bg-brand-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-brand-700"
           >
-            Collega
+            {t("connect")}
           </a>
         )}
       </div>
@@ -83,10 +85,10 @@ export function GoogleConnect({
         <label className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 p-3 dark:border-slate-800">
           <span className="text-sm">
             <span className="font-medium text-slate-800 dark:text-slate-200">
-              Crea eventi automaticamente
+              {t("autoEvents")}
             </span>
             <span className="block text-slate-500 dark:text-slate-400">
-              Aggiunge un promemoria al calendario per ogni nuova scadenza.
+              {t("autoEventsHint")}
             </span>
           </span>
           <span className="relative inline-flex cursor-pointer items-center">
@@ -105,12 +107,7 @@ export function GoogleConnect({
 
       {!connected && (
         <p className="text-xs text-slate-400 dark:text-slate-500">
-          Collegando Google Calendar potrai aggiungere automaticamente un
-          promemoria per ogni scadenza. Le scadenze si salvano comunque anche
-          senza collegamento. Se hai effettuato l&apos;accesso con Google prima
-          di questo aggiornamento, esci e rientra con Google (oppure usa il
-          pulsante <strong>Collega</strong>) per concedere il permesso al
-          calendario.
+          {t("connectHint")}
         </p>
       )}
     </div>

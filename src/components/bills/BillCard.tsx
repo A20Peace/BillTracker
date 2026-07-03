@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, useTransition } from "react";
+import { useLocale, useTranslations } from "next-intl";
 import { Check, CalendarCheck, Loader2, Undo2, Users, Repeat } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
 import { setBillPaid } from "@/app/_actions/bills";
@@ -10,7 +11,6 @@ import {
   formatCurrency,
   formatDate,
   compareToBenchmark,
-  recurrenceLabel,
   billCategoryLabel,
   CATEGORY_EMOJI,
   type BenchmarkLevel,
@@ -31,6 +31,10 @@ export function BillCard({
   /** Market average for this bill's category, when available. */
   benchmarkAvg?: number;
 }) {
+  const locale = useLocale();
+  const t = useTranslations("bills");
+  const tCat = useTranslations("categories");
+  const tBench = useTranslations("benchmark");
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const isPaid = bill.status === "paid";
@@ -47,6 +51,12 @@ export function BillCard({
       if (!res.ok) setError(res.error);
     });
   }
+
+  const categoryLabel = billCategoryLabel(
+    bill.category,
+    bill.custom_category,
+    tCat(bill.category ?? "none"),
+  );
 
   return (
     <div
@@ -66,30 +76,34 @@ export function BillCard({
         <div className="flex items-center gap-2">
           <p className="truncate font-semibold text-slate-900 dark:text-slate-100">{bill.title}</p>
           {bill.group_id && (
-            <Users size={14} className="shrink-0 text-slate-400 dark:text-slate-500" aria-label="Condivisa" />
+            <Users size={14} className="shrink-0 text-slate-400 dark:text-slate-500" aria-label={t("shared")} />
           )}
         </div>
         <p className="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
-          {billCategoryLabel(bill.category, bill.custom_category)} · scade il{" "}
-          {formatDate(bill.due_date)}
+          {t("categoryDue", {
+            category: categoryLabel,
+            date: formatDate(bill.due_date, locale),
+          })}
         </p>
         <div className="mt-2 flex flex-wrap items-center gap-2">
           <StatusBadge status={bill.status} dueDate={bill.due_date} />
           {bill.is_recurring && (
             <span className="inline-flex items-center gap-1 text-xs font-medium text-brand-600">
               <Repeat size={12} />
-              {recurrenceLabel(bill.recurrence_unit, bill.recurrence_interval)}
+              {t(`recurrence.${bill.recurrence_unit ?? "month"}`, {
+                count: bill.recurrence_interval ?? 1,
+              })}
             </span>
           )}
           {benchmark && (
             <span
-              title="Confronto con la media di mercato — apri il dettaglio"
+              title={t("benchmarkHint")}
               className={cn(
                 "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium ring-1 ring-inset",
                 BADGE_STYLES[benchmark.level],
               )}
             >
-              {benchmark.label}
+              {tBench(benchmark.level)}
             </span>
           )}
           {bill.calendar_event_id && (
@@ -102,7 +116,7 @@ export function BillCard({
 
       <div className="flex flex-col items-end gap-2">
         <span className="whitespace-nowrap text-base font-bold text-slate-900 dark:text-slate-100 sm:text-lg">
-          {formatCurrency(bill.amount)}
+          {formatCurrency(bill.amount, locale)}
         </span>
         <button
           type="button"
@@ -123,7 +137,7 @@ export function BillCard({
             <Check size={15} />
           )}
           <span className="hidden sm:inline">
-            {isPaid ? "Annulla" : "Segna pagata"}
+            {isPaid ? t("undoPaid") : t("markPaid")}
           </span>
         </button>
       </div>
