@@ -127,7 +127,9 @@
       "submit": "Créer le compte",
       "submitting": "Création du compte…",
       "haveAccount": "Vous avez déjà un compte ?",
-      "loginLink": "Se connecter"
+      "loginLink": "Se connecter",
+      "successTitle": "Inscription terminée !",
+      "successText": "Nous vous avons envoyé un e-mail de confirmation. Ouvrez-le et cliquez sur le lien pour activer votre compte (vérifiez aussi les spams)."
     },
     "unverified": {
       "title": "E-mail en attente de vérification",
@@ -144,7 +146,11 @@
       "invalidData": "Données non valides",
       "unverified": "E-mail en attente de vérification",
       "wrongCredentials": "E-mail ou mot de passe incorrects",
-      "googleFailed": "Échec de la connexion Google"
+      "googleFailed": "Échec de la connexion Google",
+      "emailExists": "Cet e-mail est déjà enregistré. Essayez de vous connecter."
+    },
+    "notices": {
+      "verifyExpired": "Votre e-mail est déjà vérifié ou le lien n'est plus valide. Connectez-vous avec vos identifiants."
     }
   },
   "contact": {

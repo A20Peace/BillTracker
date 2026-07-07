@@ -127,7 +127,9 @@
       "submit": "Konto erstellen",
       "submitting": "Konto wird erstellt…",
       "haveAccount": "Du hast schon ein Konto?",
-      "loginLink": "Anmelden"
+      "loginLink": "Anmelden",
+      "successTitle": "Registrierung abgeschlossen!",
+      "successText": "Wir haben dir eine Bestätigungs-E-Mail geschickt. Öffne sie und klicke auf den Link, um dein Konto zu aktivieren (prüfe auch den Spam-Ordner)."
     },
     "unverified": {
       "title": "E-Mail wird verifiziert",
@@ -144,7 +146,11 @@
       "invalidData": "Ungültige Daten",
       "unverified": "E-Mail wird verifiziert",
       "wrongCredentials": "E-Mail oder Passwort falsch",
-      "googleFailed": "Google-Anmeldung fehlgeschlagen"
+      "googleFailed": "Google-Anmeldung fehlgeschlagen",
+      "emailExists": "Diese E-Mail ist bereits registriert. Versuche, dich anzumelden."
+    },
+    "notices": {
+      "verifyExpired": "Deine E-Mail ist bereits verifiziert oder der Link ist nicht mehr gültig. Melde dich mit deinen Zugangsdaten an."
     }
   },
   "contact": {

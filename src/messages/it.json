@@ -127,7 +127,9 @@
       "submit": "Crea account",
       "submitting": "Creazione account…",
       "haveAccount": "Hai già un account?",
-      "loginLink": "Accedi"
+      "loginLink": "Accedi",
+      "successTitle": "Registrazione completata!",
+      "successText": "Ti abbiamo inviato un'email di conferma. Aprila e clicca sul link per attivare il tuo account (controlla anche lo spam)."
     },
     "unverified": {
       "title": "Email in corso di verifica",
@@ -144,7 +146,11 @@
       "invalidData": "Dati non validi",
       "unverified": "Email in corso di verifica",
       "wrongCredentials": "Email o password non corretti",
-      "googleFailed": "Login Google non riuscito"
+      "googleFailed": "Login Google non riuscito",
+      "emailExists": "Questa email è già registrata. Prova ad accedere."
+    },
+    "notices": {
+      "verifyExpired": "La tua email risulta già verificata oppure il link non è più valido. Accedi con le tue credenziali."
     }
   },
   "contact": {

@@ -127,7 +127,9 @@
       "submit": "Crear cuenta",
       "submitting": "Creando cuenta…",
       "haveAccount": "¿Ya tienes una cuenta?",
-      "loginLink": "Inicia sesión"
+      "loginLink": "Inicia sesión",
+      "successTitle": "¡Registro completado!",
+      "successText": "Te hemos enviado un correo de confirmación. Ábrelo y haz clic en el enlace para activar tu cuenta (revisa también el spam)."
     },
     "unverified": {
       "title": "Correo pendiente de verificación",
@@ -144,7 +146,11 @@
       "invalidData": "Datos no válidos",
       "unverified": "Correo pendiente de verificación",
       "wrongCredentials": "Correo o contraseña incorrectos",
-      "googleFailed": "Error al iniciar sesión con Google"
+      "googleFailed": "Error al iniciar sesión con Google",
+      "emailExists": "Este correo ya está registrado. Prueba a iniciar sesión."
+    },
+    "notices": {
+      "verifyExpired": "Tu correo ya está verificado o el enlace ya no es válido. Inicia sesión con tus credenciales."
     }
   },
   "contact": {

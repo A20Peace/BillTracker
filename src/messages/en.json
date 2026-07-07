@@ -127,7 +127,9 @@
       "submit": "Create account",
       "submitting": "Creating account…",
       "haveAccount": "Already have an account?",
-      "loginLink": "Sign in"
+      "loginLink": "Sign in",
+      "successTitle": "Registration complete!",
+      "successText": "We've sent you a confirmation email. Open it and click the link to activate your account (check the spam folder too)."
     },
     "unverified": {
       "title": "Email pending verification",
@@ -144,7 +146,11 @@
       "invalidData": "Invalid data",
       "unverified": "Email pending verification",
       "wrongCredentials": "Incorrect email or password",
-      "googleFailed": "Google sign-in failed"
+      "googleFailed": "Google sign-in failed",
+      "emailExists": "This email is already registered. Try signing in."
+    },
+    "notices": {
+      "verifyExpired": "Your email is already verified, or the link is no longer valid. Sign in with your credentials."
     }
   },
   "contact": {

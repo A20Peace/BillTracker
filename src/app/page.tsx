@@ -28,7 +28,23 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function LandingPage() {
+export default async function LandingPage({
+  searchParams,
+}: {
+  searchParams: { code?: string; error?: string; error_code?: string };
+}) {
+  // Email-confirmation (and some OAuth) links use the Supabase Site URL as
+  // redirect target, so they land here on `/`. Route them to the callback,
+  // which exchanges the code / shows the right message.
+  if (searchParams.error || searchParams.error_code) {
+    redirect("/login?notice=verify_expired");
+  }
+  if (searchParams.code) {
+    redirect(
+      `/auth/callback?code=${encodeURIComponent(searchParams.code)}&flow=verify&next=/home`,
+    );
+  }
+
   const supabase = createClient();
   const {
     data: { user },

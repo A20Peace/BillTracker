@@ -31,8 +31,10 @@ function LoginForm() {
   const [state, formAction] = useFormState<AuthState, FormData>(login, null);
   const searchParams = useSearchParams();
   const urlError = searchParams.get("error");
+  const urlNotice = searchParams.get("notice");
   const t = useTranslations("auth.login");
   const tCommon = useTranslations("common");
+  const tNotices = useTranslations("auth.notices");
 
   return (
     <div>
@@ -40,6 +42,12 @@ function LoginForm() {
       <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
         {t("subtitle")}
       </p>
+
+      {urlNotice === "verify_expired" && (
+        <p className="mt-4 rounded-lg bg-sky-50 px-3 py-2 text-sm text-sky-800 ring-1 ring-inset ring-sky-200 dark:bg-sky-950/40 dark:text-sky-300 dark:ring-sky-900">
+          {tNotices("verifyExpired")}
+        </p>
+      )}
 
       {state?.unverified ? (
         <UnverifiedNotice email={state.email ?? ""} />

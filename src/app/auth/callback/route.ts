@@ -15,6 +15,16 @@ export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl;
   const code = searchParams.get("code");
   const next = searchParams.get("next") ?? "/home";
+  // `flow=verify` marks an email-confirmation link (forwarded from the landing
+  // page) so we can show a tailored message if it fails.
+  const flow = searchParams.get("flow");
+  // Supabase appends these when a link was already used or has expired — the
+  // typical "I clicked an already-verified email" case.
+  const errorParam = searchParams.get("error") ?? searchParams.get("error_code");
+
+  if (errorParam) {
+    return NextResponse.redirect(`${origin}/login?notice=verify_expired`);
+  }
 
   if (code) {
     const supabase = createClient();
@@ -46,6 +56,11 @@ export async function GET(request: NextRequest) {
     }
   }
 
+  // Exchange failed or no code. For a verification link this almost always means
+  // the link was already used (email already verified) → friendly notice.
+  if (flow === "verify") {
+    return NextResponse.redirect(`${origin}/login?notice=verify_expired`);
+  }
   return NextResponse.redirect(
     `${origin}/login?error=${encodeURIComponent("Autenticazione non riuscita")}`,
   );

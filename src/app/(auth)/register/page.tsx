@@ -2,6 +2,7 @@
 
 import { useFormState, useFormStatus } from "react-dom";
 import Link from "next/link";
+import { MailCheck } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { register, signInWithGoogle, type AuthState } from "../actions";
 
@@ -32,16 +33,33 @@ export default function RegisterPage() {
         {t("subtitle")}
       </p>
 
-      {state?.error && (
-        <p
-          role="alert"
-          className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700"
-        >
-          {state.error}
-        </p>
-      )}
+      {state?.success ? (
+        <div className="mt-4 rounded-lg bg-emerald-50 px-4 py-3 text-sm text-emerald-800 ring-1 ring-inset ring-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-300 dark:ring-emerald-900">
+          <p className="flex items-center gap-2 font-semibold">
+            <MailCheck size={16} /> {t("successTitle")}
+          </p>
+          <p className="mt-1 text-emerald-800/90 dark:text-emerald-300/90">
+            {t("successText")}
+          </p>
+          <Link
+            href="/login"
+            className="mt-3 inline-block font-semibold text-brand-600 hover:underline dark:text-brand-400"
+          >
+            {t("loginLink")}
+          </Link>
+        </div>
+      ) : (
+        <>
+          {state?.error && (
+            <p
+              role="alert"
+              className="mt-4 rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700"
+            >
+              {state.error}
+            </p>
+          )}
 
-      <form action={formAction} className="mt-6 space-y-4">
+          <form action={formAction} className="mt-6 space-y-4">
         <div>
           <label htmlFor="displayName" className="block text-sm font-medium text-slate-700 dark:text-slate-300">
             {t("name")}
@@ -101,12 +119,17 @@ export default function RegisterPage() {
         </button>
       </form>
 
-      <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
-        {t("haveAccount")}{" "}
-        <Link href="/login" className="font-semibold text-brand-600 hover:underline">
-          {t("loginLink")}
-        </Link>
-      </p>
+          <p className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
+            {t("haveAccount")}{" "}
+            <Link
+              href="/login"
+              className="font-semibold text-brand-600 hover:underline"
+            >
+              {t("loginLink")}
+            </Link>
+          </p>
+        </>
+      )}
     </div>
   );
 }

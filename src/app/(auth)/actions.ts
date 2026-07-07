@@ -21,7 +21,13 @@ async function schemas() {
 }
 
 export type AuthState =
-  | { error: string; unverified?: boolean; email?: string }
+  | {
+      error?: string;
+      unverified?: boolean;
+      email?: string;
+      /** Registration succeeded; a confirmation email was sent (no session yet). */
+      success?: boolean;
+    }
   | null;
 
 function appUrl(): string {
@@ -103,7 +109,7 @@ export async function register(
   }
 
   const supabase = createClient();
-  const { error } = await supabase.auth.signUp({
+  const { data, error } = await supabase.auth.signUp({
     email: parsed.data.email,
     password: parsed.data.password,
     options: {
@@ -115,7 +121,21 @@ export async function register(
     return { error: error.message };
   }
 
-  // If email confirmation is disabled the user is already signed in.
+  // Supabase does NOT surface duplicate signups (anti-enumeration): an already
+  // registered email comes back with an empty `identities` array and no error.
+  // Surface it explicitly so the user knows to sign in instead.
+  if (data.user && (data.user.identities?.length ?? 0) === 0) {
+    return { error: t("emailExists") };
+  }
+
+  // With email confirmation ON there is no session yet: show the "check your
+  // inbox" success message instead of redirecting to a protected page (which
+  // would just bounce back to /login).
+  if (!data.session) {
+    return { success: true };
+  }
+
+  // Email confirmation disabled → the user is already signed in.
   revalidatePath("/", "layout");
   redirect("/home");
 }
