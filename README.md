@@ -1,4 +1,4 @@
-# 🧾 BillTracker
+# 🧾 KeepinBill
 
 Web app per gestire le scadenze di bollette, MAV, spese condominiali e altri
 pagamenti. Carica una foto o un PDF: l'app estrae importo, scadenza, intestatario
@@ -134,4 +134,4 @@ condivise, notifica tutti i membri del gruppo.
   `process.version` proviene da `@supabase/ssr` ed è innocuo (è il pattern
   ufficiale Supabase).
 - L'invito di un membro al gruppo richiede che l'invitato abbia già un account
-  BillTracker (un flusso completo di invito via token è un'estensione futura).
+  KeepinBill (un flusso completo di invito via token è un'estensione futura).

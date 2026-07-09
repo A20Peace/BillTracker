@@ -36,15 +36,15 @@
     "billDetail": "Bill details"
   },
   "landing": {
-    "metaTitle": "BillTracker — Never miss a due date again",
-    "metaDescription": "Upload a bill: BillTracker reads the amount and due date for you, reminds you by email and adds it to your calendar. Free.",
+    "metaTitle": "KeepinBill — Never miss a due date again",
+    "metaDescription": "Upload a bill: KeepinBill reads the amount and due date for you, reminds you by email and adds it to your calendar. Free.",
     "badge": "With automatic bill reading",
     "heroTitle": "Your bills, <highlight>under control</highlight>.",
-    "heroText": "Upload a bill and BillTracker reads the amount and due date for you, warns you by email before it's due and adds it to your calendar. No late fees, no surprises.",
+    "heroText": "Upload a bill and KeepinBill reads the amount and due date for you, warns you by email before it's due and adds it to your calendar. No late fees, no surprises.",
     "ctaStart": "Start for free",
     "ctaLogin": "Sign in",
     "ctaNote": "Free. No credit card required.",
-    "footerTagline": "BillTracker — bill due-date management",
+    "footerTagline": "KeepinBill — bill due-date management",
     "mock": {
       "title": "Upcoming bills",
       "month": "July",
@@ -60,7 +60,7 @@
     },
     "features": {
       "heading": "Everything you need, in one place",
-      "sub": "From the photo of the bill to the reminder: BillTracker handles the boring steps, you just pay on time.",
+      "sub": "From the photo of the bill to the reminder: KeepinBill handles the boring steps, you just pay on time.",
       "scan": {
         "title": "Automatic reading",
         "text": "Upload a PDF or a photo: AI extracts the amount, due date and category in seconds."
@@ -104,12 +104,12 @@
     },
     "cta": {
       "title": "Ready to never forget a due date again?",
-      "text": "Create your free account and upload your first bill: BillTracker will remember it for you.",
+      "text": "Create your free account and upload your first bill: KeepinBill will remember it for you.",
       "button": "Start for free"
     }
   },
   "auth": {
-    "tagline": "Never miss a due date again. Upload a bill and let BillTracker extract the amount and date for you.",
+    "tagline": "Never miss a due date again. Upload a bill and let KeepinBill extract the amount and date for you.",
     "login": {
       "title": "Welcome back",
       "subtitle": "Sign in to manage your bills.",
@@ -155,10 +155,10 @@
     }
   },
   "contact": {
-    "metaTitle": "Contact us — BillTracker",
-    "metaDescription": "How to reach the person running BillTracker.",
+    "metaTitle": "Contact us — KeepinBill",
+    "metaDescription": "How to reach the person running KeepinBill.",
     "title": "Contact us",
-    "description": "For questions, reports or suggestions about BillTracker, these are the app manager's contact details.",
+    "description": "For questions, reports or suggestions about KeepinBill, these are the app manager's contact details.",
     "referent": "Contact person",
     "email": "Email",
     "phone": "Phone"
@@ -201,7 +201,7 @@
     "paidThisMonthHint": "settled payments",
     "newBill": "New bill",
     "emptyTitle": "No bills",
-    "emptyText": "Upload a bill and BillTracker will extract the amount, due date and category for you.",
+    "emptyText": "Upload a bill and KeepinBill will extract the amount, due date and category for you.",
     "uploadCta": "Upload a bill"
   },
   "bills": {
@@ -440,7 +440,7 @@
     "sourceUpdated": "Source: {source} — updated {period}"
   },
   "pwa": {
-    "installTitle": "Install BillTracker",
+    "installTitle": "Install KeepinBill",
     "installText": "Add it to your home screen to open it like an app.",
     "install": "Install",
     "dismiss": "Dismiss"

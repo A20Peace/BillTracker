@@ -36,15 +36,15 @@
     "billDetail": "Détail de la facture"
   },
   "landing": {
-    "metaTitle": "BillTracker — Ne ratez plus jamais une échéance",
-    "metaDescription": "Téléversez une facture : BillTracker lit le montant et l'échéance pour vous, vous prévient par e-mail et l'ajoute à votre calendrier. Gratuit.",
+    "metaTitle": "KeepinBill — Ne ratez plus jamais une échéance",
+    "metaDescription": "Téléversez une facture : KeepinBill lit le montant et l'échéance pour vous, vous prévient par e-mail et l'ajoute à votre calendrier. Gratuit.",
     "badge": "Avec lecture automatique des factures",
     "heroTitle": "Vos factures, <highlight>sous contrôle</highlight>.",
-    "heroText": "Téléversez une facture et BillTracker lit le montant et l'échéance pour vous, vous prévient par e-mail avant la date limite et l'ajoute au calendrier. Pas de pénalités, pas de surprises.",
+    "heroText": "Téléversez une facture et KeepinBill lit le montant et l'échéance pour vous, vous prévient par e-mail avant la date limite et l'ajoute au calendrier. Pas de pénalités, pas de surprises.",
     "ctaStart": "Commencer gratuitement",
     "ctaLogin": "Se connecter",
     "ctaNote": "Gratuit. Aucune carte bancaire requise.",
-    "footerTagline": "BillTracker — gestion des échéances de factures",
+    "footerTagline": "KeepinBill — gestion des échéances de factures",
     "mock": {
       "title": "Prochaines échéances",
       "month": "Juillet",
@@ -60,7 +60,7 @@
     },
     "features": {
       "heading": "Tout ce qu'il faut, au même endroit",
-      "sub": "De la photo de la facture au rappel : BillTracker s'occupe des étapes ennuyeuses, vous n'avez qu'à payer à temps.",
+      "sub": "De la photo de la facture au rappel : KeepinBill s'occupe des étapes ennuyeuses, vous n'avez qu'à payer à temps.",
       "scan": {
         "title": "Lecture automatique",
         "text": "Téléversez un PDF ou une photo : l'intelligence artificielle extrait le montant, l'échéance et la catégorie en quelques secondes."
@@ -104,12 +104,12 @@
     },
     "cta": {
       "title": "Prêt à ne plus jamais oublier une échéance ?",
-      "text": "Créez votre compte gratuit et téléversez votre première facture : BillTracker s'en souviendra pour vous.",
+      "text": "Créez votre compte gratuit et téléversez votre première facture : KeepinBill s'en souviendra pour vous.",
       "button": "Commencer gratuitement"
     }
   },
   "auth": {
-    "tagline": "Ne ratez plus jamais une échéance. Téléversez une facture et laissez BillTracker extraire le montant et la date pour vous.",
+    "tagline": "Ne ratez plus jamais une échéance. Téléversez une facture et laissez KeepinBill extraire le montant et la date pour vous.",
     "login": {
       "title": "Bon retour",
       "subtitle": "Connectez-vous pour gérer vos échéances.",
@@ -155,10 +155,10 @@
     }
   },
   "contact": {
-    "metaTitle": "Contactez-nous — BillTracker",
-    "metaDescription": "Les coordonnées pour contacter le responsable de BillTracker.",
+    "metaTitle": "Contactez-nous — KeepinBill",
+    "metaDescription": "Les coordonnées pour contacter le responsable de KeepinBill.",
     "title": "Contactez-nous",
-    "description": "Pour toute question, signalement ou suggestion sur BillTracker, voici les coordonnées du responsable de l'app.",
+    "description": "Pour toute question, signalement ou suggestion sur KeepinBill, voici les coordonnées du responsable de l'app.",
     "referent": "Contact",
     "email": "E-mail",
     "phone": "Téléphone"
@@ -201,7 +201,7 @@
     "paidThisMonthHint": "paiements réglés",
     "newBill": "Nouvelle échéance",
     "emptyTitle": "Aucune échéance",
-    "emptyText": "Téléversez une facture et BillTracker extraira le montant, l'échéance et la catégorie pour vous.",
+    "emptyText": "Téléversez une facture et KeepinBill extraira le montant, l'échéance et la catégorie pour vous.",
     "uploadCta": "Téléverser une facture"
   },
   "bills": {
@@ -440,7 +440,7 @@
     "sourceUpdated": "Source : {source} — mis à jour {period}"
   },
   "pwa": {
-    "installTitle": "Installer BillTracker",
+    "installTitle": "Installer KeepinBill",
     "installText": "Ajoutez-la à l'écran d'accueil pour l'ouvrir comme une app.",
     "install": "Installer",
     "dismiss": "Ignorer"

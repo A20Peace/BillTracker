@@ -36,15 +36,15 @@
     "billDetail": "Rechnungsdetails"
   },
   "landing": {
-    "metaTitle": "BillTracker — Nie wieder eine Frist verpassen",
-    "metaDescription": "Lade eine Rechnung hoch: BillTracker liest Betrag und Fälligkeit für dich, erinnert dich per E-Mail und trägt sie in deinen Kalender ein. Kostenlos.",
+    "metaTitle": "KeepinBill — Nie wieder eine Frist verpassen",
+    "metaDescription": "Lade eine Rechnung hoch: KeepinBill liest Betrag und Fälligkeit für dich, erinnert dich per E-Mail und trägt sie in deinen Kalender ein. Kostenlos.",
     "badge": "Mit automatischer Rechnungserkennung",
     "heroTitle": "Deine Rechnungen, <highlight>unter Kontrolle</highlight>.",
-    "heroText": "Lade eine Rechnung hoch und BillTracker liest Betrag und Fälligkeit für dich, warnt dich per E-Mail vor dem Stichtag und trägt sie in den Kalender ein. Keine Mahngebühren, keine Überraschungen.",
+    "heroText": "Lade eine Rechnung hoch und KeepinBill liest Betrag und Fälligkeit für dich, warnt dich per E-Mail vor dem Stichtag und trägt sie in den Kalender ein. Keine Mahngebühren, keine Überraschungen.",
     "ctaStart": "Kostenlos starten",
     "ctaLogin": "Anmelden",
     "ctaNote": "Kostenlos. Keine Kreditkarte erforderlich.",
-    "footerTagline": "BillTracker — Verwaltung von Rechnungsfristen",
+    "footerTagline": "KeepinBill — Verwaltung von Rechnungsfristen",
     "mock": {
       "title": "Nächste Fälligkeiten",
       "month": "Juli",
@@ -60,7 +60,7 @@
     },
     "features": {
       "heading": "Alles, was du brauchst, an einem Ort",
-      "sub": "Vom Foto der Rechnung bis zur Erinnerung: BillTracker übernimmt die lästigen Schritte, du zahlst nur pünktlich.",
+      "sub": "Vom Foto der Rechnung bis zur Erinnerung: KeepinBill übernimmt die lästigen Schritte, du zahlst nur pünktlich.",
       "scan": {
         "title": "Automatische Erkennung",
         "text": "Lade ein PDF oder ein Foto hoch: Die KI extrahiert Betrag, Fälligkeit und Kategorie in Sekunden."
@@ -104,12 +104,12 @@
     },
     "cta": {
       "title": "Bereit, nie wieder eine Frist zu vergessen?",
-      "text": "Erstelle dein kostenloses Konto und lade deine erste Rechnung hoch: BillTracker erinnert dich daran.",
+      "text": "Erstelle dein kostenloses Konto und lade deine erste Rechnung hoch: KeepinBill erinnert dich daran.",
       "button": "Kostenlos starten"
     }
   },
   "auth": {
-    "tagline": "Nie wieder eine Frist verpassen. Lade eine Rechnung hoch und lass BillTracker Betrag und Datum für dich auslesen.",
+    "tagline": "Nie wieder eine Frist verpassen. Lade eine Rechnung hoch und lass KeepinBill Betrag und Datum für dich auslesen.",
     "login": {
       "title": "Willkommen zurück",
       "subtitle": "Melde dich an, um deine Fälligkeiten zu verwalten.",
@@ -155,10 +155,10 @@
     }
   },
   "contact": {
-    "metaTitle": "Kontakt — BillTracker",
-    "metaDescription": "So erreichst du den Betreiber von BillTracker.",
+    "metaTitle": "Kontakt — KeepinBill",
+    "metaDescription": "So erreichst du den Betreiber von KeepinBill.",
     "title": "Kontakt",
-    "description": "Bei Fragen, Hinweisen oder Vorschlägen zu BillTracker sind dies die Kontaktdaten des App-Betreibers.",
+    "description": "Bei Fragen, Hinweisen oder Vorschlägen zu KeepinBill sind dies die Kontaktdaten des App-Betreibers.",
     "referent": "Ansprechpartner",
     "email": "E-Mail",
     "phone": "Telefon"
@@ -201,7 +201,7 @@
     "paidThisMonthHint": "beglichene Zahlungen",
     "newBill": "Neue Fälligkeit",
     "emptyTitle": "Keine Fälligkeiten",
-    "emptyText": "Lade eine Rechnung hoch und BillTracker liest Betrag, Fälligkeit und Kategorie für dich aus.",
+    "emptyText": "Lade eine Rechnung hoch und KeepinBill liest Betrag, Fälligkeit und Kategorie für dich aus.",
     "uploadCta": "Rechnung hochladen"
   },
   "bills": {
@@ -440,7 +440,7 @@
     "sourceUpdated": "Quelle: {source} — aktualisiert {period}"
   },
   "pwa": {
-    "installTitle": "BillTracker installieren",
+    "installTitle": "KeepinBill installieren",
     "installText": "Füge sie dem Startbildschirm hinzu, um sie wie eine App zu öffnen.",
     "install": "Installieren",
     "dismiss": "Verwerfen"

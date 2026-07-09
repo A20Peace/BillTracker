@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "BillTracker — Gestione scadenze bollette",
-    short_name: "BillTracker",
+    name: "KeepinBill — Gestione scadenze bollette",
+    short_name: "KeepinBill",
     description:
       "Gestisci le scadenze di bollette e pagamenti: promemoria, calendario e spesa storica.",
     start_url: "/home",

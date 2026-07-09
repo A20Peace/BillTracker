@@ -36,15 +36,15 @@
     "billDetail": "账单详情"
   },
   "landing": {
-    "metaTitle": "BillTracker — 再也不会错过缴费日期",
-    "metaDescription": "上传账单：BillTracker 自动读取金额和到期日，通过邮件提醒你并添加到日历。免费。",
+    "metaTitle": "KeepinBill — 再也不会错过缴费日期",
+    "metaDescription": "上传账单：KeepinBill 自动读取金额和到期日，通过邮件提醒你并添加到日历。免费。",
     "badge": "支持账单自动识别",
     "heroTitle": "你的账单，<highlight>尽在掌控</highlight>。",
-    "heroText": "上传一张账单，BillTracker 会自动读取金额和到期日，在到期前通过邮件提醒你，并添加到日历。没有滞纳金，没有意外。",
+    "heroText": "上传一张账单，KeepinBill 会自动读取金额和到期日，在到期前通过邮件提醒你，并添加到日历。没有滞纳金，没有意外。",
     "ctaStart": "免费开始",
     "ctaLogin": "登录",
     "ctaNote": "完全免费,无需信用卡。",
-    "footerTagline": "BillTracker — 账单到期管理",
+    "footerTagline": "KeepinBill — 账单到期管理",
     "mock": {
       "title": "即将到期",
       "month": "七月",
@@ -60,7 +60,7 @@
     },
     "features": {
       "heading": "所需的一切，尽在一处",
-      "sub": "从账单照片到提醒：BillTracker 处理繁琐的步骤，你只需按时付款。",
+      "sub": "从账单照片到提醒：KeepinBill 处理繁琐的步骤，你只需按时付款。",
       "scan": {
         "title": "自动识别",
         "text": "上传 PDF 或照片：人工智能在几秒内提取金额、到期日和类别。"
@@ -104,12 +104,12 @@
     },
     "cta": {
       "title": "准备好不再忘记任何缴费日期了吗？",
-      "text": "创建免费账户并上传第一张账单：BillTracker 会替你记住。",
+      "text": "创建免费账户并上传第一张账单：KeepinBill 会替你记住。",
       "button": "免费开始"
     }
   },
   "auth": {
-    "tagline": "再也不会错过缴费日期。上传账单，让 BillTracker 为你提取金额和日期。",
+    "tagline": "再也不会错过缴费日期。上传账单，让 KeepinBill 为你提取金额和日期。",
     "login": {
       "title": "欢迎回来",
       "subtitle": "登录以管理你的账单。",
@@ -155,10 +155,10 @@
     }
   },
   "contact": {
-    "metaTitle": "联系我们 — BillTracker",
-    "metaDescription": "联系 BillTracker 管理者的方式。",
+    "metaTitle": "联系我们 — KeepinBill",
+    "metaDescription": "联系 KeepinBill 管理者的方式。",
     "title": "联系我们",
-    "description": "如对 BillTracker 有疑问、反馈或建议，请通过以下方式联系应用管理者。",
+    "description": "如对 KeepinBill 有疑问、反馈或建议，请通过以下方式联系应用管理者。",
     "referent": "联系人",
     "email": "邮箱",
     "phone": "电话"
@@ -201,7 +201,7 @@
     "paidThisMonthHint": "已结清的付款",
     "newBill": "新建账单",
     "emptyTitle": "暂无账单",
-    "emptyText": "上传账单，BillTracker 会为你提取金额、到期日和类别。",
+    "emptyText": "上传账单，KeepinBill 会为你提取金额、到期日和类别。",
     "uploadCta": "上传账单"
   },
   "bills": {
@@ -440,7 +440,7 @@
     "sourceUpdated": "来源：{source} — 更新于 {period}"
   },
   "pwa": {
-    "installTitle": "安装 BillTracker",
+    "installTitle": "安装 KeepinBill",
     "installText": "添加到主屏幕，像应用一样打开。",
     "install": "安装",
     "dismiss": "忽略"

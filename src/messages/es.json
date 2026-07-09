@@ -36,15 +36,15 @@
     "billDetail": "Detalle de la factura"
   },
   "landing": {
-    "metaTitle": "BillTracker — No vuelvas a perder un vencimiento",
-    "metaDescription": "Sube una factura: BillTracker lee el importe y la fecha de vencimiento por ti, te avisa por correo y la añade a tu calendario. Gratis.",
+    "metaTitle": "KeepinBill — No vuelvas a perder un vencimiento",
+    "metaDescription": "Sube una factura: KeepinBill lee el importe y la fecha de vencimiento por ti, te avisa por correo y la añade a tu calendario. Gratis.",
     "badge": "Con lectura automática de facturas",
     "heroTitle": "Tus facturas, <highlight>bajo control</highlight>.",
-    "heroText": "Sube una factura y BillTracker lee el importe y el vencimiento por ti, te avisa por correo antes de que venza y la añade al calendario. Sin recargos, sin sorpresas.",
+    "heroText": "Sube una factura y KeepinBill lee el importe y el vencimiento por ti, te avisa por correo antes de que venza y la añade al calendario. Sin recargos, sin sorpresas.",
     "ctaStart": "Empieza gratis",
     "ctaLogin": "Iniciar sesión",
     "ctaNote": "Gratuito. No se requiere tarjeta de crédito.",
-    "footerTagline": "BillTracker — gestión de vencimientos de facturas",
+    "footerTagline": "KeepinBill — gestión de vencimientos de facturas",
     "mock": {
       "title": "Próximos vencimientos",
       "month": "Julio",
@@ -60,7 +60,7 @@
     },
     "features": {
       "heading": "Todo lo que necesitas, en un solo lugar",
-      "sub": "De la foto de la factura al recordatorio: BillTracker se encarga de los pasos aburridos, tú solo paga a tiempo.",
+      "sub": "De la foto de la factura al recordatorio: KeepinBill se encarga de los pasos aburridos, tú solo paga a tiempo.",
       "scan": {
         "title": "Lectura automática",
         "text": "Sube un PDF o una foto: la inteligencia artificial extrae el importe, el vencimiento y la categoría en segundos."
@@ -104,12 +104,12 @@
     },
     "cta": {
       "title": "¿Listo para no olvidar ningún vencimiento más?",
-      "text": "Crea tu cuenta gratuita y sube tu primera factura: BillTracker te la recordará.",
+      "text": "Crea tu cuenta gratuita y sube tu primera factura: KeepinBill te la recordará.",
       "button": "Empieza gratis"
     }
   },
   "auth": {
-    "tagline": "No vuelvas a perder un vencimiento. Sube una factura y deja que BillTracker extraiga el importe y la fecha por ti.",
+    "tagline": "No vuelvas a perder un vencimiento. Sube una factura y deja que KeepinBill extraiga el importe y la fecha por ti.",
     "login": {
       "title": "Bienvenido de nuevo",
       "subtitle": "Inicia sesión para gestionar tus vencimientos.",
@@ -155,10 +155,10 @@
     }
   },
   "contact": {
-    "metaTitle": "Contáctanos — BillTracker",
-    "metaDescription": "Los datos para contactar con el responsable de BillTracker.",
+    "metaTitle": "Contáctanos — KeepinBill",
+    "metaDescription": "Los datos para contactar con el responsable de KeepinBill.",
     "title": "Contáctanos",
-    "description": "Para preguntas, avisos o sugerencias sobre BillTracker, estos son los datos de contacto del responsable de la app.",
+    "description": "Para preguntas, avisos o sugerencias sobre KeepinBill, estos son los datos de contacto del responsable de la app.",
     "referent": "Persona de contacto",
     "email": "Correo electrónico",
     "phone": "Teléfono"
@@ -201,7 +201,7 @@
     "paidThisMonthHint": "pagos liquidados",
     "newBill": "Nueva factura",
     "emptyTitle": "Sin vencimientos",
-    "emptyText": "Sube una factura y BillTracker extraerá el importe, el vencimiento y la categoría por ti.",
+    "emptyText": "Sube una factura y KeepinBill extraerá el importe, el vencimiento y la categoría por ti.",
     "uploadCta": "Subir una factura"
   },
   "bills": {
@@ -440,7 +440,7 @@
     "sourceUpdated": "Fuente: {source} — actualizado {period}"
   },
   "pwa": {
-    "installTitle": "Instala BillTracker",
+    "installTitle": "Instala KeepinBill",
     "installText": "Añádela a la pantalla de inicio para abrirla como una app.",
     "install": "Instalar",
     "dismiss": "Descartar"

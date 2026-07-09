@@ -23,7 +23,7 @@ function getResend(): Resend | null {
 }
 
 function fromAddress(): string {
-  return process.env.RESEND_FROM ?? "BillTracker <onboarding@resend.dev>";
+  return process.env.RESEND_FROM ?? "KeepinBill <onboarding@resend.dev>";
 }
 
 // ─── Email templates ─────────────────────────────────────────────────────────
@@ -33,7 +33,7 @@ function emailShell(title: string, bodyHtml: string): string {
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f1f5f9;padding:24px 0">
     <tr><td align="center">
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)">
-        <tr><td style="padding:20px 24px;background:#1b5df5;color:#fff;font-size:18px;font-weight:700">🧾 BillTracker</td></tr>
+        <tr><td style="padding:20px 24px;background:#1b5df5;color:#fff;font-size:18px;font-weight:700">🧾 KeepinBill</td></tr>
         <tr><td style="padding:24px">
           <h1 style="margin:0 0 12px;font-size:18px">${title}</h1>
           ${bodyHtml}

@@ -31,7 +31,7 @@ export function Header({
   const initial = name.charAt(0).toUpperCase();
 
   const titleKey = TITLE_KEYS.find(([prefix]) => pathname.startsWith(prefix))?.[1];
-  const title = titleKey ? t(titleKey) : "BillTracker";
+  const title = titleKey ? t(titleKey) : "KeepinBill";
 
   return (
     <header className="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-white/80 px-4 backdrop-blur dark:border-slate-800 dark:bg-slate-900/80 sm:px-6">

@@ -36,15 +36,15 @@
     "billDetail": "Dettaglio scadenza"
   },
   "landing": {
-    "metaTitle": "BillTracker — Non perdere mai più una scadenza",
-    "metaDescription": "Carica una bolletta: BillTracker legge importo e scadenza per te, ti avvisa via email e la mette sul calendario. Gratis.",
+    "metaTitle": "KeepinBill — Non perdere mai più una scadenza",
+    "metaDescription": "Carica una bolletta: KeepinBill legge importo e scadenza per te, ti avvisa via email e la mette sul calendario. Gratis.",
     "badge": "Con lettura automatica delle bollette",
     "heroTitle": "Le tue bollette, <highlight>sotto controllo</highlight>.",
-    "heroText": "Carica una bolletta e BillTracker legge importo e scadenza per te, ti avvisa via email prima che scada e la mette sul calendario. Niente more, niente sorprese.",
+    "heroText": "Carica una bolletta e KeepinBill legge importo e scadenza per te, ti avvisa via email prima che scada e la mette sul calendario. Niente more, niente sorprese.",
     "ctaStart": "Inizia gratis",
     "ctaLogin": "Accedi",
     "ctaNote": "Gratuito. Nessuna carta di credito richiesta.",
-    "footerTagline": "BillTracker — gestione scadenze bollette",
+    "footerTagline": "KeepinBill — gestione scadenze bollette",
     "mock": {
       "title": "Prossime scadenze",
       "month": "Luglio",
@@ -60,7 +60,7 @@
     },
     "features": {
       "heading": "Tutto quello che serve, in un posto solo",
-      "sub": "Dalla foto della bolletta al promemoria: BillTracker si occupa dei passaggi noiosi, tu solo di pagare in tempo.",
+      "sub": "Dalla foto della bolletta al promemoria: KeepinBill si occupa dei passaggi noiosi, tu solo di pagare in tempo.",
       "scan": {
         "title": "Lettura automatica",
         "text": "Carica un PDF o una foto: l'intelligenza artificiale estrae importo, scadenza e categoria in pochi secondi."
@@ -104,12 +104,12 @@
     },
     "cta": {
       "title": "Pronto a non dimenticare più una scadenza?",
-      "text": "Crea il tuo account gratuito e carica la prima bolletta: ci pensa BillTracker a ricordartela.",
+      "text": "Crea il tuo account gratuito e carica la prima bolletta: ci pensa KeepinBill a ricordartela.",
       "button": "Inizia gratis"
     }
   },
   "auth": {
-    "tagline": "Non perdere mai più una scadenza. Carica una bolletta e lascia che BillTracker estragga importo e data per te.",
+    "tagline": "Non perdere mai più una scadenza. Carica una bolletta e lascia che KeepinBill estragga importo e data per te.",
     "login": {
       "title": "Bentornato",
       "subtitle": "Accedi per gestire le tue scadenze.",
@@ -155,10 +155,10 @@
     }
   },
   "contact": {
-    "metaTitle": "Contattaci — BillTracker",
-    "metaDescription": "I riferimenti per contattare il gestore di BillTracker.",
+    "metaTitle": "Contattaci — KeepinBill",
+    "metaDescription": "I riferimenti per contattare il gestore di KeepinBill.",
     "title": "Contattaci",
-    "description": "Per domande, segnalazioni o suggerimenti su BillTracker, questi sono i riferimenti del gestore dell'app.",
+    "description": "Per domande, segnalazioni o suggerimenti su KeepinBill, questi sono i riferimenti del gestore dell'app.",
     "referent": "Referente",
     "email": "Email",
     "phone": "Telefono"
@@ -201,7 +201,7 @@
     "paidThisMonthHint": "movimenti saldati",
     "newBill": "Nuova scadenza",
     "emptyTitle": "Nessuna scadenza",
-    "emptyText": "Carica una bolletta e BillTracker estrarrà importo, scadenza e categoria per te.",
+    "emptyText": "Carica una bolletta e KeepinBill estrarrà importo, scadenza e categoria per te.",
     "uploadCta": "Carica una bolletta"
   },
   "bills": {
@@ -440,7 +440,7 @@
     "sourceUpdated": "Fonte: {source} — aggiornato {period}"
   },
   "pwa": {
-    "installTitle": "Installa BillTracker",
+    "installTitle": "Installa KeepinBill",
     "installText": "Aggiungila alla home per aprirla come un'app.",
     "install": "Installa",
     "dismiss": "Ignora"

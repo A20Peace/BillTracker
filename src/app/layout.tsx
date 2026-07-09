@@ -4,13 +4,13 @@ import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "BillTracker — Gestione scadenze bollette",
+  title: "KeepinBill — Gestione scadenze bollette",
   description:
     "Carica le tue bollette, estrai automaticamente importo e scadenza, sincronizza con Google Calendar e non perdere mai una scadenza.",
-  applicationName: "BillTracker",
+  applicationName: "KeepinBill",
   appleWebApp: {
     capable: true,
-    title: "BillTracker",
+    title: "KeepinBill",
     statusBarStyle: "default",
   },
   icons: {

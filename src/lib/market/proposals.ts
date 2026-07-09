@@ -55,7 +55,7 @@ export function currentQuarter(now: Date = new Date()): string {
 async function fetchText(url: string): Promise<string | null> {
   try {
     const res = await fetch(url, {
-      headers: { "user-agent": "BillTrackerBot/1.0 (+benchmark updater)" },
+      headers: { "user-agent": "KeepinBillBot/1.0 (+benchmark updater)" },
       signal: AbortSignal.timeout(15_000),
       cache: "no-store",
     });

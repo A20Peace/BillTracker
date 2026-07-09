@@ -1,5 +1,5 @@
 /**
- * Domain types for BillTracker.
+ * Domain types for KeepinBill.
  *
  * These mirror the PostgreSQL schema (see supabase/migrations) and are the
  * single source of truth used across server actions, API routes and UI.

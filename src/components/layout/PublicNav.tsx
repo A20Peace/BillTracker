@@ -19,7 +19,7 @@ export function PublicNav({ loggedIn = false }: { loggedIn?: boolean }) {
         <Link href={loggedIn ? "/home" : "/"} className="flex items-center gap-2">
           <span className="text-2xl">🧾</span>
           <span className="text-lg font-bold tracking-tight text-slate-900 dark:text-slate-100">
-            Bill<span className="text-brand-600 dark:text-brand-400">Tracker</span>
+            Keepin<span className="text-brand-600 dark:text-brand-400">Bill</span>
           </span>
         </Link>
 

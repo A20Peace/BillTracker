@@ -74,7 +74,7 @@ export async function renameGroup(
 }
 
 /**
- * Adds an existing BillTracker user (looked up by email) to a group.
+ * Adds an existing KeepinBill user (looked up by email) to a group.
  * A full email-invite/accept flow is out of scope; the invitee must already
  * have an account.
  */

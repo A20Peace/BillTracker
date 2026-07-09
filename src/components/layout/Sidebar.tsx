@@ -32,7 +32,7 @@ export function Sidebar() {
         <div className="flex h-16 items-center gap-2 border-b border-slate-200 dark:border-slate-800 px-6 dark:border-slate-800">
           <span className="text-2xl">🧾</span>
           <span className="text-lg font-bold tracking-tight dark:text-slate-100">
-            Bill<span className="text-brand-600 dark:text-brand-400">Tracker</span>
+            Keepin<span className="text-brand-600 dark:text-brand-400">Bill</span>
           </span>
         </div>
         <nav className="flex-1 space-y-1 p-3">

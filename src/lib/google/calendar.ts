@@ -155,7 +155,7 @@ export async function createBillEvent(
         summary: `⏰ Scadenza: ${bill.title} — ${amountLabel}`,
         description: `Importo: ${amountLabel}\nCategoria: ${catLabel(
           bill.category,
-        )}\nGestito da BillTracker`,
+        )}\nGestito da KeepinBill`,
         start: { date: start },
         end: { date: end },
         reminders: {
