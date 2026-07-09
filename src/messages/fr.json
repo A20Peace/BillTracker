@@ -10,7 +10,8 @@
     "user": "Utilisateur",
     "themeLight": "Passer au thème clair",
     "themeDark": "Passer au thème sombre",
-    "themeToggle": "Changer de thème"
+    "themeToggle": "Changer de thème",
+    "optional": "facultatif"
   },
   "nav": {
     "home": "Accueil",

@@ -10,7 +10,8 @@
     "user": "用户",
     "themeLight": "切换到浅色主题",
     "themeDark": "切换到深色主题",
-    "themeToggle": "切换主题"
+    "themeToggle": "切换主题",
+    "optional": "可选"
   },
   "nav": {
     "home": "首页",

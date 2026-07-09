@@ -73,26 +73,25 @@ export default async function ContattaciPage() {
                 )}
               </div>
             </li>
-            <li className="flex items-center gap-3">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
-                <Phone size={20} />
-              </span>
-              <div>
-                <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                  {t("phone")}
-                </p>
-                {contact.phone ? (
+            {/* Il telefono è opzionale: senza valore la voce sparisce del tutto. */}
+            {contact.phone && (
+              <li className="flex items-center gap-3">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-100 text-brand-700">
+                  <Phone size={20} />
+                </span>
+                <div>
+                  <p className="text-xs font-medium text-slate-500 dark:text-slate-400">
+                    {t("phone")}
+                  </p>
                   <a
                     href={`tel:${contact.phone.replace(/\s+/g, "")}`}
                     className="font-semibold text-brand-600 hover:underline"
                   >
                     {contact.phone}
                   </a>
-                ) : (
-                  <p className="font-semibold text-slate-800 dark:text-slate-200">—</p>
-                )}
-              </div>
-            </li>
+                </div>
+              </li>
+            )}
           </ul>
         </div>
       </div>

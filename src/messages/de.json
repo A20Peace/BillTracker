@@ -10,7 +10,8 @@
     "user": "Benutzer",
     "themeLight": "Zum hellen Design wechseln",
     "themeDark": "Zum dunklen Design wechseln",
-    "themeToggle": "Design wechseln"
+    "themeToggle": "Design wechseln",
+    "optional": "optional"
   },
   "nav": {
     "home": "Start",

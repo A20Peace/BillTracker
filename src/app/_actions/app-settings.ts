@@ -12,12 +12,12 @@ const schema = z.object({
   first_name: z.string().trim().min(1, "errFirstNameRequired").max(100),
   last_name: z.string().trim().min(1, "errLastNameRequired").max(100),
   email: z.string().trim().email("errInvalidEmail").max(200),
+  // Optional: empty means "don't show the phone entry on /contatti".
   phone: z
     .string()
     .trim()
-    .min(1, "errPhoneRequired")
-    .max(30)
-    .regex(/^[+\d][\d\s().\-/]*$/, "errInvalidPhone"),
+    .max(30, "errInvalidPhone")
+    .refine((v) => v === "" || /^[+\d][\d\s().\-/]*$/.test(v), "errInvalidPhone"),
 });
 
 /**

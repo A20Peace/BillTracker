@@ -10,7 +10,8 @@
     "user": "User",
     "themeLight": "Switch to light theme",
     "themeDark": "Switch to dark theme",
-    "themeToggle": "Toggle theme"
+    "themeToggle": "Toggle theme",
+    "optional": "optional"
   },
   "nav": {
     "home": "Home",

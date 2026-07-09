@@ -76,12 +76,14 @@ export function ContactAdmin({ contact }: { contact: ContactInfo }) {
 
       <div className="mt-3">
         <label className="block text-xs font-medium text-slate-600 dark:text-slate-300">
-          {t("phoneNumber")}
+          {t("phoneNumber")}{" "}
+          <span className="font-normal text-slate-400 dark:text-slate-500">
+            ({tCommon("optional")})
+          </span>
         </label>
         <input
           name="phone"
           type="tel"
-          required
           defaultValue={contact.phone}
           placeholder="+39 333 123 4567"
           className={field}
